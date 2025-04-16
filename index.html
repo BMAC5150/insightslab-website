@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights Lab - AI-Enhanced Sales Performance for DMOs</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        /* Mobile menu toggle button */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Ensure all images scale properly */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Force images to be visible */
+        .feature-image {
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-image img {
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: block;
+            object-fit: contain;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: auto;
+            max-height: 60px;
+            width: 180px;
+            vertical-align: middle;
+         }
+        
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/rGs91IU.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .hero h1 {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* CTA Buttons */
+        .btn {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: 2px solid white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: #FF8C00;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+        /* Trusted By Section */
+        .trusted-by {
+            text-align: center;
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .trusted-by h2 {
+            color: #555;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .trusted-logos img {
+            height: 50px;
+            opacity: 0.7;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #333;
+            font-size: 50px;
+        }
+        
+        .feature-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+        
+        .feature-text {
+            flex: 1;
+            padding: 20px;
+            min-width: 300px;
+        }
+        
+        .feature-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-title {
+            color: #FF8C00;
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+        
+        /* Assessment Box */
+        .assessment-box {
+            background-color: #A9A9A9;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+        
+        .assessment-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .process-step {
+            flex-basis: calc(33.333% - 30px);
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #FF8C00;
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        
+        /* Contact Form Styles */
+        .contact-section {
+        padding: 80px 0;
+        background-color: #f9f9f9;
+        }
+
+        .section-subtitle {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 40px;
+        color: #333;
+        }
+
+        .contact-form-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* JotForm specific styles */
+        iframe#jotform-iframe {
+        display: block;
+         margin: 0 auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+        .contact-form-container {
+        padding: 15px;
+        }
+        }
+
+        /* Workshop Cards */
+        .workshop-card {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .workshop-orange {
+            background-color: #FF8C00;
+            color: white;
+        }
+        
+        .workshop-blue {
+            background-color: #E8F4F8;
+            color: #333;
+        }
+        
+        .workshop-signup {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .signup-light {
+            background-color: #E8F4F8;
+            color: #333;
+        }
+        
+        .signup-orange {
+            background-color: #FF8C00;
+            color: white;
+        }
+        
+        /* Data Flow */
+        .data-flow-step {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+            align-items: flex-start;
+        }
+        
+        .flow-number {
+            background-color: #FF8C00;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+        }
+        
+        .testimonial-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .testimonial-card {
+            flex-basis: calc(33.333% - 30px);
+            min-width: 280px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+        }
+        
+        .testimonial-role {
+            color: #777;
+            font-size: 14px;
+        }
+        
+    /* Team Section Styles */
+    .team-section {
+        padding: 80px 0;
+        background-color: #fff;
+    }
+    
+    .team-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+    }
+    
+    .team-member {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        align-items: flex-start;
+    }
+    
+    .team-member.reverse {
+        flex-direction: row-reverse;
+    }
+    
+    .team-image-container {
+        flex: 0 0 300px;
+    }
+    
+    .team-image {
+        width: 100%;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .team-info {
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .team-info p {
+        margin-bottom: 20px;
+        line-height: 1.7;
+    }
+    
+    /* Team Section Responsive Styles */
+    @media (max-width: 768px) {
+        .team-member, .team-member.reverse {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .team-image-container {
+            flex: 0 0 240px;
+            margin-bottom: 30px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .team-image-container {
+            flex: 0 0 200px;
+        }
+    }
+
+        /* Final CTA */
+        .final-cta {
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .final-cta h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .final-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: #bbb;
+            margin: 0 10px;
+            font-size: 20px;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        /* Responsive Adjustments */
+        /* Added image fixes for mobile */
+        @media (max-width: 768px) {
+            /* Fix for image rendering */
+            .feature-image {
+                width: 100%;
+                height: auto;
+                min-height: 200px;
+                margin: 0 auto 20px;
+                text-align: center;
+            }
+            
+            .feature-image img {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            /* Typography adjustments */
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            /* Layout adjustments */
+            .feature-row {
+                flex-direction: column;
+            }
+            
+            .feature-image {
+                order: 1; /* Image first on mobile */
+                margin-bottom: 20px;
+            }
+            
+            .feature-text {
+                order: 2; /* Text second on mobile */
+            }
+            
+            /* Reverse for the second feature row */
+            .feature-row:nth-child(even) .feature-image {
+                order: 1;
+            }
+            
+            .feature-row:nth-child(even) .feature-text {
+                order: 2;
+            }
+            
+            .process-step {
+                flex-basis: 100%;
+                padding: 15px;
+            }
+            
+            /* Navigation adjustments */
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #531b93;
+                flex-direction: column;
+                padding: 20px 0;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+            
+            /* Button adjustments */
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+            }
+            
+            /* Section spacing adjustments */
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .assessment-box {
+                padding: 20px;
+            }
+            
+            /* Workshop cards - target both class and inline styles for backwards compatibility */
+            .workshop-card,
+            [style*="flex: 1; min-width: 300px"] {
+                flex: 0 0 100% !important;
+                min-width: 100% !important;
+                margin-bottom: 20px;
+            }
+            
+            /* Data flow adjustments */
+            .data-flow-step,
+            [style*="display: flex; margin-bottom: 40px"] {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .flow-number,
+            [style*="background-color: #FF8C00; color: white; width: 40px"] {
+                margin-bottom: 15px !important;
+                margin-right: 0 !important;
+                align-self: center !important;
+            }
+            
+            /* General spacing */
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .feature-title {
+                font-size: 22px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Additional adjustments for very small screens */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .logo img {
+                max-height: 50px;
+                width: 150px;
+            }
+            
+            .process-steps {
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 90%;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+ <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">   
+            <h1>insightslab</h1>
+            </div>
+            <!-- Add menu toggle button for mobile -->
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#ai-for-dmos">AI for Events</a>
+                <a href="#workshop">Workshops</a>
+                <a href="#team">Team</a>
+                <a href="#contact-form">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Close More Business Events Sales</h1>
+            <p>AI-enhanced event sales performance without the technology headaches</p>
+            <div class="cta-buttons">
+                <a href="#workshop" class="btn">WORKSHOPS</a>
+                <a href="https://chatgpt.com/g/g-6739e69cf3e08191b1db0b9a596a62bc-ai-self-assessment-tool-2-0" class="btn btn-secondary">FREE ASSESSMENT</a>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Features Section -->
+    <section id="ai-for-dmos" class="features">
+        <div class="container">
+            <h2 class="section-title">AI that speaks the language of events.</h2>
+            
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3 class="feature-title">Effective. Fast. No heavy-lifting.</h3>
+                    <p>Insights Lab helps event sales and marketing teams win more business events by turning your existing data into actionable sales and marketing intelligence. Our AI-powered platform reveals hidden opportunities, optimizes your resources, and gives you the insights to crush your competition and become local heroes.</p>
+                    <p>Unlike generic AI tools or complex consulting engagements, our purpose-built platform delivers clear, actionable insights without requiring new infrastructure or data expertise. Start seeing results in 90 days!</p>
+                </div>
+                <div class="feature-image">
+                    <img src="https://i.imgur.com/xhyDo07.png" alt="Insights Lab Sample Report" width="400" height="300">
+                </div>
+            </div>
+            
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="https://i.imgur.com/Msatx3l.png" alt="Insights Lab Sample Report" width="400" height="300">
+                </div>
+                <div class="feature-text">
+                    <h3 class="feature-title">Safe. Secure. Simple.</h3>
+                    <p>Your data never leaves your control. Our secure Clean Room architecture ensures complete data privacy and security while our business event industry expertise delivers relevant insights that make a difference.</p>
+                    <p> We do the work, you get the business. We handle all the analytic and insight development work using our AI tools and models with your data. You don't need to invest in substantial AI system development or training in order to see results.</p>
+                </div>
+            </div>
+            
+            <!-- Assessment Box -->
+            <div class="assessment-box">
+                <h2>Know Where You Stand With AI</h2>
+                <p>Take a FREE confidential 5-minute assessment to understand your AI readiness and receive a personalized go-forward roadmap. Completely private - your data is not shared or retained. ChatGPT account required.</p>
+                <a href="https://chatgpt.com/g/g-6739e69cf3e08191b1db0b9a596a62bc-ai-self-assessment-tool-2-0" class="btn btn-secondary">START YOUR FREE ASSESSMENT</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- System Overview Section -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">We worry about the techie stuff.</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">A simplified secure architecture with four core components:</p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Secure Data Collection Platform</h3>
+                    <p>Private user-specific storage with secure access policies</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Simple Data Upload Process</h3>
+                    <p>Straightforward and easy for users</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>AI Analysis and Insights</h3>
+                    <p>Direct data analysis without complex integration</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Customized Report Generation</h3>
+                    <p>Customized insights reporting powered by advanced AI</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px; text-align: center;">
+                <h2 style="color: #FF8C00;">Complete Data Flow</h2>
+                <p style="max-width: 800px; margin: 20px auto;">How data moves through our system from upload to actionable insights:</p>
+                
+                <div style="max-width: 800px; margin: 30px auto; background-color: white; border-radius: 10px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div class="data-flow-step">
+                        <div class="flow-number">1</div>
+                        <div style="flex-grow: 1; text-align: left;">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Data Storage and Cleaning</div>
+                            <div>Client uploads data to private secure client-only storage. Data is cleaned and structured in preparation for analysis.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-flow-step">
+                        <div class="flow-number">2</div>
+                        <div style="flex-grow: 1; text-align: left;">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Baseline Data Analytics</div>
+                            <div>Insights Lab AI engine directly accesses data via secure path. Baseline analysis is performed on the cleansed data within our platform.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="data-flow-step">
+                        <div class="flow-number">3</div>
+                        <div style="flex-grow: 1; text-align: left;">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Insights Report Creation</div>
+                            <div>Secondary analytics generated based on client needs and use case. Narrative content and contextual insights added. Reports are formatted using customized templates. Final reports are stored securely for client access.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!-- Contact Form Section with JotForm -->
+<section id="contact-form" class="contact-section">
+    <div class="container">
+        <h2 class="section-title">We can help you win more business:</h2>
+        <p class="section-subtitle">Fill out the form below and we'll get back to you.</p>
+        
+        <div class="contact-form-container">
+            <iframe
+                id="jotform-iframe"
+                src="https://form.jotform.com/250806411689158"
+                frameborder="0"
+                style="width: 100%; min-height: 540px; border: none;"
+                scrolling="no"
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+    <!-- Workshop Section -->
+    <section id="workshop" class="features">
+        <div class="container">
+            <h2 class="section-title">Workshop your sales with AI Advantage.</h2>
+            
+            <div class="feature-row">
+                <div class="feature-text">
+                    <p>Want to know more about how AI can get you more business now? Take one of our hands-on workshops tailored for event sales and marketing teams.</p>
+                    <h3 class="feature-title">Business gains without the technology pains.</h3>
+                    <ul style="margin-left: 20px; margin-bottom: 20px;">
+                        <li><strong>No Tech Jargon:</strong> Workshops designed by business event professionals for business event sales and marketing professionals, not data scientists.</li>
+                        <li><strong>Practical Tools:</strong> Leave with action plans and strategies.</li>
+                        <li><strong>Real-World Examples:</strong> Case studies tailored to event sales and marketing teams.</li>
+                        <li><strong>Quick Impact:</strong> See measurable results in 90 days or less.</li>
+                    </ul>
+                    <p>If you're responsible for business event sales, these workshops will quickly and painlessly show how AI will empower you with new insights that elevate results without adding complexity.</p>
+                    <a href="https://www.iccaworld.org/event/icca-advantage%3a-ai-driven-sales-fiexpo-2025/460/" class="btn btn-secondary">LEARN MORE</a>
+                </div>
+            </div>
+            
+            <!-- Workshop Details -->
+            <div style="margin-top: 60px;">
+                <h2 class="section-title">What You'll Learn at our Workshops:</h2>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 40px;">
+                    <!-- Workshop 1 -->
+                    <div class="workshop-card workshop-orange">
+                        <h3 style="text-align: center; margin-bottom: 5px;">Growing Lead Generation</h3>
+                        <p style="text-align: center; margin-bottom: 20px; font-style: italic;">(3 1/2 HOURS)</p>
+                        
+                        <h4>Introduction to AI in Lead Generation</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>AI's impact on lead generation</li>
+                            <li>Targeting precision, personalization</li>
+                        </ul>
+                        
+                        <h4>Practical Tools and Techniques</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>AI-powered lead scoring</li>
+                            <li>Predictive analytics for demand forecasting</li>
+                            <li>Finding your destination's "sweet spot" events</li>
+                        </ul>
+                        
+                        <h4>Interactive Planning</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Building an AI-driven lead generation plan</li>
+                            <li>Case study analyses</li>
+                        </ul>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                        <a href="https://events.iccaworld.org/iccaadvantage-ai-fiexpo2025/registration/Site/Register" class="workshop-signup signup-light">SIGN-UP</a>                            
+                        </div>
+                    </div>
+                    
+                    <!-- Workshop 2 -->
+                    <div class="workshop-card workshop-blue">
+                        <h3 style="text-align: center; margin-bottom: 5px; color: #FF8C00;">Elevating Tradeshow ROI</h3>
+                        <p style="text-align: center; margin-bottom: 20px; font-style: italic;">(2 HOURS)</p>
+                        
+                        <h4>Strategic Tradeshow Planning</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Using AI for ROI analysis and booth optimization</li>
+                            <li>Selecting high-impact tradeshows and networking opportunities</li>
+                        </ul>
+                        
+                        <h4>Maximizing Performance and Results</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Data collection</li>
+                            <li>AI-powered lead qualification and prioritization</li>
+                            <li>Post-event analysis and optimization</li>
+                        </ul>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                        <a href="https://events.iccaworld.org/iccaadvantage-ai-fiexpo2025/registration/Site/Register" class="workshop-signup signup-orange">SIGN-UP</a>                            
+                        </div>
+                    </div>
+                    
+                    <!-- Workshop 3 -->
+                    <div class="workshop-card workshop-orange">
+                        <h3 style="text-align: center; margin-bottom: 5px;">Crafting Proposals that Convert</h3>
+                        <p style="text-align: center; margin-bottom: 20px; font-style: italic;">(2 HOURS)</p>
+                        
+                        <h4>Building Competitive Proposals</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Using AI tools for personalized proposals</li>
+                            <li>Leveraging predictive analytics for win probability scoring</li>
+                            <li>Making your proposals stand out</li>
+                        </ul>
+                        
+                        <h4>Optimizing Your Bidding Strategy</h4>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Dynamic ROI analysis for rebate and subvention offerings</li>
+                            <li>Aligning subvention investment with business outcomes</li>
+                            <li>Predicting win probability</li>
+                        </ul>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                        <a href="https://events.iccaworld.org/iccaadvantage-ai-fiexpo2025/registration/Site/Register" class="workshop-signup signup-light">SIGN-UP</a>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+            
+    <!-- Team Section -->
+<section id="team" class="team-section">
+    <div class="container">
+        <h2 class="section-title">Team</h2>
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-member">
+                <div class="team-image-container">
+                    <img src="https://i.imgur.com/vmAjiWX.png" alt="Bruce MacMillan" class="team-image">
+                </div>
+                <div class="team-info">
+                    <p>Leading the team is <strong>Bruce MacMillan</strong> - a globally recognized leader in the meetings and events industry with a rich background in strategic marketing, technology integration, and change management and a leading voice on the intersection of AI, business events, and destination marketing.</p>
+                    
+                    <p>Bruce most recently served as Chief Innovation Officer at PCMA, where he integrated marketing, editorial content, and technology to elevate performance and audience engagement. He was also PCMA's executive lead in <em>Project SPARK</em> – PCMA's AI start-up with GEVME and led the management of PCMA's business intelligence consultancy, <em>PCMA Insights</em>.</p>
+                    
+                    <p>His 34-year career in the business events industry includes serving as President/CEO of MPI – Meeting Professionals International, President/CEO of Tourism Toronto and also as the executive leader of Vancouver's national 2010 Olympic Winter Games bid, securing Canada's international bidding rights for the 2010 Olympic Winter Games.</p>
+                </div>
+            </div>
+    <div class="container">
+        <h2 class="section-title">Faculty</h2>
+        <div class="team-grid">            
+            <!-- Team Member 2 -->
+            <div class="team-member reverse">
+                <div class="team-image-container">
+                    <img src="https://i.imgur.com/XZi9SfZ.jpg" alt="Juliano Lissoni" class="team-image">
+                </div>
+                <div class="team-info">
+                    <p>Our workshop faculty thought-leader is <strong>Juliano Lissoni</strong> - an industry innovator who has been sharing insights on the transformative impact of artificial intelligence across the services, hospitality, and entertainment sectors at events worldwide. Drawing from his extensive experience leading innovative projects and leveraging AI to drive growth, Juliano offers a unique perspective on how technology is reshaping these industries.</p>
+                    
+                    <p>With a strong track record of delivering engaging presentations, Juliano empowers organizations to embrace AI as a tool for enhancing customer experiences, streamlining operations, and unlocking new opportunities. His global speaking engagements reflect his passion for helping professionals navigate the rapidly changing landscape of technology and innovation.</p>
+                    
+                    <p>He also completed the prestigious Advanced Certificate for Executives (ACE) in Management, Innovation, and Technology at MIT Sloan in 2024, further solidifying his expertise in cutting-edge business practices. Juliano's passion for AI and its potential to transform the meetings and events industry makes him an engaging and forward-thinking instructor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Final CTA Section -->
+    <section id="assessment" class="final-cta">
+        <div class="container">
+            <h2>Get Started with a Free AI Readiness Assessment</h2>
+            <p>In just 5 minutes, understand where you stand and receive a personalized roadmap to AI-enhanced sales performance. ChatGPT account required.</p>
+            <a href="https://chatgpt.com/g/g-6739e69cf3e08191b1db0b9a596a62bc-ai-self-assessment-tool-2-0" class="btn btn-secondary">START YOUR FREE ASSESSMENT</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#about">About Us</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Insights Lab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+ </script>
+</body>
+</html>

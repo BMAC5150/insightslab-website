@@ -1,0 +1,36 @@
+backend:
+  name: git-gateway
+  branch: main # Note: You might need to use 'master' instead if that's your branch name
+
+media_folder: "images/uploads" # Media files will be stored here
+public_folder: "/images/uploads" # The public URL to the media files
+
+collections:
+  # Main pages configuration
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "index.html"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Hero Heading", name: "hero_heading", widget: "string"}
+          - {label: "Hero Subtext", name: "hero_subtext", widget: "string"}
+          - {label: "Features Title", name: "features_title", widget: "string"}
+          - {label: "Feature 1 Title", name: "feature1_title", widget: "string"}
+          - {label: "Feature 1 Text", name: "feature1_text", widget: "markdown"}
+          - {label: "Feature 2 Title", name: "feature2_title", widget: "string"}
+          - {label: "Feature 2 Text", name: "feature2_text", widget: "markdown"}
+  
+  # Blog posts configuration
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
