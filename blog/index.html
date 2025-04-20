@@ -118,50 +118,64 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .blog-post-card:hover {
             transform: translateY(-5px);
         }
         
-        .blog-post-image {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .blog-post-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .blog-post-color-bar {
+            height: 8px;
+            background-color: #FF8C00;
         }
         
         .blog-post-content {
-            padding: 20px;
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .blog-post-title {
             font-size: 1.5rem;
             margin-bottom: 10px;
+            color: #531b93;
         }
         
         .blog-post-date {
             color: #666;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .blog-post-excerpt {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            flex-grow: 1;
         }
         
         .blog-post-link {
             color: #FF8C00;
             text-decoration: none;
             font-weight: bold;
+            align-self: flex-start;
+            margin-top: auto;
         }
         
         .blog-post-link:hover {
             text-decoration: underline;
+        }
+        
+        /* Series tag */
+        .series-tag {
+            display: inline-block;
+            background-color: #531b93;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
         }
         
         /* Footer */
@@ -200,6 +214,24 @@
             font-size: 24px;
             color: white;
             cursor: pointer;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
         }
         
         /* Responsive Adjustments */
@@ -283,11 +315,21 @@
             
             <!-- Blog Posts Grid -->
             <div class="blog-posts">
-                <!-- Blog Post 1 -->
+                <!-- Blog Post 1 - ACTION 1 -->
                 <div class="blog-post-card">
-                    <div class="blog-post-image">
-                        <img src="https://i.imgur.com/xhyDo07.png" alt="AI for DMOs">
+                    <div class="blog-post-color-bar"></div>
+                    <div class="blog-post-content">
+                        <span class="series-tag">Series: The New Moat</span>
+                        <h3 class="blog-post-title">ACTION 1: Create Thinking Time and Kill Your Romance</h3>
+                        <p class="blog-post-date">April 16, 2025</p>
+                        <p class="blog-post-excerpt">The greatest barrier to AI adoption in DMOs isn't technological, it's psychological. Learn how to create thinking time and challenge the status quo.</p>
+                        <a href="post3.html" class="blog-post-link">Read More →</a>
                     </div>
+                </div>
+                
+                <!-- Blog Post 2 -->
+                <div class="blog-post-card">
+                    <div class="blog-post-color-bar"></div>
                     <div class="blog-post-content">
                         <h3 class="blog-post-title">How AI is Transforming DMO Sales Strategies</h3>
                         <p class="blog-post-date">April 15, 2025</p>
@@ -295,6 +337,24 @@
                         <a href="post1.html" class="blog-post-link">Read More →</a>
                     </div>
                 </div>
+                
+                <!-- Blog Post 3 -->
+                <div class="blog-post-card">
+                    <div class="blog-post-color-bar"></div>
+                    <div class="blog-post-content">
+                        <h3 class="blog-post-title">Ensuring Data Security in AI Analytics</h3>
+                        <p class="blog-post-date">April 8, 2025</p>
+                        <p class="blog-post-excerpt">Learn about our Clean Room architecture and how it keeps your sensitive data secure while still delivering powerful insights.</p>
+                        <a href="post2.html" class="blog-post-link">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h3>Want to learn more about AI for DMOs?</h3>
+                <p>Join one of our workshops or schedule a free consultation to discuss how AI can enhance your sales performance.</p>
+                <a href="../index.html#workshop" class="cta-button">Explore Our Workshops</a>
             </div>
         </div>
     </section>
