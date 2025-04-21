@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houston Data Enrichment and Opportunity - InsightsLab</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+        }
+        
+        /* Header styles */
+        .page-header {
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .page-header h1 {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Content styles */
+        .page-content {
+            padding: 60px 0;
+        }
+        
+        /* Resource links */
+        .resource-links {
+            margin-top: 40px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-color-bar {
+            height: 8px;
+            background-color: #FF8C00;
+        }
+        
+        .resource-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .resource-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #531b93;
+        }
+        
+        .resource-description {
+            margin-bottom: 20px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #531b93;
+                flex-direction: column;
+                padding: 20px 0;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">   
+                <h1>insightslab</h1>
+            </div>
+            <!-- Add menu toggle button for mobile -->
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="https://dmoinsightslab.com/">Home</a>
+                <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+                <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+                <a href="https://dmoinsightslab.com/#team">Team</a>
+                <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Houston Data Enrichment and Opportunity</h1>
+            <p>Explore key insights and data resources for Houston destination marketing</p>
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2>Houston Market Intelligence Resources</h2>
+            <p>Access comprehensive data resources to help identify opportunities and enhance your Houston destination marketing strategy.</p>
+            
+            <!-- Resource Links -->
+            <div class="resource-links">
+                <!-- Resource 1 - Lead Scoring Workflow -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">DMO Tradeshow Lead Scoring Workflow Process</h3>
+                        <p class="resource-description">A comprehensive guide to implementing effective lead scoring workflows for tradeshow leads, helping DMOs prioritize and capitalize on their most promising prospects.</p>
+                        <a href="https://dmoinsightslab.com/houston%20demo/dmo%20tradeshow%20lead%20scoring%20workflow%20process" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 2 - Lead Targeting Guide -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Sample DMO Business Event Lead Targeting Guide</h3>
+                        <p class="resource-description">A strategic framework for identifying and targeting high-value business event leads, with practical examples and implementation strategies for DMOs.</p>
+                        <a href="https://dmoinsightslab.com/houston%20demo/sample%20dmo%20business%20event%20lead%20targeting%20guide" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 3 - Houston Audience Personas -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Houston Audience Personas</h3>
+                        <p class="resource-description">Detailed analysis of key audience personas for Houston business event marketing. Understand their needs, preferences, and decision-making factors.</p>
+                        <a href="https://dmoinsightslab.com/houston%20demo/updated-houston-personas" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 4 - PCMA Persona Distribution -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">PCMA Persona Distribution</h3>
+                        <p class="resource-description">Explore the distribution of PCMA personas relevant to Houston market targeting. This data helps optimize your outreach and marketing strategies.</p>
+                        <a href="https://dmoinsightslab.com/houston%20demo/pcma-persona-distribution" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 5 - Houston PCMA Prospects -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Houston PCMA Prospects</h3>
+                        <p class="resource-description">Access a comprehensive list of potential PCMA prospects for the Houston market. Identify high-value targets for your business event sales efforts.</p>
+                        <a href="https://dmoinsightslab.com/houston%20demo/houston-pcma-prospects" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h3>Need more specialized insights?</h3>
+                <p>Contact our team to discuss custom data solutions for your specific needs.</p>
+                <a href="https://dmoinsightslab.com/#contact-form" style="display: inline-block; background-color: #FF8C00; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.3s ease;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://dmoinsightslab.com/">Home</a>
+                <a href="https://dmoinsightslab.com/#about">About Us</a>
+                <a href="https://dmoinsightslab.com/#privacy">Privacy Policy</a>
+                <a href="https://dmoinsightslab.com/#terms">Terms of Service</a>
+                <a href="https://dmoinsightslab.com/#contact-form">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Insights Lab. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
