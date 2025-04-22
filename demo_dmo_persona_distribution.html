@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houston DMO Event Persona Distribution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+            padding: 2rem 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.25rem;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 3rem;
+        }
+        
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .chart-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+        
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .personas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .personas-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .persona-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .persona-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .persona-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            margin-right: 1rem;
+        }
+        
+        .persona-info {
+            flex-grow: 1;
+        }
+        
+        .persona-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .persona-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .bar-chart {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .bar-label {
+            width: 35%;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .bar-container {
+            width: 50%;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .bar-value {
+            width: 15%;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* Persona-specific colors */
+        .education { background-color: #059669; }
+        .healthcare { background-color: #2563eb; }
+        .stem { background-color: #7c3aed; }
+        .community { background-color: #d97706; }
+        .energy { background-color: #dc2626; }
+        .cultural { background-color: #4b5563; }
+        
+        .donut-chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .donut-segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%);
+            transform-origin: center;
+        }
+        
+        .donut-hole {
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .donut-total {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .donut-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 4px;
+        }
+        
+        .legend-label {
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Houston DMO Event Persona Distribution</h1>
+        <p class="subtitle">Analysis of 220 Business Event Opportunities</p>
+        
+        <div class="chart-container">
+            <!-- Bar Chart Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Event Frequency by Persona Type</h2>
+                
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">Cultural & Arts<br>Event Producer</div>
+                        <div class="bar-container">
+                            <div class="bar cultural" style="width: 25.5%;">25.5%</div>
+                        </div>
+                        <div class="bar-value">56 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Community Engagement<br>Facilitator</div>
+                        <div class="bar-container">
+                            <div class="bar community" style="width: 22.7%;">22.7%</div>
+                        </div>
+                        <div class="bar-value">50 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Education Summit<br>Planner</div>
+                        <div class="bar-container">
+                            <div class="bar education" style="width: 16.8%;">16.8%</div>
+                        </div>
+                        <div class="bar-value">37 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Healthcare Conference<br>Organizer</div>
+                        <div class="bar-container">
+                            <div class="bar healthcare" style="width: 14.1%;">14.1%</div>
+                        </div>
+                        <div class="bar-value">31 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">STEM & Innovation<br>Convener</div>
+                        <div class="bar-container">
+                            <div class="bar stem" style="width: 13.2%;">13.2%</div>
+                        </div>
+                        <div class="bar-value">29 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Energy & Industrial<br>Conference Developer</div>
+                        <div class="bar-container">
+                            <div class="bar energy" style="width: 7.7%;">7.7%</div>
+                        </div>
+                        <div class="bar-value">17 events</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Donut Chart Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Persona Market Share Distribution</h2>
+                
+                <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                    <div>
+                        <svg width="320" height="320" viewBox="0 0 320 320">
+                            <!-- Cultural & Arts Event Producer - 25.5% -->
+                            <path d="M160,160 L160,0 A160,160 0 0,1 306.4,81.9 Z" fill="#4b5563" />
+                            
+                            <!-- Community Engagement Facilitator - 22.7% -->
+                            <path d="M160,160 L306.4,81.9 A160,160 0 0,1 312.4,226.4 Z" fill="#d97706" />
+                            
+                            <!-- Education Summit Planner - 16.8% -->
+                            <path d="M160,160 L312.4,226.4 A160,160 0 0,1 179.2,316.6 Z" fill="#059669" />
+                            
+                            <!-- Healthcare Conference Organizer - 14.1% -->
+                            <path d="M160,160 L179.2,316.6 A160,160 0 0,1 59.1,294.1 Z" fill="#2563eb" />
+                            
+                            <!-- STEM & Innovation Convener - 13.2% -->
+                            <path d="M160,160 L59.1,294.1 A160,160 0 0,1 15.5,167.5 Z" fill="#7c3aed" />
+                            
+                            <!-- Energy & Industrial Conference Developer - 7.7% -->
+                            <path d="M160,160 L15.5,167.5 A160,160 0 0,1 160,0 Z" fill="#dc2626" />
+                            
+                            <!-- Center circle -->
+                            <circle cx="160" cy="160" r="80" fill="white" />
+                            
+                            <!-- Center text -->
+                            <text x="160" y="152" text-anchor="middle" font-size="32" font-weight="bold" fill="#1e40af">220</text>
+                            <text x="160" y="180" text-anchor="middle" font-size="14" fill="#6b7280">Total Events</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color cultural"></div>
+                            <div class="legend-label">Cultural & Arts Event Producer (25.5%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color community"></div>
+                            <div class="legend-label">Community Engagement Facilitator (22.7%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color education"></div>
+                            <div class="legend-label">Education Summit Planner (16.8%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color healthcare"></div>
+                            <div class="legend-label">Healthcare Conference Organizer (14.1%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color stem"></div>
+                            <div class="legend-label">STEM & Innovation Convener (13.2%)</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color energy"></div>
+                            <div class="legend-label">Energy & Industrial Conference Developer (7.7%)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary Cards -->
+            <div class="chart-section">
+                <h2 class="chart-title">Event Persona Quick Summary</h2>
+                
+                <div class="personas-grid">
+                    <!-- Cultural & Arts Event Producer -->
+                    <div class="persona-card">
+                        <div class="persona-icon cultural">CAP</div>
+                        <div class="persona-info">
+                            <div class="persona-title">Cultural & Arts Event Producer</div>
+                            <div class="persona-percentage">25.5% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(56 events)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Community Engagement Facilitator -->
+                    <div class="persona-card">
+                        <div class="persona-icon community">CEF</div>
+                        <div class="persona-info">
+                            <div class="persona-title">Community Engagement Facilitator</div>
+                            <div class="persona-percentage">22.7% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(50 events)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education Summit Planner -->
+                    <div class="persona-card">
+                        <div class="persona-icon education">ESP</div>
+                        <div class="persona-info">
+                            <div class="persona-title">Education Summit Planner</div>
+                            <div class="persona-percentage">16.8% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(37 events)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Healthcare Conference Organizer -->
+                    <div class="persona-card">
+                        <div class="persona-icon healthcare">HCO</div>
+                        <div class="persona-info">
+                            <div class="persona-title">Healthcare Conference Organizer</div>
+                            <div class="persona-percentage">14.1% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(31 events)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- STEM & Innovation Convener -->
+                    <div class="persona-card">
+                        <div class="persona-icon stem">SIC</div>
+                        <div class="persona-info">
+                            <div class="persona-title">STEM & Innovation Convener</div>
+                            <div class="persona-percentage">13.2% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(29 events)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Energy & Industrial Conference Developer -->
+                    <div class="persona-card">
+                        <div class="persona-icon energy">EID</div>
+                        <div class="persona-info">
+                            <div class="persona-title">Energy & Industrial Conference Developer</div>
+                            <div class="persona-percentage">7.7% <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">(17 events)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

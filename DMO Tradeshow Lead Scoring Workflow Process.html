@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMO Tradeshow Lead Scoring & Qualification System</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            background-color: #f9fafb;
+            position: relative;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+        }
+        
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        
+        h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            padding: 0 0.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        /* Workflow Container */
+        .workflow-container {
+            margin-top: 2rem;
+            position: relative;
+        }
+        
+        /* Workflow diagram for desktop */
+        .workflow-desktop {
+            display: none;
+        }
+        
+        @media (min-width: 768px) {
+            .workflow-desktop {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        .workflow-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .workflow-icon-container {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem auto;
+        }
+        
+        .workflow-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        
+        .workflow-label {
+            background-color: #f9fafb;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        
+        .workflow-title {
+            font-weight: 500;
+        }
+        
+        .workflow-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+        
+        .arrow {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #9ca3af;
+        }
+        
+        @media (min-width: 768px) {
+            .arrow {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+        
+        /* Step Card */
+        .step-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            display: flex;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-number {
+            flex-shrink: 0;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .step-content {
+            flex-grow: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .step-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        .step-description {
+            margin-bottom: 1rem;
+            color: #4b5563;
+        }
+        
+        /* List Styles */
+        .details-list {
+            list-style-type: none;
+            margin-bottom: 1rem;
+        }
+        
+        .details-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #6b7280;
+        }
+        
+        .bullet {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            margin-top: 0.375rem;
+            flex-shrink: 0;
+        }
+        
+        /* Mobile workflow (vertical stack) */
+        .workflow-mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .workflow-mobile {
+                display: none;
+            }
+        }
+        
+        .mobile-workflow-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .mobile-workflow-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .mobile-workflow-content {
+            flex-grow: 1;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        
+        .mobile-arrow-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 0.25rem 0;
+        }
+        
+        .mobile-arrow {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #9ca3af;
+            transform: rotate(90deg);
+        }
+        
+        /* Insights Box */
+        .insights-box {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .insights-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .insights-list {
+            list-style-type: none;
+        }
+        
+        .insights-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .checkmark {
+            font-weight: bold;
+        }
+        
+        /* Benefits section */
+        .benefits-section {
+            margin-top: 3rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+        }
+        
+        .benefits-heading {
+            margin-bottom: 1rem;
+            color: #1e40af;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .benefits-list {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .benefits-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        
+        .benefits-bullet {
+            color: #2563eb;
+            font-weight: bold;
+        }
+        
+        /* Colors for steps */
+        .bg-black { background-color: #000000; }
+        .text-black { color: #000000; }
+        .bg-black-dot { background-color: #CACDE0; }
+        .bg-black-light { background-color: #CACDE0; }
+
+        .bg-green { background-color: #059669; }
+        .text-green { color: #059669; }
+        .bg-green-dot { background-color: #34d399; }
+        .bg-green-light { background-color: #d1fae5; }
+        
+        .bg-blue { background-color: #2563eb; }
+        .text-blue { color: #2563eb; }
+        .bg-blue-dot { background-color: #60a5fa; }
+        .bg-blue-light { background-color: #e0f2fe; }
+        
+        .bg-purple { background-color: #7c3aed; }
+        .text-purple { color: #7c3aed; }
+        .bg-purple-dot { background-color: #a78bfa; }
+        .bg-purple-light { background-color: #ede9fe; }
+        
+        .bg-amber { background-color: #d97706; }
+        .text-amber { color: #d97706; }
+        .bg-amber-dot { background-color: #fbbf24; }
+        .bg-amber-light { background-color: #fef3c7; }
+        
+        .bg-teal { background-color: #0d9488; }
+        .text-teal { color: #0d9488; }
+        .bg-teal-dot { background-color: #2dd4bf; }
+        .bg-teal-light { background-color: #ccfbf1; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DMO Tradeshow Lead Scoring & Qualification System</h1>
+        <p class="subtitle">An AI-powered workflow to transform tradeshow contacts into qualified leads and boost conversion rates</p>
+        
+       <!-- Baseline Step Cards -->
+        <div class="step-card">
+            <div class="step-number bg-black">B</div>
+            <div class="step-content">
+                <h3 class="step-title text-black">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-line cap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Baseline Historical Lead Performance Data
+                </h3>
+                <p class="step-description">Upload historical lead performance data to the Insights Lab Platform to establish data foundation for performance analytics and insights.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-black-dot"></div><span>Data is fully secured and private in an R3 data storage platform</span></li>
+                    <li><div class="bullet bg-black-dot"></div><span>Contact data may be enriched with additional firmographic information</span></li>
+                    <li><div class="bullet bg-black-dot"></div><span>Data is validated and standardized for consistency</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Workflow Overview Diagram -->
+        <div class="workflow-container">
+            <!-- Desktop workflow (hidden on mobile) -->
+            <div class="workflow-desktop">
+                <div class="workflow-item">
+                    <div class="workflow-icon-container bg-green-light">
+                        <svg class="workflow-icon text-green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="workflow-label bg-green-light">
+                        <p class="workflow-title text-green">Import</p>
+                        <p class="workflow-desc">Contact data collection</p>
+                    </div>
+                </div>
+                
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                
+                <div class="workflow-item">
+                    <div class="workflow-icon-container bg-blue-light">
+                        <svg class="workflow-icon text-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+                            <path d="M17.5 8a2.5 2.5 0 0 0 -2.5 -2.5"></path>
+                            <path d="M19.5 9.5c1.333 1 2 2.333 2 4"></path>
+                            <path d="M17 15.5c-1.333 1.667 -3 2.5 -5 2.5"></path>
+                            <path d="M12 16c-3.866 0 -7 -3.134 -7 -7a7 7 0 0 1 7 -7"></path>
+                        </svg>
+                    </div>
+                    <div class="workflow-label bg-blue-light">
+                        <p class="workflow-title text-blue">Score</p>
+                        <p class="workflow-desc">AI-powered qualification</p>
+                    </div>
+                </div>
+                
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                
+                <div class="workflow-item">
+                    <div class="workflow-icon-container bg-purple-light">
+                        <svg class="workflow-icon text-purple" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <path d="M3 9h18"></path>
+                            <path d="M9 21V9"></path>
+                        </svg>
+                    </div>
+                    <div class="workflow-label bg-purple-light">
+                        <p class="workflow-title text-purple">Segment</p>
+                        <p class="workflow-desc">Strategic categorization</p>
+                    </div>
+                </div>
+                
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                
+                <div class="workflow-item">
+                    <div class="workflow-icon-container bg-amber-light">
+                        <svg class="workflow-icon text-amber" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="workflow-label bg-amber-light">
+                        <p class="workflow-title text-amber">Engage</p>
+                        <p class="workflow-desc">Personalized outreach</p>
+                    </div>
+                </div>
+                
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                
+                <div class="workflow-item">
+                    <div class="workflow-icon-container bg-teal-light">
+                        <svg class="workflow-icon text-teal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.4 9a9 9 0 0 0-6.9-4.5"></path>
+                            <path d="M18.4 15a9 9 0 0 1-6.9 4.5"></path>
+                        </svg>
+                    </div>
+                    <div class="workflow-label bg-teal-light">
+                        <p class="workflow-title text-teal">Optimize</p>
+                        <p class="workflow-desc">Track & improve results</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile workflow (vertical stack) - shown only on mobile -->
+            <div class="workflow-mobile">
+                <!-- Import -->
+                <div class="mobile-workflow-item">
+                    <div class="mobile-workflow-icon bg-green-light">
+                        <svg class="workflow-icon text-green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="mobile-workflow-content bg-green-light">
+                        <p class="workflow-title text-green">Import</p>
+                        <p class="workflow-desc">Contact data collection from tradeshow</p>
+                    </div>
+                </div>
+                <div class="mobile-arrow-container">
+                    <svg class="mobile-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </div>
+                
+                <!-- Score -->
+                <div class="mobile-workflow-item">
+                    <div class="mobile-workflow-icon bg-blue-light">
+                        <svg class="workflow-icon text-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+                            <path d="M17.5 8a2.5 2.5 0 0 0 -2.5 -2.5"></path>
+                            <path d="M19.5 9.5c1.333 1 2 2.333 2 4"></path>
+                            <path d="M17 15.5c-1.333 1.667 -3 2.5 -5 2.5"></path>
+                            <path d="M12 16c-3.866 0 -7 -3.134 -7 -7a7 7 0 0 1 7 -7"></path>
+                        </svg>
+                    </div>
+                    <div class="mobile-workflow-content bg-blue-light">
+                        <p class="workflow-title text-blue">Score</p>
+                        <p class="workflow-desc">AI-powered qualification and scoring</p>
+                    </div>
+                </div>
+                <div class="mobile-arrow-container">
+                    <svg class="mobile-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </div>
+                
+                <!-- Segment -->
+                <div class="mobile-workflow-item">
+                    <div class="mobile-workflow-icon bg-purple-light">
+                        <svg class="workflow-icon text-purple" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <path d="M3 9h18"></path>
+                            <path d="M9 21V9"></path>
+                        </svg>
+                    </div>
+                    <div class="mobile-workflow-content bg-purple-light">
+                        <p class="workflow-title text-purple">Segment</p>
+                        <p class="workflow-desc">Strategic categorization of leads</p>
+                    </div>
+                </div>
+                <div class="mobile-arrow-container">
+                    <svg class="mobile-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </div>
+                
+                <!-- Engage -->
+                <div class="mobile-workflow-item">
+                    <div class="mobile-workflow-icon bg-amber-light">
+                        <svg class="workflow-icon text-amber" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="mobile-workflow-content bg-amber-light">
+                        <p class="workflow-title text-amber">Engage</p>
+                        <p class="workflow-desc">Personalized outreach to prospects</p>
+                    </div>
+                </div>
+                <div class="mobile-arrow-container">
+                    <svg class="mobile-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </div>
+                
+                <!-- Optimize -->
+                <div class="mobile-workflow-item">
+                    <div class="mobile-workflow-icon bg-teal-light">
+                        <svg class="workflow-icon text-teal" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18"></path>
+                            <path d="M18.4 9a9 9 0 0 0-6.9-4.5"></path>
+                            <path d="M18.4 15a9 9 0 0 1-6.9 4.5"></path>
+                        </svg>
+                    </div>
+                    <div class="mobile-workflow-content bg-teal-light">
+                        <p class="workflow-title text-teal">Optimize</p>
+                        <p class="workflow-desc">Track performance and improve results</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step Cards -->
+        <div class="step-card">
+            <div class="step-number bg-green">1</div>
+            <div class="step-content">
+                <h3 class="step-title text-green">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Contact Import & Enrichment
+                </h3>
+                <p class="step-description">Upload tradeshow contact list to the secure Insights Lab Platform for processing and enrichment.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-green-dot"></div><span>System automatically checks for duplicates</span></li>
+                    <li><div class="bullet bg-green-dot"></div><span>Contact data is enriched with additional firmographic information</span></li>
+                    <li><div class="bullet bg-green-dot"></div><span>Data is validated and standardized for consistency</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-number bg-blue">2</div>
+            <div class="step-content">
+                <h3 class="step-title text-blue">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+                        <path d="M17.5 8a2.5 2.5 0 0 0 -2.5 -2.5"></path>
+                        <path d="M19.5 9.5c1.333 1 2 2.333 2 4"></path>
+                        <path d="M17 15.5c-1.333 1.667 -3 2.5 -5 2.5"></path>
+                        <path d="M12 16c-3.866 0 -7 -3.134 -7 -7a7 7 0 0 1 7 -7"></path>
+                    </svg>
+                    AI-Powered Lead Qualification
+                </h3>
+                <p class="step-description">The system analyzes each lead using AI to evaluate potential value and conversion likelihood.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-blue-dot"></div><span>AI evaluates each contact based on:</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-blue-dot"></div><span>Company size and profile match</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-blue-dot"></div><span>Industry alignment with DMO's target segments</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-blue-dot"></div><span>Job title and decision-making authority</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-blue-dot"></div><span>Historical conversion patterns</span></li>
+                </ul>
+                
+                <div class="insights-box bg-blue-light">
+                    <h4 class="insights-heading text-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                        AI-Generated Lead Insights and Reports
+                    </h4>
+                    <ul class="insights-list">
+                        <li><span class="checkmark text-blue">✓</span><span>Conversion probability score</span></li>
+                        <li><span class="checkmark text-blue">✓</span><span>Recommended follow-up timing</span></li>
+                        <li><span class="checkmark text-blue">✓</span><span>Personalized talking points</span></li>
+                        <li><span class="checkmark text-blue">✓</span><span>Content recommendations based on prospect needs</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-number bg-purple">3</div>
+            <div class="step-content">
+                <h3 class="step-title text-purple">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                        <path d="M3 9h18"></path>
+                        <path d="M9 21V9"></path>
+                    </svg>
+                    Segmentation & Follow-up Planning
+                </h3>
+                <p class="step-description">Leads are automatically categorized based on potential value and assigned appropriate follow-up strategies.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-purple-dot"></div><span>Leads are automatically segmented into categories:</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-purple-dot"></div><span>Hot leads (high potential, immediate follow-up)</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-purple-dot"></div><span>Warm leads (moderate potential, scheduled follow-up)</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-purple-dot"></div><span>Nurture leads (long-term potential, automated campaign)</span></li>
+                    <li><div class="bullet bg-purple-dot"></div><span>AI suggests optimal follow-up timing for each segment</span></li>
+                    <li><div class="bullet bg-purple-dot"></div><span>Relevant content is matched to each segment automatically</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-number bg-amber">4</div>
+            <div class="step-content">
+                <h3 class="step-title text-amber">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Personalized Outreach Execution
+                </h3>
+                <p class="step-description">AI-generated customized follow-up engagement plans for each lead, reviewed by the sales team, can then be generated.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-amber-dot"></div><span>EXAMPLE: For high-value leads, AI generates customized follow-up/engagement action plans:</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-amber-dot"></div><span>Specific tradeshow conversation references</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-amber-dot"></div><span>Company-specific value propositions</span></li>
+                    <li style="margin-left: 1.5rem;"><div class="bullet bg-amber-dot"></div><span>Relevant case studies and success stories</span></li>
+                    <li><div class="bullet bg-amber-dot"></div><span>Sales team reviews recommended plans, edits, and activates accordingly</span></li>
+                    <li><div class="bullet bg-amber-dot"></div><span>Leads for nurturing receive automated communication sequences</span></li>
+                    <li><div class="bullet bg-amber-dot"></div><span>All interactions are logged in CRM with follow-up tasks scheduled</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-number bg-teal">5</div>
+            <div class="step-content">
+                <h3 class="step-title text-teal">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3v18h18"></path>
+                        <path d="M18.4 9a9 9 0 0 0-6.9-4.5"></path>
+                        <path d="M18.4 15a9 9 0 0 1-6.9 4.5"></path>
+                    </svg>
+                    Performance Tracking & Optimization
+                </h3>
+                <p class="step-description">The Insights Lab system can monitor performance and suggest improvements over time.</p>
+                
+                <ul class="details-list">
+                    <li><div class="bullet bg-teal-dot"></div><span>Analyzes patterns in successful conversions</span></li>
+                    <li><div class="bullet bg-teal-dot"></div><span>Tradeshow ROI is calculated based on lead conversion</span></li>
+                    <li><div class="bullet bg-teal-dot"></div><span>AI model improves with each interaction and campaign</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Benefits Section -->
+        <div class="benefits-section">
+            <h3 class="benefits-heading">Key Benefits</h3>
+            <ul class="benefits-list">
+                <li><span class="benefits-bullet">•</span><b>Focus on high-potential leads:</b> Sales team spends more time with prospects most likely to convert</li>
+                <li><span class="benefits-bullet">•</span><b>Reduced administrative work:</b> Automation eliminates manual research and data entry tasks</li>
+                <li><span class="benefits-bullet">•</span><b>Higher quality follow-up:</b> Personalized communications generate better response rates</li>
+                <li><span class="benefits-bullet">•</span><b>Strategic prioritization:</b> Ensures promising leads receive prompt attention while others are nurtured appropriately</li>
+                <li><span class="benefits-bullet">•</span><b>Clear ROI tracking:</b> Complete visibility into tradeshow-generated pipeline and conversions</li>
+                <li><span class="benefits-bullet">•</span><b>Continuous improvement:</b> Lead scoring models get smarter with each tradeshow and interaction</li>
+                <li><span class="benefits-bullet">•</span><b>No missed opportunities:</b> Consistent follow-up ensures no leads fall through the cracks</li>
+            </ul>
+        </div>
+        
+        <script>
+            // Fix display issues for mobile workflow
+            document.addEventListener('DOMContentLoaded', function() {
+                const mobileWorkflow = document.querySelector('.workflow-mobile');
+                if (window.innerWidth < 768) {
+                    mobileWorkflow.style.display = 'block';
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
