@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Cabos Business Event Personas Distribution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+            padding: 2rem 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.25rem;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 3rem;
+        }
+        
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .chart-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .personas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .personas-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .persona-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .persona-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .persona-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            margin-right: 1rem;
+        }
+        
+        .persona-info {
+            flex-grow: 1;
+        }
+        
+        .persona-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .persona-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .persona-rns {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .bar-chart {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .bar-label {
+            width: 35%;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .bar-container {
+            width: 50%;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .bar-value {
+            width: 15%;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* Persona-specific colors */
+        .financial { background-color: #1e40af; }
+        .healthcare { background-color: #0369a1; }
+        .technology { background-color: #10b981; }
+        .education { background-color: #8b5cf6; }
+        .unqualified { background-color: #9ca3af; }
+        
+        .donut-chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 4px;
+        }
+        
+        .legend-label {
+            font-size: 0.875rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .metric-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .metric-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .metric-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        
+        .comparison-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .comparison-section {
+                flex-direction: row;
+            }
+        }
+        
+        .comparison-chart {
+            flex: 1;
+        }
+        
+        .comparison-title {
+            font-size: 1.25rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .pie-chart-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        /* Add these classes for the pie chart */
+        .pie-chart {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #1e40af 0% 10%,
+                #0369a1 10% 18%,
+                #10b981 18% 26%,
+                #8b5cf6 26% 31%, 
+                #9ca3af 31% 100%
+            );
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pie-chart::before {
+            content: "";
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Economic value chart styles */
+        .persona-value-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .persona-value-card:hover {
+            transform: scale(1.01);
+        }
+        
+        .persona-value-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+        
+        .persona-value-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .persona-value-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .value-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .value-metric {
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        
+        .value-metric-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .value-metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .value-progress {
+            margin-top: 1rem;
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+        
+        .value-progress-bar {
+            height: 100%;
+            border-radius: 0.25rem;
+        }
+        
+        @media (max-width: 768px) {
+            .value-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Los Cabos Business Event Personas Distribution</h1>
+        <p class="subtitle">Analysis of PCMA CL25 Business Event Contact Opportunities by Strategic Persona Segments</p>
+
+        <div class="chart-container">
+            <!-- Key Metrics Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Key Insights & Distribution Overview</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3 class="metric-title">Total Contacts Analyzed</h3>
+                        <div class="metric-value">901</div>
+                        <div class="metric-subtitle">Business event professionals</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Qualified Contacts</h3>
+                        <div class="metric-value">276</div>
+                        <div class="metric-subtitle">31% of total contacts</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Unqualified Contacts</h3>
+                        <div class="metric-value">625</div>
+                        <div class="metric-subtitle">69% of total contacts</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">High-Value Financial/Automotive</h3>
+                        <div class="metric-value">10%</div>
+                        <div class="metric-subtitle">Primary revenue opportunity</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Healthcare/Pharmaceutical</h3>
+                        <div class="metric-value">8%</div>
+                        <div class="metric-subtitle">Growth potential segment</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Est. Total Potential Value</h3>
+                        <div class="metric-value">$57.6M</div>
+                        <div class="metric-subtitle">From qualified contacts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Persona Distribution Overview</h2>
+                <p class="chart-subtitle">Distribution of business event contacts across key personas reveals valuable insights for targeted sales and marketing efforts.</p>
+                
+                <div class="pie-chart-container">
+                    <div class="pie-chart"></div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color financial"></div>
+                        <div class="legend-label">Financial/Automotive Services (10%)</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color healthcare"></div>
+                        <div class="legend-label">Healthcare/Pharmaceutical (8%)</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color technology"></div>
+                        <div class="legend-label">Technology Sector (5%)</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color education"></div>
+                        <div class="legend-label">Association Education (5%)</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color unqualified"></div>
+                        <div class="legend-label">UNQUALIFIED (69%)</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Economic Value Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Economic Value Distribution by Persona</h2>
+                <p class="chart-subtitle">Estimated total economic value potential based on average spend per event by persona</p>
+                
+                <!-- Financial Services Value Card -->
+                <div class="persona-value-card">
+                    <div class="persona-value-header">
+                        <div class="persona-value-icon financial">FS</div>
+                        <div class="persona-value-title">Financial Services Incentive Planner</div>
+                    </div>
+                    
+                    <div class="value-metrics">
+                        <div class="value-metric">
+                            <div class="value-metric-label">Contact Count</div>
+                            <div class="value-metric-value">90 contacts</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Average Event Spend</div>
+                            <div class="value-metric-value">$255,000</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Est. Total Value</div>
+                            <div class="value-metric-value">$22.95M</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">% of Total Value</div>
+                            <div class="value-metric-value">39.8%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-progress">
+                        <div class="value-progress-bar financial" style="width: 39.8%;"></div>
+                    </div>
+                </div>
+                
+                <!-- Healthcare Value Card -->
+                <div class="persona-value-card">
+                    <div class="persona-value-header">
+                        <div class="persona-value-icon healthcare">HC</div>
+                        <div class="persona-value-title">Healthcare/Pharmaceutical Events Specialist</div>
+                    </div>
+                    
+                    <div class="value-metrics">
+                        <div class="value-metric">
+                            <div class="value-metric-label">Contact Count</div>
+                            <div class="value-metric-value">72 contacts</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Average Event Spend</div>
+                            <div class="value-metric-value">$199,000</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Est. Total Value</div>
+                            <div class="value-metric-value">$14.33M</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">% of Total Value</div>
+                            <div class="value-metric-value">24.9%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-progress">
+                        <div class="value-progress-bar healthcare" style="width: 24.9%;"></div>
+                    </div>
+                </div>
+                
+                <!-- Technology Value Card -->
+                <div class="persona-value-card">
+                    <div class="persona-value-header">
+                        <div class="persona-value-icon technology">TS</div>
+                        <div class="persona-value-title">Technology Sector Convener</div>
+                    </div>
+                    
+                    <div class="value-metrics">
+                        <div class="value-metric">
+                            <div class="value-metric-label">Contact Count</div>
+                            <div class="value-metric-value">45 contacts</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Average Event Spend</div>
+                            <div class="value-metric-value">$165,500</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Est. Total Value</div>
+                            <div class="value-metric-value">$7.45M</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">% of Total Value</div>
+                            <div class="value-metric-value">12.9%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-progress">
+                        <div class="value-progress-bar technology" style="width: 12.9%;"></div>
+                    </div>
+                </div>
+                
+                <!-- Association Value Card -->
+                <div class="persona-value-card">
+                    <div class="persona-value-header">
+                        <div class="persona-value-icon education">AE</div>
+                        <div class="persona-value-title">Association Education Coordinator</div>
+                    </div>
+                    
+                    <div class="value-metrics">
+                        <div class="value-metric">
+                            <div class="value-metric-label">Contact Count</div>
+                            <div class="value-metric-value">45 contacts</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Average Event Spend</div>
+                            <div class="value-metric-value">$150,000</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Est. Total Value</div>
+                            <div class="value-metric-value">$6.75M</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">% of Total Value</div>
+                            <div class="value-metric-value">11.7%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-progress">
+                        <div class="value-progress-bar education" style="width: 11.7%;"></div>
+                    </div>
+                </div>
+                
+                <!-- Other Qualified Value Card -->
+                <div class="persona-value-card">
+                    <div class="persona-value-header">
+                        <div class="persona-value-icon" style="background-color: #6b7280;">OQ</div>
+                        <div class="persona-value-title">Other Qualified Personas</div>
+                    </div>
+                    
+                    <div class="value-metrics">
+                        <div class="value-metric">
+                            <div class="value-metric-label">Contact Count</div>
+                            <div class="value-metric-value">24 contacts</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Average Event Spend</div>
+                            <div class="value-metric-value">$255,000*</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">Est. Total Value</div>
+                            <div class="value-metric-value">$6.12M</div>
+                        </div>
+                        <div class="value-metric">
+                            <div class="value-metric-label">% of Total Value</div>
+                            <div class="value-metric-value">10.6%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="value-progress">
+                        <div class="value-progress-bar" style="width: 10.6%; background-color: #6b7280;"></div>
+                    </div>
+                </div>
+                
+                <p style="font-size: 0.75rem; color: #6b7280; margin-top: 1rem; text-align: center;">* Estimated based on Financial Services average as a conservative proxy</p>
+                
+                <div style="margin-top: 2rem; padding: 1rem; background-color: #f0f9ff; border-radius: 0.5rem; border-left: 3px solid #0284c7;">
+                    <h3 style="font-size: 1rem; font-weight: 600; color: #0284c7; margin-bottom: 0.5rem;">Economic Value Summary</h3>
+                    <p style="font-size: 0.875rem; color: #4b5563;">
+                        <strong>Financial & Healthcare personas together represent 64.7% of total economic value</strong> despite comprising only 18% of total contacts. This demonstrates the clear high-value focus areas for Los Cabos' business event strategy.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Frequency Distribution Bar Chart Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Detailed Persona Distribution</h2>
+                <p class="chart-subtitle">The distribution of business events across key personas reveals valuable insights for targeted sales and marketing efforts.</p>
+                
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">UNQUALIFIED</div>
+                        <div class="bar-container">
+                            <div class="bar unqualified" style="width: 69%;">69%</div>
+                        </div>
+                        <div class="bar-value">625 contacts</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Financial/Automotive Services<br>Incentive Planner</div>
+                        <div class="bar-container">
+                            <div class="bar financial" style="width: 10%;">10%</div>
+                        </div>
+                        <div class="bar-value">90 contacts</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Healthcare/Pharmaceutical<br>Events Specialist</div>
+                        <div class="bar-container">
+                            <div class="bar healthcare" style="width: 8%;">8%</div>
+                        </div>
+                        <div class="bar-value">72 contacts</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Technology Sector<br>Convener</div>
+                        <div class="bar-container">
+                            <div class="bar technology" style="width: 5%;">5%</div>
+                        </div>
+                        <div class="bar-value">45 contacts</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Association Education<br>Coordinator</div>
+                        <div class="bar-container">
+                            <div class="bar education" style="width: 5%;">5%</div>
+                        </div>
+                        <div class="bar-value">45 contacts</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Other Qualified<br>Personas</div>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 3%; background-color: #6b7280;">3%</div>
+                        </div>
+                        <div class="bar-value">24 contacts</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Strategic Implications Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Strategic Value Implications</h2>
+                
+                <div class="comparison-section">
+                    <div class="comparison-chart">
+                        <h3 class="comparison-title">Value-Based Strategic Focus</h3>
+                        
+                        <div class="bar-chart">
+                            <div class="bar-item">
+                                <div class="bar-label">Financial Services<br>Primary Focus</div>
+                                <div class="bar-container">
+                                    <div class="bar financial" style="width: 39.8%;">39.8%</div>
+                                </div>
+                                <div class="bar-value">$22.95M</div>
+                            </div>
+                            
+                            <div class="bar-item">
+                                <div class="bar-label">Healthcare/Pharma<br>Secondary Focus</div>
+                                <div class="bar-container">
+                                    <div class="bar healthcare" style="width: 24.9%;">24.9%</div>
+                                </div>
+                                <div class="bar-value">$14.33M</div>
+                            </div>
+                            
+                            <div class="bar-item">
+                                <div class="bar-label">Technology<br>Tertiary Focus</div>
+                                <div class="bar-container">
+                                    <div class="bar technology" style="width: 12.9%;">12.9%</div>
+                                </div>
+                                <div class="bar-value">$7.45M</div>
+                            </div>
+                            
+                            <div class="bar-item">
+                                <div class="bar-label">Association Education<br>Secondary Support</div>
+                                <div class="bar-container">
+                                    <div class="bar education" style="width: 11.7%;">11.7%</div>
+                                </div>
+                                <div class="bar-value">$6.75M</div>
+                            </div>
+                            
+                            <div class="bar-item">
+                                <div class="bar-label">Other Qualified<br>Opportunistic</div>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: 10.6%; background-color: #6b7280;">10.6%</div>
+                                </div>
+                                <div class="bar-value">$6.12M</div>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 0.875rem; margin-top: 1.5rem; color: #4b5563;">
+                            <strong>Strategic Implication:</strong> Focus marketing resources and develop targeted campaigns for Financial and Healthcare segments to capture nearly 65% of the total potential economic value.
+                        </p>
+                    </div>

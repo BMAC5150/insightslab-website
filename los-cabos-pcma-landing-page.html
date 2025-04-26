@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Cabos PCMA CL25 Top Ten Priority Insights</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+        }
+        
+        /* Header styles */
+        .page-header {
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .page-header h1 {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Content styles */
+        .page-content {
+            padding: 60px 0;
+        }
+        
+        /* Resource links */
+        .resource-links {
+            margin-top: 40px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-color-bar {
+            height: 8px;
+            background-color: #FF8C00;
+        }
+        
+        .resource-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .resource-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #531b93;
+        }
+        
+        .resource-description {
+            margin-bottom: 20px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #1e40af;
+                flex-direction: column;
+                padding: 20px 0;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">   
+                <h1>insightslab</h1>
+            </div>
+            <!-- Add menu toggle button for mobile -->
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">AI for Events</a>
+                <a href="#">Workshops</a>
+                <a href="#">Team</a>
+                <a href="#">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Los Cabos PCMA CL25 Top Ten Priority Insights</h1>
+            <p>Explore key strategic insights and resources for targeting high-value business event opportunities</p>
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <section class="page-content">
+        <div class="container">
+            <h2>Strategic Intelligence Resources</h2>
+            <p>Access comprehensive data resources and strategic insights to help identify and convert high-value business event opportunities for Los Cabos.</p>
+            
+            <!-- Resource Links -->
+            <div class="resource-links">
+                <!-- Resource 1 - Top 10 Opportunities -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Top 10 Los Cabos Business Event Lead Opportunities</h3>
+                        <p class="resource-description">Comprehensive analysis of the highest-value business event prospects for Los Cabos, ranked by opportunity lead score and vetted for strategic fit. This dashboard presents key contacts, their strategic value, and tailored engagement recommendations.</p>
+                        <a href="PCMA CL25 Los Cabos Top Ten Opportunities FINAL.html" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 2 - Persona Profiles -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Los Cabos Business Event Opportunity Personas</h3>
+                        <p class="resource-description">Detailed profiles of the four key business event planner personas that represent high-value opportunities for Los Cabos. Understand their specific needs, decision drivers, seasonal preferences, and the strategic approaches that will resonate with each segment.</p>
+                        <a href="FINAL BASELINE Personas Infographic UPDATED.html" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 3 - Persona Distribution Analysis -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Los Cabos Business Event Personas Distribution</h3>
+                        <p class="resource-description">Statistical analysis of business event opportunities by strategic persona segments. This dashboard reveals the frequency distribution, comparative economic value, and optimal targeting strategies for each key persona segment.</p>
+                        <a href="FINAL BASELINE Personas Distribution InfoGraphic UPDATED.html" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 4 - PCMA CL25 Opportunities Distribution -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">PCMA CL25 Lead Opportunities Distribution Analysis</h3>
+                        <p class="resource-description">Detailed analysis of the PCMA CL25 dataset showing distribution of business event contacts, economic value potential, and strategic targeting implications by persona segment.</p>
+                        <a href="PCMA CL25 Los Cabos Opportunity Distribution.html" class="resource-link">View Resource</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 5 - Strategic Overview -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Strategic Market Intelligence Overview</h3>
+                        <p class="resource-description">Executive summary of key market intelligence findings and strategic recommendations based on the PCMA CL25 dataset analysis. Learn how to leverage Los Cabos' strengths to optimize business event acquisition in key market segments.</p>
+                        <a href="#" class="resource-link">Coming Soon</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Insights Box -->
+            <div style="background-color: #f0f9ff; border-radius: 0.5rem; padding: 1.5rem; margin-top: 3rem; border-left: 4px solid #531b93;">
+                <h3 style="color: #531b93; margin-bottom: 1rem;">Key Strategic Insights</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start;">
+                        <span style="color: #531b93; font-weight: bold; margin-right: 0.5rem;">•</span> 
+                        <span><strong>Healthcare & Pharmaceutical (4/10 leads):</strong> Activate wellness-centric, compliance-friendly messaging targeting February & June.</span>
+                    </li>
+                    <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start;">
+                        <span style="color: #531b93; font-weight: bold; margin-right: 0.5rem;">•</span> 
+                        <span><strong>Financial Services (3/10 leads):</strong> Push luxury incentive narratives pegged to October & May shoulder seasons.</span>
+                    </li>
+                    <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start;">
+                        <span style="color: #531b93; font-weight: bold; margin-right: 0.5rem;">•</span> 
+                        <span><strong>Association Education (2/10 leads):</strong> Leverage cultural & CSR hooks; focus on September value windows.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start;">
+                        <span style="color: #531b93; font-weight: bold; margin-right: 0.5rem;">•</span> 
+                        <span><strong>Technology (1/10 lead):</strong> Showcase high-bandwidth venues and creative desert-to-sea ideation formats.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h3>Ready to implement these insights?</h3>
+                <p>Contact our team to discuss custom lead conversion strategies for your priority contacts.</p>
+                <a href="#" style="display: inline-block; background-color: #FF8C00; color: white; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 20px; transition: all 0.3s ease;">Contact Sales Team</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Los Cabos Tourism Board. Powered by Insights Lab.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

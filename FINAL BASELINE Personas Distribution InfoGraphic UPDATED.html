@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Cabos Business Event Personas Distribution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+            padding: 2rem 0;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.25rem;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #4b5563;
+            margin-bottom: 3rem;
+        }
+        
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .chart-section {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .chart-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .personas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .personas-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .persona-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .persona-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .persona-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+            margin-right: 1rem;
+        }
+        
+        .persona-info {
+            flex-grow: 1;
+        }
+        
+        .persona-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .persona-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .persona-rns {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .bar-chart {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .bar-label {
+            width: 35%;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .bar-container {
+            width: 50%;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .bar-value {
+            width: 15%;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* Persona-specific colors */
+        .financial { background-color: #1e40af; }
+        .healthcare { background-color: #0369a1; }
+        .technology { background-color: #10b981; }
+        .education { background-color: #8b5cf6; }
+        
+        .donut-chart {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .legend-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 4px;
+        }
+        
+        .legend-label {
+            font-size: 0.875rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .metrics-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .metric-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .metric-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+        
+        .metric-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        
+        .comparison-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .comparison-section {
+                flex-direction: row;
+            }
+        }
+        
+        .comparison-chart {
+            flex: 1;
+        }
+        
+        .comparison-title {
+            font-size: 1.25rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .month-preference {
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #f8fafc;
+            border-radius: 0.375rem;
+            border-left: 3px solid #1e40af;
+        }
+        
+        .month-preference-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            color: #1e40af;
+        }
+        
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 0.125rem;
+            margin-top: 0.5rem;
+        }
+        
+        .month-block {
+            height: 1.5rem;
+            font-size: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            color: #6b7280;
+            background-color: #f3f4f6;
+        }
+        
+        .month-preferred {
+            background-color: #93c5fd;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Los Cabos Business Event Personas Distribution</h1>
+        <p class="subtitle">Analysis of Business Event Opportunities by Strategic Persona Segments</p>
+
+            <!-- Key Metrics Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Key Insights & Strategic Implications</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3 class="metric-title">Highest Value Persona</h3>
+                        <div class="metric-value">Financial Services</div>
+                        <div class="metric-subtitle">$230K-$280K avg. per event</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Peak Month - Financial</h3>
+                        <div class="metric-value">October</div>
+                        <div class="metric-subtitle">Highest performance month</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Peak Month - Healthcare</h3>
+                        <div class="metric-value">February</div>
+                        <div class="metric-subtitle">Optimal month for healthcare events</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Peak Month - Technology</h3>
+                        <div class="metric-value">October</div>
+                        <div class="metric-subtitle">Optimal month for tech events</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Peak Month - Association</h3>
+                        <div class="metric-value">September</div>
+                        <div class="metric-subtitle">Optimal month for association events</div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <h3 class="metric-title">Strategic Focus Areas</h3>
+                        <div class="metric-value">Financial + Healthcare</div>
+                        <div class="metric-subtitle">Highest value opportunity</div>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="chart-container">
+            <!-- Frequency Distribution Bar Chart Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Frequency Distribution by Persona Type</h2>
+                <p class="chart-subtitle">The distribution of business events across key personas reveals valuable insights for targeted sales and marketing efforts.</p>
+                
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">Financial Services<br>Incentive Planner</div>
+                        <div class="bar-container">
+                            <div class="bar financial" style="width: 37.5%;">37.5%</div>
+                        </div>
+                        <div class="bar-value">48 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Healthcare/Pharmaceutical<br>Events Specialist</div>
+                        <div class="bar-container">
+                            <div class="bar healthcare" style="width: 32.0%;">32.0%</div>
+                        </div>
+                        <div class="bar-value">41 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Technology Sector<br>Convener</div>
+                        <div class="bar-container">
+                            <div class="bar technology" style="width: 22.7%;">22.7%</div>
+                        </div>
+                        <div class="bar-value">29 events</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Association Education<br>Coordinator</div>
+                        <div class="bar-container">
+                            <div class="bar education" style="width: 7.8%;">7.8%</div>
+                        </div>
+                        <div class="bar-value">10 events</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Persona Value Comparison -->
+            <div class="chart-section">
+                <h2 class="chart-title">Persona Value Comparison</h2>
+                <p class="chart-subtitle">Average value per event across key personas reveals priorities for targeted sales and marketing efforts.</p>
+                
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">Financial Services<br>Incentive Planner</div>
+                        <div class="bar-container">
+                            <div class="bar financial" style="width: 92%;">$255K</div>
+                        </div>
+                        <div class="bar-value">$230K-$280K</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Healthcare/Pharmaceutical<br>Events Specialist</div>
+                        <div class="bar-container">
+                            <div class="bar healthcare" style="width: 78%;">$199K</div>
+                        </div>
+                        <div class="bar-value">$168K-$230K</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Technology Sector<br>Convener</div>
+                        <div class="bar-container">
+                            <div class="bar technology" style="width: 65%;">$165K</div>
+                        </div>
+                        <div class="bar-value">$150K-$181K</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Association Education<br>Coordinator</div>
+                        <div class="bar-container">
+                            <div class="bar education" style="width: 58%;">$150K</div>
+                        </div>
+                        <div class="bar-value">$135K-$165K</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Hotel Rate Range Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Hotel Rate Range By Persona</h2>
+                <p class="chart-subtitle">Average nightly hotel rate ranges by persona type</p>
+                
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">Financial Services<br>Incentive Planner</div>
+                        <div class="bar-container">
+                            <div class="bar financial" style="width: 87%;">$430</div>
+                        </div>
+                        <div class="bar-value">$425-$435</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Technology Sector<br>Convener</div>
+                        <div class="bar-container">
+                            <div class="bar technology" style="width: 82%;">$407</div>
+                        </div>
+                        <div class="bar-value">$405-$410</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Healthcare/Pharmaceutical<br>Events Specialist</div>
+                        <div class="bar-container">
+                            <div class="bar healthcare" style="width: 78%;">$390</div>
+                        </div>
+                        <div class="bar-value">$385-$395</div>
+                    </div>
+                    
+                    <div class="bar-item">
+                        <div class="bar-label">Association Education<br>Coordinator</div>
+                        <div class="bar-container">
+                            <div class="bar education" style="width: 76%;">$385</div>
+                        </div>
+                        <div class="bar-value">$375-$395</div>
+                    </div>
+                </div>
+            </div>
+                        
+            <!-- Strategic Implications Section -->
+            <div class="chart-section">
+                <h2 class="chart-title">Recommended Targeting Strategies</h2>
+                
+                <div class="comparison-section">
+                    <div class="comparison-chart">
+                        <h3 class="comparison-title">Financial Services Strategic Approach</h3>
+                        
+                        <div class="persona-card" style="margin-bottom: 1rem;">
+                            <div class="persona-icon financial">FSIP</div>
+                            <div class="persona-info">
+                                <div class="persona-title">Financial Services Incentive Planner</div>
+                                <div class="persona-percentage">Value Leader <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">($230K-$280K per event)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="month-preference">
+                            <div class="month-preference-title">Optimal Targeting Month:</div>
+                            <div class="months-grid">
+                                <div class="month-block">J</div>
+                                <div class="month-block">F</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block month-preferred">M</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block">S</div>
+                                <div class="month-block month-preferred">O</div>
+                                <div class="month-block">N</div>
+                                <div class="month-block">D</div>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-top: 0.75rem; color: #4b5563;">
+                                <strong>Strategic Approach:</strong> Position Los Cabos as a premium incentive destination with proven success. Emphasize October's peak performance for financial sector events. Showcase luxury properties like The Cape and Las Ventanas al Paraíso. Focus on value proposition relative to competitive luxury destinations.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-chart">
+                        <h3 class="comparison-title">Healthcare/Pharmaceutical Strategic Approach</h3>
+                        
+                        <div class="persona-card" style="margin-bottom: 1rem;">
+                            <div class="persona-icon healthcare">HPES</div>
+                            <div class="persona-info">
+                                <div class="persona-title">Healthcare/Pharmaceutical Events Specialist</div>
+                                <div class="persona-percentage">Growth Opportunity <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">($168K-$230K per event)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="month-preference">
+                            <div class="month-preference-title">Optimal Targeting Months:</div>
+                            <div class="months-grid">
+                                <div class="month-block">J</div>
+                                <div class="month-block month-preferred">F</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block month-preferred">J</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block">S</div>
+                                <div class="month-block">O</div>
+                                <div class="month-block">N</div>
+                                <div class="month-block">D</div>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-top: 0.75rem; color: #4b5563;">
+                                <strong>Strategic Approach:</strong> Emphasize Los Cabos' dual strength in luxury and wellness. Highlight February and June as optimal months for healthcare events. Showcase successful medical/pharmaceutical event case studies. Focus on sustainability commitment and reliable technology for presentations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comparison-section">
+                    <div class="comparison-chart">
+                        <h3 class="comparison-title">Technology Sector Strategic Approach</h3>
+                        
+                        <div class="persona-card" style="margin-bottom: 1rem;">
+                            <div class="persona-icon technology">TSC</div>
+                            <div class="persona-info">
+                                <div class="persona-title">Technology Sector Convener</div>
+                                <div class="persona-percentage">Tech-Forward Focus <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">($150K-$181K per event)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="month-preference">
+                            <div class="month-preference-title">Optimal Targeting Months:</div>
+                            <div class="months-grid">
+                                <div class="month-block">J</div>
+                                <div class="month-block">F</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block month-preferred">A</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block">S</div>
+                                <div class="month-block month-preferred">O</div>
+                                <div class="month-block">N</div>
+                                <div class="month-block">D</div>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-top: 0.75rem; color: #4b5563;">
+                                <strong>Strategic Approach:</strong> Position Los Cabos as a tech-forward destination with reliable infrastructure. Emphasize October as optimal month for technology sector events. Showcase The Cape's contemporary design and tech capabilities. Highlight unique team building opportunities in the desert-sea environment.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-chart">
+                        <h3 class="comparison-title">Association Education Strategic Approach</h3>
+                        
+                        <div class="persona-card" style="margin-bottom: 1rem;">
+                            <div class="persona-icon education">AEC</div>
+                            <div class="persona-info">
+                                <div class="persona-title">Association Education Coordinator</div>
+                                <div class="persona-percentage">Cultural Connection <span style="font-size: 0.875rem; color: #6b7280; font-weight: normal;">($135K-$165K per event)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="month-preference">
+                            <div class="month-preference-title">Optimal Targeting Month:</div>
+                            <div class="months-grid">
+                                <div class="month-block">J</div>
+                                <div class="month-block">F</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block">M</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">J</div>
+                                <div class="month-block">A</div>
+                                <div class="month-block month-preferred">S</div>
+                                <div class="month-block month-preferred">O</div>
+                                <div class="month-block">N</div>
+                                <div class="month-block">D</div>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-top: 0.75rem; color: #4b5563;">
+                                <strong>Strategic Approach:</strong> Emphasize Los Cabos' combination of cultural richness and meeting capabilities. Highlight September and October as optimal months for association events. Showcase variety of accommodation options at different price points. Feature opportunities to incorporate local culture into programming.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
