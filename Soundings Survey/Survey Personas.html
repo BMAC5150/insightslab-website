@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Event Professional AI Adoption Personas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 2.25rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .personas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .personas-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .persona-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .persona-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .persona-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+        
+        .persona-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .persona-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .persona-subtitle {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+        
+        .persona-stats {
+            margin-bottom: 1rem;
+        }
+        
+        .persona-stat {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .persona-stat-label {
+            font-weight: 500;
+        }
+        
+        .persona-stat-value {
+            color: #6b7280;
+        }
+        
+        .persona-details {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+        
+        .persona-details ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .persona-details li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .persona-details li::before {
+            content: '•';
+            color: inherit;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* Persona-specific colors */
+        .tech-forward { background-color: #059669; }
+        .pragmatic-adopter { background-color: #2563eb; }
+        .curious-observer { background-color: #7c3aed; }
+        .relationship-veteran { background-color: #d97706; }
+        .resource-constrained { background-color: #4b5563; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Business Event Professional AI Adoption Personas</h1>
+        
+        <div class="personas-grid">
+            <!-- Tech-Forward Planner -->
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-icon tech-forward">TF</div>
+                    <div>
+                        <h2 class="persona-title">Tech-Forward Planner</h2>
+                        <p class="persona-subtitle">Innovative and Technology-Driven</p>
+                    </div>
+                </div>
+                
+                <div class="persona-stats">
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Percentage of Respondents</span>
+                        <span class="persona-stat-value">25%</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">AI Usage</span>
+                        <span class="persona-stat-value">100% Regular Use</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Productivity Improvement</span>
+                        <span class="persona-stat-value">32%</span>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <ul>
+                        <li>Highest productivity gains from AI</li>
+                        <li>Focus on content creation (83%) and marketing (76%)</li>
+                        <li>94% plan to expand AI use in next 12 months</li>
+                        <li>Primarily experienced professionals (60% with 5-15 years experience)</li>
+                        <li>Mostly manage large events (500+ attendees)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Pragmatic Adopter -->
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-icon pragmatic-adopter">PA</div>
+                    <div>
+                        <h2 class="persona-title">Pragmatic Adopter</h2>
+                        <p class="persona-subtitle">Value-Driven and Strategic</p>
+                    </div>
+                </div>
+                
+                <div class="persona-stats">
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Percentage of Respondents</span>
+                        <span class="persona-stat-value">28%</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">AI Usage</span>
+                        <span class="persona-stat-value">100% Selective Use</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Productivity Improvement</span>
+                        <span class="persona-stat-value">19%</span>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <ul>
+                        <li>Most common persona type</li>
+                        <li>Prioritize scheduling (72%) and budget tracking (68%)</li>
+                        <li>77% plan selective AI expansion</li>
+                        <li>Majority with 5-15 years experience (67%)</li>
+                        <li>Primarily manage mid-sized events (100-500 attendees)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Curious Observer -->
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-icon curious-observer">CO</div>
+                    <div>
+                        <h2 class="persona-title">Curious Observer</h2>
+                        <p class="persona-subtitle">Learning and Exploring</p>
+                    </div>
+                </div>
+                
+                <div class="persona-stats">
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Percentage of Respondents</span>
+                        <span class="persona-stat-value">21%</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">AI Usage</span>
+                        <span class="persona-stat-value">0% Currently Using</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Planned Adoption</span>
+                        <span class="persona-stat-value">72%</span>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <ul>
+                        <li>Not currently using AI</li>
+                        <li>Plan to adopt content creation (68%) and chatbots (54%)</li>
+                        <li>Highest proportion of early-career professionals</li>
+                        <li>42% have less than 5 years experience</li>
+                        <li>Mostly manage smaller events (&lt;100 attendees)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Relationship-Focused Veteran -->
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-icon relationship-veteran">RV</div>
+                    <div>
+                        <h2 class="persona-title">Relationship-Focused Veteran</h2>
+                        <p class="persona-subtitle">Experience-Driven and Personal</p>
+                    </div>
+                </div>
+                
+                <div class="persona-stats">
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Percentage of Respondents</span>
+                        <span class="persona-stat-value">18%</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">AI Usage</span>
+                        <span class="persona-stat-value">8% Limited Use</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Productivity Improvement</span>
+                        <span class="persona-stat-value">8%</span>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <ul>
+                        <li>Most experienced professionals (77% with 15+ years)</li>
+                        <li>Focus on backend operations (73%) and admin tasks (65%)</li>
+                        <li>Only 31% likely to expand AI use</li>
+                        <li>Prioritize maintaining personal touch</li>
+                        <li>Predominantly manage large events (500+ attendees)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Resource-Constrained Planner -->
+            <div class="persona-card">
+                <div class="persona-header">
+                    <div class="persona-icon resource-constrained">RC</div>
+                    <div>
+                        <h2 class="persona-title">Resource-Constrained Planner</h2>
+                        <p class="persona-subtitle">Budget-Conscious and Practical</p>
+                    </div>
+                </div>
+                
+                <div class="persona-stats">
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Percentage of Respondents</span>
+                        <span class="persona-stat-value">8%</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">AI Usage</span>
+                        <span class="persona-stat-value">13% Limited Use</span>
+                    </div>
+                    <div class="persona-stat">
+                        <span class="persona-stat-label">Productivity Improvement</span>
+                        <span class="persona-stat-value">14%</span>
+                    </div>
+                </div>
+                
+                <div class="persona-details">
+                    <ul>
+                        <li>Smallest persona group (8% of respondents)</li>
+                        <li>Seek multi-purpose, cost-effective tools (93%)</li>
+                        <li>58% plan AI adoption dependent on budget</li>
+                        <li>Majority in 5-15 years experience range (60%)</li>
+                        <li>Almost exclusively manage small events (&lt;100 attendees)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
