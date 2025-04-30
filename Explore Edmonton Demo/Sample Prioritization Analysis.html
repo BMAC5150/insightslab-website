@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMPLE DMO DMO TEST EVENT Lead Prospect Prioritization</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #2c5282;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .scoring-methodology {
+            background-color: #ebf8ff;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .scoring-methodology h2 {
+            color: #2c5282;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .lead-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .lead-table th {
+            background-color: #2c5282;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+        }
+
+        .lead-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .lead-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .lead-table tr:hover {
+            background-color: #ebf8ff;
+        }
+
+        .priority-tier {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .tier-1 {
+            background-color: #c6f6d5;
+            color: #22543d;
+        }
+
+        .tier-2 {
+            background-color: #fefcbf;
+            color: #744210;
+        }
+
+        .tier-3 {
+            background-color: #fed7d7;
+            color: #742a2a;
+        }
+
+        .quality-score {
+            font-weight: 600;
+            color: #2c5282;
+        }
+
+        .location-info {
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .geographic-insights {
+            background-color: #e6fffa;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .geographic-insights h2 {
+            color: #234e52;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .action-recommendations {
+            background-color: #f0fff4;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .action-recommendations h2 {
+            color: #22543d;
+            margin-top: 0;
+            font-size: 22px;
+        }
+        
+        .peak-month {
+            font-weight: 600;
+            color: #6b46c1;
+        }
+        
+        .satisfaction-month {
+            font-weight: 600;
+            color: #2b6cb0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SAMPLE TEST EVENT Lead Prospect Prioritization</h1>
+
+        <div class="scoring-methodology">
+            <h2>Lead Scoring Methodology</h2>
+            <p>Leads are scored on a 100-point scale based on the following criteria:</p>
+            <ul>
+                <li><strong>Event Type Performance (40 points):</strong> Based on historical revenue and satisfaction data</li>
+                <li><strong>Industry Sector Performance (40 points):</strong> Based on historical revenue and satisfaction data</li>
+                <li><strong>Engagement Level (20 points):</strong> Based on interaction at TEST EVENT event</li>
+            </ul>
+            <p>Priority Tiers:</p>
+            <ul>
+                <li><strong>Tier 1 (High Priority):</strong> Score 80-100</li>
+                <li><strong>Tier 2 (Medium Priority):</strong> Score 60-79</li>
+                <li><strong>Tier 3 (Lower Priority):</strong> Score below 60</li>
+            </ul>
+        </div>
+
+        <table class="lead-table">
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Contact Name</th>
+                    <th>Organization</th>
+                    <th>Location</th>
+                    <th>Event Type</th>
+                    <th>Industry Sector</th>
+                    <th>Peak Pick-Up Month</th>
+                    <th>Peak Satisfaction Month</th>
+                    <th>Quality Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="priority-tier tier-1">Tier 1</span></td>
+                    <td>Sarah Johnson</td>
+                    <td>TechCorp Global</td>
+                    <td>California</td>
+                    <td>Conferences</td>
+                    <td>Technology</td>
+                    <td><span class="peak-month">March</span></td>
+                    <td><span class="satisfaction-month">April</span></td>
+                    <td><span class="quality-score">95</span></td>
+                </tr>
+                <tr>
+                    <td><span class="priority-tier tier-1">Tier 1</span></td>
+                    <td>Michael Chen</td>
+                    <td>Financial Partners International</td>
+                    <td>New York</td>
+                    <td>Corporate Meetings</td>
+                    <td>Financial Services</td>
+                    <td><span class="peak-month">February</span></td>
+                    <td><span class="satisfaction-month">March</span></td>
+                    <td><span class="quality-score">92</span></td>
+                </tr>
+                <tr>
+                    <td><span class="priority-tier tier-1">Tier 1</span></td>
+                    <td>Amanda Martinez</td>
+                    <td>Health Systems Inc</td>
+                    <td>Texas</td>
+                    <td>Conferences</td>
+                    <td>Healthcare</td>
+                    <td><span class="peak-month">November</span></td>
+                    <td><span class="satisfaction-month">October</span></td>
+                    <td><span class="quality-score">88</span></td>
+                </tr>
+                <tr>
+                    <td><span class="priority-tier tier-2">Tier 2</span></td>
+                    <td>David Wilson</td>
+                    <td>Tech Innovators LLC</td>
+                    <td>Washington</td>
+                    <td>Corporate Meetings</td>
+                    <td>Technology</td>
+                    <td><span class="peak-month">March</span></td>
+                    <td><span class="satisfaction-month">April</span></td>
+                    <td><span class="quality-score">78</span></td>
+                </tr>
+                <tr>
+                    <td><span class="priority-tier tier-2">Tier 2</span></td>
+                    <td>Lisa Thompson</td>
+                    <td>Global Finance Group</td>
+                    <td>Illinois</td>
+                    <td>Incentive Programs</td>
+                    <td>Financial Services</td>
+                    <td><span class="peak-month">February</span></td>
+                    <td><span class="satisfaction-month">March</span></td>
+                    <td><span class="quality-score">75</span></td>
+                </tr>
+                <tr>
+                    <td><span class="priority-tier tier-3">Tier 3</span></td>
+                    <td>Robert Taylor</td>
+                    <td>Manufacturing Solutions</td>
+                    <td>Michigan</td>
+                    <td>Corporate Meetings</td>
+                    <td>Manufacturing</td>
+                    <td><span class="peak-month">September</span></td>
+                    <td><span class="satisfaction-month">October</span></td>
+                    <td><span class="quality-score">55</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="geographic-insights">
+            <h2>Geographic Distribution Insights</h2>
+            <ul>
+                <li><strong>West Coast Cluster:</strong> Strong technology sector representation from California and Washington</li>
+                <li><strong>Northeast Hub:</strong> Concentration of financial services leads in New York area</li>
+                <li><strong>Southern Region:</strong> Emerging healthcare and technology opportunities in Texas</li>
+                <li><strong>Midwest Presence:</strong> Diverse sector representation across Illinois and Michigan</li>
+            </ul>
+        </div>
+
+        <div class="action-recommendations">
+            <h2>Geographic Action Plan</h2>
+            <ul>
+                <li><strong>West Coast Strategy:</strong> Leverage direct flights from California hubs; emphasize SAMPLE DMO' success with tech sector events</li>
+                <li><strong>Northeast Focus:</strong> Highlight peak season availability for financial services sector; showcase premium accommodations</li>
+                <li><strong>Southern Region:</strong> Promote year-round accessibility and value proposition for healthcare conferences</li>
+                <li><strong>Midwest Approach:</strong> Develop targeted off-peak season packages with competitive pricing for manufacturing sector</li>
+            </ul>
+            <p><strong>Note:</strong> Consider organizing regional roadshows or targeted events in key geographic clusters to maximize outreach efficiency.</p>
+        </div>
+        
+        <div class="action-recommendations" style="background-color: #ebf8ff; margin-top: 30px;">
+            <h2 style="color: #2c5282;">Seasonal Insights</h2>
+            <ul>
+                <li><strong>Technology Sector:</strong> Peak pick-up rates in March with highest satisfaction scores in April - ideal timeframe for booking tech conferences and corporate meetings</li>
+                <li><strong>Financial Services:</strong> February shows highest room block pickup with March delivering optimal satisfaction - target Q1 booking windows</li>
+                <li><strong>Healthcare:</strong> Strong performance in Q4 with October-November showing best results for satisfaction and pickup rates</li>
+                <li><strong>Manufacturing:</strong> September-October period demonstrates strongest performance metrics - opportunity for shoulder season focus</li>
+            </ul>
+            <p><strong>Recommendation:</strong> Align outreach and promotional activities with each industry's optimal seasonal performance to maximize conversion potential and attendee experience.</p>
+        </div>
+    </div>
+</body>
+</html>
