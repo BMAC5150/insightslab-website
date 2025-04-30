@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visit Houston Event Opportunity Prioritization Proposal</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.5;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: #f9fafb;
+      position: relative;
+    }
+    
+    /* Typography */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      color: #1e40af;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+    }
+    
+    /* Card styles */
+    .card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e7eb;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-title {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #1e40af;
+    }
+    
+    .card-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      color: #1e40af;
+    }
+    
+    /* Workflow stages */
+    .workflow-container {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .workflow-desktop {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .workflow-item {
+      text-align: center;
+      position: relative;
+      flex: 1 1 250px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .workflow-icon-container {
+      width: 5rem;
+      height: 5rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem auto;
+    }
+    
+    .workflow-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    
+    .workflow-label {
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+    }
+    
+    .workflow-title {
+      font-weight: 600;
+    }
+    
+    .workflow-desc {
+      font-size: 0.9375rem;
+      margin-top: 0.25rem;
+    }
+    
+    /* List Styles */
+    .details-list {
+      list-style-type: none;
+      margin-bottom: 1rem;
+    }
+    
+    .details-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+    
+    .bullet {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      margin-top: 0.375rem;
+      flex-shrink: 0;
+    }
+    
+    /* Price tables */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+    
+    .price-table th {
+      background-color: #f3f4f6;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+    }
+    
+    .price-table td {
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+    
+    .price-cell {
+      font-weight: 700;
+      color: #1e40af;
+    }
+    
+    /* Timeline section */
+    .timeline-container {
+      margin-top: 2rem;
+    }
+    
+    .timeline {
+      position: relative;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background-color: #1e40af;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      margin-left: 30px;
+    }
+    
+    .timeline-item {
+      padding: 0 40px 20px 70px;
+      position: relative;
+    }
+    
+    .timeline-icon {
+      position: absolute;
+      background-color: white;
+      border: 3px solid #1e40af;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      left: 17px;
+      top: 0;
+      z-index: 1;
+    }
+    
+    .timeline-content {
+      padding: 1rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e7eb;
+    }
+    
+    .timeline-date {
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Benefits section */
+    .benefits-section {
+      margin-top: 3rem;
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e7eb;
+      padding: 1.5rem;
+    }
+    
+    .benefits-heading {
+      margin-bottom: 1rem;
+      color: #1e40af;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .benefits-list {
+      list-style-type: none;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1rem;
+    }
+    
+    @media (min-width: 768px) {
+      .benefits-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .benefits-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .benefits-bullet {
+      color: #2563eb;
+      font-weight: bold;
+    }
+    
+    /* Header Logo */
+    .logo-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .logo {
+      max-width: 300px;
+      margin-bottom: 1rem;
+    }
+    
+    /* Proposal highlight box */
+    .proposal-highlight {
+      background-color: #059669;
+      color: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .proposal-highlight h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    
+    .proposal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .proposal-item {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .proposal-label {
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .proposal-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    /* Key message section */
+    .key-messages {
+      margin-top: 2rem;
+    }
+    
+    .message-list {
+      list-style-type: none;
+      margin-top: 1rem;
+    }
+    
+    .message-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 0.75rem;
+    }
+    
+    .message-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+      color: #1e40af;
+      margin-top: 0.25rem;
+    }
+    
+    .message-content {
+      flex: 1;
+    }
+    
+    .message-title {
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+    
+    .message-desc {
+      color: #4b5563;
+      font-size: 0.9375rem;
+    }
+    
+    /* Strategic section */
+    .strategic-section {
+      background-color: #f0f9ff;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-left: 3px solid #0284c7;
+    }
+    
+    .strategic-title {
+      font-weight: 600;
+      color: #0284c7;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    
+    /* Colors for workflow */
+    .bg-green { background-color: #059669; }
+    .text-green { color: #059669; }
+    .bg-green-dot { background-color: #34d399; }
+    .bg-green-light { background-color: #d1fae5; }
+    
+    .bg-blue { background-color: #2563eb; }
+    .text-blue { color: #2563eb; }
+    .bg-blue-dot { background-color: #60a5fa; }
+    .bg-blue-light { background-color: #e0f2fe; }
+    
+    .bg-purple { background-color: #7c3aed; }
+    .text-purple { color: #7c3aed; }
+    .bg-purple-dot { background-color: #a78bfa; }
+    .bg-purple-light { background-color: #ede9fe; }
+    
+    .bg-amber { background-color: #d97706; }
+    .text-amber { color: #d97706; }
+    .bg-amber-dot { background-color: #fbbf24; }
+    .bg-amber-light { background-color: #fef3c7; }
+    
+    .bg-teal { background-color: #0d9488; }
+    .text-teal { color: #0d9488; }
+    .bg-teal-dot { background-color: #2dd4bf; }
+    .bg-teal-light { background-color: #ccfbf1; }
+
+    /* Metrics grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    .metric-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .metric-card:hover {
+      transform: scale(1.03);
+    }
+    
+    .metric-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+    
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e40af;
+    }
+    
+    .metric-subtitle {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.5rem;
+    }
+
+    /* Persona section */
+    .persona-section {
+      margin-top: 2rem;
+    }
+    
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .persona-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .persona-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    .persona-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+      border: 1px solid #e5e7eb;
+      height: 100%;
+    }
+    
+    .persona-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .persona-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .persona-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      flex-shrink: 0;
+    }
+    
+    .persona-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.25rem;
+    }
+    
+    .persona-subtitle {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .persona-content {
+      margin-top: 1rem;
+    }
+    
+    .persona-stat {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .persona-stat-label {
+      font-weight: 500;
+      color: #6b7280;
+    }
+    
+    .persona-stat-value {
+      font-weight: 600;
+      color: #1e40af;
+    }
+    
+    /* Persona colors */
+    .energy { background-color: #dc2626; }
+    .healthcare { background-color: #2563eb; }
+    .stem { background-color: #7c3aed; }
+    .community { background-color: #d97706; }
+    .education { background-color: #059669; }
+    .cultural { background-color: #4b5563; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-header">
+      <h1>Visit Houston Business Event Opportunity Action Plan</h1>
+      <p class="subtitle">Transformative Data-Driven Strategy for Convention Center Expansion</p>
+    </div>
+    
+    <!-- Executive Summary Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        Executive Summary
+      </h3>
+      <p>DMO InsightsLab proposes to partner with Visit Houston to drive high-value business event acquisition efforts in preparation for the upcoming expansion of the George R. Brown Convention Center. This data-driven approach will transform Visit Houston's business development from collecting leads to strategically focusing on event opportunities with the highest conversion potential and economic impact for Houston.</p>
+      
+      <p style="margin-top: 1rem;">Our proposed engagement includes:</p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+        <li><strong>Strategic Data Enrichment</strong> - Full development of Phase II Baseline Data, expanding the foundation established in our previous work</li>
+        <li><strong>IMEX Frankfurt Lead Prioritization</strong> - Strategic scoring and prioritization of contacts collected at the upcoming IMEX Frankfurt tradeshow</li>
+        <li><strong>High-Value Event Opportunity Identification</strong> - Analysis of business events aligned with Houston's six DMO personas to create a tiered targeting framework</li>
+        <li><strong>Conversion Action Plans</strong> - Customized outreach strategies for the highest-value opportunities</li>
+      </ul>
+    </div>
+    
+    <!-- Proposal Highlight Box -->
+    <div class="proposal-highlight">
+      <h3>Houston Convention Center Expansion Opportunity</h3>
+      <div class="proposal-grid">
+        <div class="proposal-item">
+          <div class="proposal-label">Opening</div>
+          <div class="proposal-value">2028</div>
+          <div>May</div>
+        </div>
+        <div class="proposal-item">
+          <div class="proposal-label">Expansion</div>
+          <div class="proposal-value">700K</div>
+          <div>Square Feet</div>
+        </div>
+        <div class="proposal-item">
+          <div class="proposal-label">Investment</div>
+          <div class="proposal-value">$32.5K</div>
+          <div>Strategic Partnership</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- The Houston Opportunity Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+        The Houston Opportunity
+      </h3>
+      
+      <p>The planned 700,000-square-foot expansion of the George R. Brown Convention Center represents a transformative moment for Houston's business events industry. With the expansion scheduled to open in May 2028, now is the critical time to:</p>
+      
+      <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0;">
+        <div style="flex: 1 1 280px; background-color: #d1fae5; padding: 1rem; border-radius: 0.5rem;">
+          <h4 style="color: #059669; margin-bottom: 0.5rem;">Key Opportunity</h4>
+          <ul style="margin-left: 1.5rem;">
+            <li>Develop a high-value event pipeline aligned with the new capabilities</li>
+            <li>Create strategic partnerships with event organizers who will benefit from the expanded facilities</li>
+          </ul>
+        </div>
+        
+        <div style="flex: 1 1 280px; background-color: #fee2e2; padding: 1rem; border-radius: 0.5rem;">
+          <h4 style="color: #dc2626; margin-bottom: 0.5rem;">The Challenge</h4>
+          <p>Houston competes in an increasingly competitive convention marketplace where cities across North America are expanding facilities and increasing marketing budgets. Without strategic prioritization of sales efforts, your team will engage with hundreds of prospects but may miss the highest-value opportunities.</p>
+        </div>
+      </div>
+      
+      <div class="strategic-section">
+        <h4 class="strategic-title">Expansion Highlights</h4>
+        <p>The Phase One development, GRB Houston South, will feature 150,000 square feet of exhibition space, a 50,000-square-foot multipurpose hall, a 25,000-square-foot atrium flex hall, and the largest ballroom in Texas (60,000-80,000 square feet) with panoramic downtown views.</p>
+      </div>
+    </div>
+    
+    <!-- Proposed Solution Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+          <path d="m15.5 9-6 6"></path>
+          <path d="m8.5 9 6 6"></path>
+        </svg>
+        Proposed Solution: Accelerate Houston's Event Acquisition Strategy
+      </h3>
+      
+      <p>DMO InsightsLab will implement our proven Event Opportunity Prioritization workflow to transform how Visit Houston approaches business event sales:</p>
+      
+      <div class="workflow-container">
+        <div class="workflow-desktop">
+          <div class="workflow-item">
+            <div class="workflow-icon-container bg-green-light">
+              <svg class="workflow-icon text-green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <div class="workflow-label bg-green-light">
+              <p class="workflow-title text-green">1. Phase II Baseline Data Development</p>
+              <p class="workflow-desc">May-June 2025</p>
+              <ul style="text-align: left; font-size: 0.8rem; margin-top: 0.5rem; list-style-position: inside;">
+                <li>Additional augmentation of baseline dataset</li>
+                <li>Clean and enrich additional event data</li>
+                <li>Enhance lead scoring model</li>
+                <li>Establish opportunity value benchmarks</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="workflow-item">
+            <div class="workflow-icon-container bg-blue-light">
+              <svg class="workflow-icon text-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+                <path d="M17.5 8a2.5 2.5 0 0 0 -2.5 -2.5"></path>
+                <path d="M19.5 9.5c1.333 1 2 2.333 2 4"></path>
+                <path d="M17 15.5c-1.333 1.667 -3 2.5 -5 2.5"></path>
+                <path d="M12 16c-3.866 0 -7 -3.134 -7 -7a7 7 0 0 1 7 -7"></path>
+              </svg>
+            </div>
+            <div class="workflow-label bg-blue-light">
+              <p class="workflow-title text-blue">2. IMEX Frankfurt Lead Prioritization</p>
+              <p class="workflow-desc">May 2025</p>
+              <ul style="text-align: left; font-size: 0.8rem; margin-top: 0.5rem; list-style-position: inside;">
+                <li>Process all contacts post-show with rapid turnaround</li>
+                <li>Deliver comprehensive scored lead list with recommended follow-up actions</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="workflow-item">
+            <div class="workflow-icon-container bg-amber-light">
+              <svg class="workflow-icon text-amber" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div class="workflow-label bg-amber-light">
+              <p class="workflow-title text-amber">3. Tiered Event Opportunity Identification</p>
+              <p class="workflow-desc">June-July 2025</p>
+              <ul style="text-align: left; font-size: 0.8rem; margin-top: 0.5rem; list-style-position: inside;">
+                <li>Analyze and score expanded dataset against Houston's six established DMO business event personas</li>
+                <li>Identify highest-value opportunities by economic impact potential</li>
+                <li>Create three-tiered targeting list with detailed opportunity profiles</li>
+                <li>Align opportunities with Houston's venue capabilities, community economic development strategies and pragmatic destination advantages</li>
+                <li>Provide seasonal timing recommendations to balance convention calendar</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="workflow-item">
+            <div class="workflow-icon-container bg-purple-light">
+              <svg class="workflow-icon text-purple" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                <path d="M3 9h18"></path>
+                <path d="M9 21V9"></path>
+              </svg>
+            </div>
+            <div class="workflow-label bg-purple-light">
+              <p class="workflow-title text-purple">4. Strategic Conversion Action Plans</p>
+              <p class="workflow-desc">July 2025</p>
+              <ul style="text-align: left; font-size: 0.8rem; margin-top: 0.5rem; list-style-position: inside;">
+                <li>Develop tailored conversion strategies</li>
+                <li>Create outreach templates and messaging</li>
+                <li>Build follow-up cadence recommendations</li>
+                <li>Establish KPIs for conversion tracking</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+          
+    <!-- Key Deliverables Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+          <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+        </svg>
+        Key Deliverables
+      </h3>
+      
+      <div class="message-list">
+
+        
+        <div class="message-item">
+          <svg class="message-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <div class="message-content">
+            <h4 class="message-title">Post-IMEX Analysis and Action Plan</h4>
+            <p class="message-desc">Data-enriched database of all contacts collected with:</p>
+            <ul style="list-style-type: disc; margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Leads scored and segmented by persona type</li>
+              <li>Economic value assessment for priority leads</li>
+              <li>Personalized messaging frameworks for high-potential contacts</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="message-item">
+          <svg class="message-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <div class="message-content">
+            <h4 class="message-title">Tiered Event Opportunity List & Targeting Strategy</h4>
+            <p class="message-desc">Comprehensive targeting strategy including:</p>
+            <ul style="list-style-type: disc; margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Three-tier targeting list with detailed profiles</li>
+              <li>Economic impact projections for each opportunity</li>
+              <li>Venue requirements and compatibility assessment</li>
+              <li>Seasonal timing recommendations</li>
+              <li>Competitive positioning analysis against other destinations</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="message-item">
+          <svg class="message-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          <div class="message-content">
+            <h4 class="message-title">Conversion Playbook</h4>
+            <p class="message-desc">Complete implementation toolkit featuring:</p>
+            <ul style="list-style-type: disc; margin-left: 1.5rem; margin-top: 0.5rem;">
+              <li>Customized outreach strategies by persona and tier</li>
+              <li>Email templates</li>
+              <li>Follow-up cadence recommendations</li>
+              <li>Objection handling guides</li>
+              <li>KPI tracking framework for conversion rate optimization</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Houston DMO Event Personas Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        Alignment with Houston DMO Event Personas
+      </h3>
+      
+      <p>Our approach leverages the six distinct DMO event personas previously established to ensure all recommendations and strategies are precisely targeted to Houston's optimal business mix:</p>
+      
+      <div class="persona-grid">
+        <!-- Energy & Industrial Conference Developer -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon energy">EID</div>
+            <div>
+              <h4 class="persona-title">Energy & Industrial Conference Developer</h4>
+              <p class="persona-subtitle">Oil & Gas, Engineering, Offshore Technology</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">6,534</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Focus on sector where Houston maintains strongest competitive advantage. Leverage expansion announcement to capture events requiring specialized exhibition space.</p>
+          </div>
+        </div>
+        
+        <!-- Healthcare Conference Organizer -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon healthcare">HCO</div>
+            <div>
+              <h4 class="persona-title">Healthcare Conference Organizer</h4>
+              <p class="persona-subtitle">Medical Research, Public Health & Clinical Practice</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">2,564</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Align with Texas Medical Center strengths and capabilities. Focus on medical research and healthcare innovation events.</p>
+          </div>
+        </div>
+        
+        <!-- STEM & Innovation Convener -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon stem">SIC</div>
+            <div>
+              <h4 class="persona-title">STEM & Innovation Convener</h4>
+              <p class="persona-subtitle">Robotics, Technology, Engineering & Innovation</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">2,370</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Capitalize on Houston's NASA connection and growing tech ecosystem. Target large-scale technology competitions and innovation showcases.</p>
+          </div>
+        </div>
+        
+        <!-- Cultural & Arts Event Producer -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon cultural">CAP</div>
+            <div>
+              <h4 class="persona-title">Cultural & Arts Event Producer</h4>
+              <p class="persona-subtitle">Arts, Entertainment, Cultural Celebrations</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">1,980</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Leverage Houston's diversity and cultural institutions. Target events seeking America's most diverse city as backdrop.</p>
+          </div>
+        </div>
+        
+        <!-- Community Engagement Facilitator -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon community">CEF</div>
+            <div>
+              <h4 class="persona-title">Community Engagement Facilitator</h4>
+              <p class="persona-subtitle">Public Services, Urban Planning & Nonprofit</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">485</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Identify opportunities aligned with Houston's community engagement priorities. Focus on events with strong local stakeholder participation.</p>
+          </div>
+        </div>
+        
+        <!-- Education Summit Planner -->
+        <div class="persona-card">
+          <div class="persona-header">
+            <div class="persona-icon education">ESP</div>
+            <div>
+              <h4 class="persona-title">Education Summit Planner</h4>
+              <p class="persona-subtitle">School Districts, Universities & Academic Conferences</p>
+            </div>
+          </div>
+          <div class="persona-content">
+            <div class="persona-stat">
+              <span class="persona-stat-label">Avg. Room Nights</span>
+              <span class="persona-stat-value">488</span>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.875rem;">Connect with Houston's educational institutions and workforce development. Target events during optimal seasonal windows (March/June).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Expected Outcomes Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v18h18"></path>
+          <path d="M18.4 9a9 9 0 0 0-6.9-4.5"></path>
+          <path d="M18.4 15a9 9 0 0 1-6.9 4.5"></path>
+        </svg>
+        Expected Outcomes
+      </h3>
+      
+      <p>Based on our experience implementing similar approaches for comparable destinations, Visit Houston can expect:</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+                        <h4 class="metric-title">Qualified Lead Conversion</h4>
+          <div class="metric-value">33-45%</div>
+          <div class="metric-subtitle">increase from IMEX Frankfurt contacts</div>
+        </div>
+        
+        <div class="metric-card">
+          <h4 class="metric-title">Lead Qualification Time</h4>
+          <div class="metric-value">80%</div>
+          <div class="metric-subtitle">reduction through automated scoring</div>
+        </div>
+        
+        <div class="metric-card">
+          <h4 class="metric-title">Sales Alignment</h4>
+          <div class="metric-value">70%</div>
+          <div class="metric-subtitle">alignment with high-value opportunities</div>
+        </div>
+        
+        <div class="metric-card">
+          <h4 class="metric-title">Future Results</h4>
+          <div class="metric-value">↑</div>
+          <div class="metric-subtitle">measurable increase in economic impact</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Investment Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        Investment
+      </h3>
+      
+      <p>Building on our previous work together, we are pleased to offer Visit Houston the following investment structure:</p>
+      
+      <table class="price-table" style="margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Investment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Phase II Baseline Data Development</td>
+            <td class="price-cell">$10,000</td>
+          </tr>
+          <tr>
+            <td>IMEX Frankfurt Lead Prioritization</td>
+            <td class="price-cell">$2,500</td>
+          </tr>
+          <tr>
+            <td>Tiered Event Opportunity Identification</td>
+            <td class="price-cell">$10,000</td>
+          </tr>
+          <tr>
+            <td>Strategic Conversion Action Plans</td>
+            <td class="price-cell">$10,000</td>
+          </tr>
+          <tr style="font-weight: 700;">
+            <td>Total Investment</td>
+            <td class="price-cell">$32,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Why DMO InsightsLab Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        Why DMO InsightsLab for Houston
+      </h3>
+      
+      <div class="benefits-list">
+        <li><span class="benefits-bullet">•</span><b>Houston Expertise:</b> Built through previous collaborations and deep analysis of Houston's business events landscape</li>
+        <li><span class="benefits-bullet">•</span><b>Proven Methodology:</b> Successfully identified high-value opportunities for multiple tier-one convention destinations</li>
+        <li><span class="benefits-bullet">•</span><b>Convention Expansion Experience:</b> Specialized expertise in helping destinations maximize expanded facilities</li>
+        <li><span class="benefits-bullet">•</span><b>Data-Driven Approach:</b> Proprietary scoring algorithms refined through years of convention sales analysis</li>
+      </div>
+    </div>
+    
+    <!-- Implementation Timeline Card -->
+    <div class="card timeline-container">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        Implementation Timeline
+      </h3>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Project Kickoff</div>
+            <p><strong>May 15, 2025</strong></p>
+            <ul>
+              <li>Finalize project scope, data requirements, team roles</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Phase II Data Development</div>
+            <p><strong>May 15-June 15, 2025</strong></p>
+            <ul>
+              <li>Data augmentation, cleansing, enrichment</li>
+              <li>Model enhancement</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">IMEX Post-Show Analysis</div>
+            <p><strong>May 30-June 10, 2025</strong></p>
+            <ul>
+              <li>Process contacts, develop prioritized follow-up strategy</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Opportunity Identification</div>
+            <p><strong>June 15-July 1, 2025</strong></p>
+            <ul>
+              <li>Analyze expanded dataset</li>
+              <li>Develop tiered targeting list</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-icon"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Conversion Planning</div>
+            <p><strong>July 1-15, 2025</strong></p>
+            <ul>
+              <li>Develop tailored conversion strategies and playbook</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Next Steps Card -->
+    <div class="card">
+      <h3 class="card-title">
+        <svg class="card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="8" y1="6" x2="21" y2="6"></line>
+          <line x1="8" y1="12" x2="21" y2="12"></line>
+          <line x1="8" y1="18" x2="21" y2="18"></line>
+          <line x1="3" y1="6" x2="3.01" y2="6"></line>
+          <line x1="3" y1="12" x2="3.01" y2="12"></line>
+          <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </svg>
+        Next Steps
+      </h3>
+      
+      <ol style="margin-left: 1.5rem;">
+        <li style="margin-bottom: 0.5rem;">Review proposal and confirm participation by May 12, 2025</li>
+        <li style="margin-bottom: 0.5rem;">Schedule project kickoff meeting for week of May 26, 2025</li>
+        <li style="margin-bottom: 0.5rem;">Begin collecting baseline data and IMEX appointment list</li>
+        <li style="margin-bottom: 0.5rem;">Finalize data sharing agreements and access protocols</li>
+      </ol>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p>Prepared exclusively for: Michael Heckman, President and CEO, Houston First Corporation</p>
+      <p style="margin-top: 0.5rem;">Prepared by: DMO InsightsLab | https://dmoinsightslab.com/</p>
+      <p style="margin-top: 0.5rem;">Date: May 1, 2025</p>
+    </div>
+  </div>
+</body>
+</html>
