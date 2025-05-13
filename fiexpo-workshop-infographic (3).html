@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Advantage Workshop: FIEXPO Latin America</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      background-color: #1e40af;
+      color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Workshop overview */
+    .overview {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .overview h2 {
+      color: #1e40af;
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+    
+    .overview p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .overview .tools {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .tool {
+      background-color: #f0f9ff;
+      border-left: 4px solid #0284c7;
+      padding: 1rem;
+      border-radius: 5px;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .tool h4 {
+      color: #0284c7;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Timeline */
+    .timeline {
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: #1e40af;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+      border-radius: 10px;
+    }
+    
+    .step {
+      position: relative;
+      margin-bottom: 4rem;
+    }
+    
+    .step:last-child {
+      margin-bottom: 0;
+    }
+    
+    .step-content {
+      position: relative;
+      width: 45%;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .step:nth-child(odd) .step-content {
+      margin-left: auto;
+    }
+    
+    .step-content::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 4px solid #1e40af;
+      border-radius: 50%;
+      z-index: 1;
+    }
+    
+    .step:nth-child(odd) .step-content::after {
+      left: -60px;
+      transform: translateY(-50%);
+    }
+    
+    .step:nth-child(even) .step-content::after {
+      right: -60px;
+      transform: translateY(-50%);
+    }
+    
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: #1e40af;
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    
+    .step-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1e40af;
+    }
+    
+    .step-time {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+    
+    .substeps {
+      margin-top: 1.5rem;
+    }
+    
+    .substep {
+      margin-bottom: 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid #e5e7eb;
+    }
+    
+    .substep-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+    
+    .prompt-box {
+      background-color: #f3f4f6;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+      border-left: 3px solid #9ca3af;
+    }
+    
+    .tip {
+      background-color: #ecfdf5;
+      border-left: 4px solid #10b981;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      border-radius: 5px;
+    }
+    
+    .tip h4 {
+      color: #10b981;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Results preview */
+    .results-preview {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .results-preview h2 {
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+    }
+    
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .preview-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .preview-header {
+      background-color: #1e40af;
+      color: white;
+      padding: 1rem;
+      font-weight: 600;
+    }
+    
+    .preview-content {
+      padding: 1rem;
+    }
+    
+    /* Success tips */
+    .success-tips {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .success-tips h2 {
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+      font-size: 1.75rem;
+    }
+    
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .tip-card {
+      background-color: #f9fafb;
+      border-radius: 8px;
+      padding: 1.5rem;
+      border-top: 3px solid #1e40af;
+    }
+    
+    .tip-number {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #1e40af;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    
+    .tip-card h3 {
+      margin-bottom: 0.75rem;
+      color: #1f2937;
+    }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2rem;
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    /* Insight box */
+    .insight-box {
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid;
+    }
+    
+    .insight-box-title {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .insight-box-title svg {
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+    
+    .bg-red-light {
+      background-color: #fee2e2;
+      border-left-color: #dc2626;
+    }
+    
+    .text-red { color: #dc2626; }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 31px;
+      }
+      
+      .step-content {
+        width: 100%;
+        padding-left: 45px;
+        padding-right: 15px;
+      }
+      
+      .step:nth-child(odd) .step-content {
+        margin-left: 0;
+      }
+      
+      .step-content::after {
+        left: 20px !important;
+      }
+      
+      .overview .tools {
+        flex-direction: column;
+      }
+    }
+
+    /* Personas section */
+    .personas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .persona-card {
+      background-color: white;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid;
+    }
+    
+    .persona-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .persona-icon {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+    
+    .persona-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    
+    .persona-percent {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .persona-desc {
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+
+    /* Alert Box */
+    .alert {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .alert-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .alert-content {
+      flex: 1;
+    }
+    
+    .alert-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    
+    .alert-message {
+      font-size: 0.875rem;
+    }
+    
+    .bg-yellow-light {
+      background-color: #fef9c3;
+    }
+    
+    .text-yellow {
+      color: #b45309;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>AI Advantage Workshop: FIEXPO Latin America</h1>
+      <p>AI-Enhanced Business Event Lead Generation for DMOs and Venues</p>
+    </div>
+    
+    <!-- Workshop overview -->
+    <div class="overview">
+      <h2>Workshop Overview</h2>
+      <p>This interactive half-day workshop equips Latin American DMOs and convention venue professionals with practical AI skills to enhance lead generation and business event sales performance. Participants will learn how to leverage AI tools to identify high-value prospects and implement data-driven strategies to close more business.</p>
+      <p><strong>Duration:</strong> 3 hours (Half-day)</p>
+      
+      <div class="tools">
+        <div class="tool">
+          <h4>Target Audience</h4>
+          <ul>
+            <li>DMO Business Events Sales Directors and Managers</li>
+            <li>Convention Venue Sales Teams</li>
+            <li>Marketing Directors and Managers</li>
+            <li>Business Development Professionals</li>
+          </ul>
+        </div>
+        <div class="tool">
+          <h4>Pre-Workshop Activities</h4>
+          <ul>
+            <li>Personal AI Readiness Assessment (distributed via QR code)</li>
+            <li>Participants to bring meeting planner guides and venue collateral</li>
+            <li>Technical preparation (ChatGPT access, laptop required)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box bg-red-light">
+      <div class="insight-box-title text-red">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        Industry Reality Check
+      </div>
+      <div class="insight-box-content">
+        Business events industry AI maturity score: 2.6/5, trailing far behind banking (4.0), manufacturing (4.2), and healthcare (3.1). This creates both a challenge and an opportunity for Latin American DMOs and venues to gain competitive advantage.
+      </div>
+    </div>
+    
+    <!-- Timeline -->
+    <div class="timeline">
+      <!-- Module 1 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">1</div>
+            <div>
+              <div class="step-name">Welcome & Introduction</div>
+              <div class="step-time">15 minutes</div>
+            </div>
+          </div>
+          
+          <p>Setting the stage with industry context and participant insights.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Welcome & Agenda Overview (5 min)</div>
+              <p>Introduction of facilitators, workshop goals, and interactive participation expectations.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Industry AI Maturity Reality Check (10 min)</div>
+              <p>Review of pre-workshop AI readiness assessment results, industry maturity comparison, and opportunity positioning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module 2 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">2</div>
+            <div>
+              <div class="step-name">The AI Revolution</div>
+              <div class="step-time">30 minutes</div>
+            </div>
+          </div>
+          
+          <p>Engaging narratives that illustrate AI's transformative potential in business contexts.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Opening Story: Innovative Problem-Solving</div>
+              <p>McDonald's milkshake story (discovering the unexpected job customers hired milkshakes to do) and connection to DMO and venue sales context.</p>
+            </div>
+          </div>
+          
+          <div class="alert bg-yellow-light" style="margin-top: 1rem;">
+            <svg class="alert-icon text-yellow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <div class="alert-content">
+              <div class="alert-title text-yellow">Strategic Element</div>
+              <div class="alert-message">Storytelling creates an engaging opening that resonates with participants and establishes the emotional foundation for learning.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module 3 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">3</div>
+            <div>
+              <div class="step-name">Hands-On Practice</div>
+              <div class="step-time">20 minutes</div>
+            </div>
+          </div>
+          
+          <p>Practical application of AI tools for networking and prospecting.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Guided Practice: AI-Enhanced Networking</div>
+              <p>Application of the 7-step networking framework to participants' real prospects with real-time AI tool assistance. Sharing examples and results with the group.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module 4 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">4</div>
+            <div>
+              <div class="step-name">The Data Imperative</div>
+              <div class="step-time">20 minutes</div>
+            </div>
+          </div>
+          
+          <p>Understanding and addressing data quality issues for AI-powered success.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Reality Check Discussion (10 min)</div>
+              <p>Interactive discussion about current data practices, challenges, and pain points.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Three Quick Wins for Better Data (10 min)</div>
+              <p>Practical examples of immediate data improvements and connection to AI enhancement.</p>
+            </div>
+          </div>
+          
+          <div class="tip">
+            <h4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Key Principle
+            </h4>
+            <p>"Good data in = good AI results out" is a fundamental principle that drives AI success in sales and marketing.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Break -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+              </svg>
+            </div>
+            <div>
+              <div class="step-name">Break</div>
+              <div class="step-time">15 minutes</div>
+            </div>
+          </div>
+          <p>Refreshment and networking opportunity.</p>
+        </div>
+      </div>
+      
+      <!-- Module 5 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">5</div>
+            <div>
+              <div class="step-name">Data-Driven Targeting Analysis</div>
+              <div class="step-time">45 minutes</div>
+            </div>
+          </div>
+          
+          <p>Leveraging AI to analyze and strategically target high-value business events.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Business Event Lead Targeting Workflow (10 min)</div>
+              <p>Introduction to the 5-step DMO/venue targeting workflow, required tools, and data sources.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Demonstration: AI-Enhanced Analysis (15 min)</div>
+              <p>Live demonstration using synthetic destination and venue data, with example prompts and outputs.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Hands-On Exercise: LATAM ICCA Event Targeting (20 min)</div>
+              <p>Practical application using real LATAM ICCA events database, creating targeted outreach strategies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module 6 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">6</div>
+            <div>
+              <div class="step-name">Building Custom GPTs</div>
+              <div class="step-time">45 minutes</div>
+            </div>
+          </div>
+          
+          <p>Creating specialized AI assistants tailored to destination and venue sales.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">Introduction to Custom GPTs (10 min)</div>
+              <p>Overview of custom GPTs and their benefits for DMOs and venues.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Live Demonstration (15 min)</div>
+              <p>Creating custom GPTs using destination and venue data, with testing of sample queries.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Planning Your Custom GPT (20 min)</div>
+              <p>Guided exercise to plan participants' own custom GPTs, with implementation timeline.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module 7 -->
+      <div class="step">
+        <div class="step-content">
+          <div class="step-title">
+            <div class="step-number">7</div>
+            <div>
+              <div class="step-name">Implementation Planning</div>
+              <div class="step-time">20 minutes</div>
+            </div>
+          </div>
+          
+          <p>Converting workshop insights into actionable implementation plans.</p>
+          
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-title">30-Day Implementation Roadmap (10 min)</div>
+              <p>Template for practical, phased implementation with focus on quick wins.</p>
+            </div>
+            
+            <div class="substep">
+              <div class="substep-title">Action Commitments (10 min)</div>
+              <p>Participants identify 3 specific actions to take in the next week.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Key Workshop Deliverables -->
+<div class="success-tips">
+  <h2>Key Workshop Deliverables</h2>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-number">1</div>
+      <h3>AI-Enhanced Networking Framework</h3>
+      <p>7-step process for using AI to prospect and connect with high-value business event clients</p>
+    </div>
+    
+    <div class="tip-card">
+      <div class="tip-number">2</div>
+      <h3>Data Quality Improvement Plan</h3>
+      <p>Simple strategies to clean and structure data for better AI-powered lead generation</p>
+    </div>
+    
+    <div class="tip-card">
+      <div class="tip-number">3</div>
+      <h3>Business Event Targeting Workflow</h3>
+      <p>5-step methodology for identifying and prioritizing high-value business events</p>
+    </div>
+    
+    <div class="tip-card">
+      <div class="tip-number">4</div>
+      <h3>Custom GPT Blueprint</h3>
+      <p>Framework for creating specialized AI assistants for destination and venue sales</p>
+    </div>
+    
+    <div class="tip-card">
+      <div class="tip-number">5</div>
+      <h3>30-Day Implementation Roadmap</h3>
+      <p>Prioritized action plan for implementing AI-enhanced lead generation strategies</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
