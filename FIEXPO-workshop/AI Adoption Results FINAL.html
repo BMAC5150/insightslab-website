@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Events Industry AI Adoption</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9fafb;
+        }
+        
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            background-color: #f9fafb;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.25rem;
+            }
+        }
+        
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        
+        h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            padding: 0 0.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        /* Card Grid */
+        .grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .grid-1-col {
+            grid-template-columns: 1fr;
+        }
+        
+        @media (min-width: 640px) {
+            .grid-2-col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .grid-3-col {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .grid-6-col {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        
+        /* Card */
+        .card {
+            background-color: white;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .icon {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+        }
+        
+        .card-title {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+        }
+        
+        /* Lists */
+        .list {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .bullet {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            margin-top: 0.375rem;
+            flex-shrink: 0;
+        }
+        
+        /* Colors */
+        .text-green { color: #059669; }
+        .text-red { color: #dc2626; }
+        .text-purple { color: #7c3aed; }
+        .text-blue { color: #2563eb; }
+        .text-yellow { color: #b45309; }
+        .text-amber { color: #d97706; }
+        .text-gray { color: #4b5563; }
+        
+        .bg-green { background-color: #059669; }
+        .bg-green-light { background-color: #d1fae5; }
+        .bg-green-dot { background-color: #34d399; }
+        
+        .bg-red { background-color: #dc2626; }
+        .bg-red-light { background-color: #fee2e2; }
+        .bg-red-dot { background-color: #f87171; }
+        
+        .bg-purple { background-color: #7c3aed; }
+        .bg-purple-light { background-color: #ede9fe; }
+        .bg-purple-dot { background-color: #a78bfa; }
+        
+        .bg-blue { background-color: #2563eb; }
+        .bg-blue-light { background-color: #e0f2fe; }
+        .bg-blue-dot { background-color: #60a5fa; }
+        
+        .bg-amber { background-color: #d97706; }
+        .bg-amber-light { background-color: #fef3c7; }
+        .bg-amber-dot { background-color: #fbbf24; }
+        
+        .bg-gray { background-color: #4b5563; }
+        .bg-gray-light { background-color: #f3f4f6; }
+        .bg-gray-dot { background-color: #9ca3af; }
+        
+        .bg-yellow-light { background-color: #fef9c3; }
+        
+        /* Charts */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 aspect ratio */
+            margin-bottom: 1.5rem;
+        }
+        
+        .pie-chart {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Stat cards */
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        /* Bar chart */
+        .bar-chart {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .bar-container {
+            margin-bottom: 1rem;
+        }
+        
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+        }
+        
+        .bar-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .bar-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .bar-bg {
+            width: 100%;
+            height: 0.75rem;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        /* Horizontal divider */
+        .divider {
+            height: 1px;
+            width: 100%;
+            background-color: #e5e7eb;
+            margin: 1.5rem 0;
+        }
+        
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .legend-color {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 0.25rem;
+        }
+        
+        /* Data grid */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .data-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Distribution bar */
+        .distribution-bar {
+            display: flex;
+            width: 100%;
+            height: 1.5rem;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            margin-bottom: 0.25rem;
+        }
+        
+        .distribution-segment {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        
+        .distribution-segment.light {
+            color: #374151;
+        }
+        
+        .distribution-segment.dark {
+            color: white;
+        }
+        
+        .distribution-label {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Events Industry AI Adoption</h1>
+        <p class="subtitle">Analysis of survey responses categorized by persona segments</p>
+
+        <!-- Overall Distribution -->
+        <div class="card">
+            <h2>Distribution of Survey Respondents by Persona</h2>
+            <div class="data-grid">
+                <div>
+                    <div class="chart-container">
+                        <svg class="pie-chart" viewBox="0 0 100 100">
+                            <!-- Pie slices -->
+                            <circle cx="50" cy="50" r="45" fill="transparent" stroke="#e5e7eb" stroke-width="1"></circle>
+                            
+                            <!-- Tech-Forward Planner (25%) -->
+                            <path d="M50,50 L95,50 A45,45 0 0,1 82.5,88.5 z" fill="#059669"></path>
+                            
+                            <!-- Pragmatic Adopter (28%) -->
+                            <path d="M50,50 L82.5,88.5 A45,45 0 0,1 17.5,88.5 z" fill="#2563eb"></path>
+                            
+                            <!-- Curious Observer (21%) -->
+                            <path d="M50,50 L17.5,88.5 A45,45 0 0,1 5,50 z" fill="#7c3aed"></path>
+                            
+                            <!-- Relationship-Focused Veteran (18%) -->
+                            <path d="M50,50 L5,50 A45,45 0 0,1 50,5 z" fill="#d97706"></path>
+                            
+                            <!-- Resource-Constrained Planner (8%) -->
+                            <path d="M50,50 L50,5 A45,45 0 0,1 95,50 z" fill="#4b5563"></path>
+                            
+                            <!-- Center circle -->
+                            <circle cx="50" cy="50" r="20" fill="white"></circle>
+                        </svg>
+                    </div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color bg-green"></div>
+                            <span>Tech-Forward Planner (25%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-blue"></div>
+                            <span>Pragmatic Adopter (28%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-purple"></div>
+                            <span>Curious Observer (21%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-amber"></div>
+                            <span>Relationship-Focused Veteran (18%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-gray"></div>
+                            <span>Resource-Constrained Planner (8%)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bar-chart">
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name text-blue">Pragmatic Adopter</span>
+                                <span class="bar-value">28%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar bg-blue" style="width: 28%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name text-green">Tech-Forward Planner</span>
+                                <span class="bar-value">25%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar bg-green" style="width: 25%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name text-purple">Curious Observer</span>
+                                <span class="bar-value">21%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar bg-purple" style="width: 21%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name text-amber">Relationship-Focused Veteran</span>
+                                <span class="bar-value">18%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar bg-amber" style="width: 18%"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name text-gray">Resource-Constrained Planner</span>
+                                <span class="bar-value">8%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar bg-gray" style="width: 8%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="list" style="margin-top: 1.5rem;">
+                        <p style="margin-bottom: 0.5rem;">• The <span class="text-blue">Pragmatic Adopter</span> is the most common persona (28% of respondents)</p>
+                        <p style="margin-bottom: 0.5rem;">• The <span class="text-green">Tech-Forward Planner</span> is a close second (25% of respondents)</p>
+                        <p style="margin-bottom: 0.5rem;">• <span class="text-purple">Curious Observers</span> represent 21% of the sample</p>
+                        <p style="margin-bottom: 0.5rem;">• <span class="text-amber">Relationship-Focused Veterans</span> represent 18%</p>
+                        <p style="margin-bottom: 0.5rem;">• <span class="text-gray">Resource-Constrained Planners</span> account for 8% of responses</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Statistics by Persona -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>Key AI Adoption Metrics by Persona</h2>
+            
+            <div class="grid grid-1-col">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                        <thead>
+                            <tr>
+                                <th style="padding: 1rem; text-align: left; background-color: #f3f4f6; border: 1px solid #e5e7eb;">Metrics</th>
+                                <th style="padding: 1rem; text-align: center; background-color: #d1fae5; border: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        <svg class="icon text-green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                                            <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                                            <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                                            <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                                            <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                                            <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                                        </svg>
+                                        <span class="text-green">Tech-Forward Planner (25%)</span>
+                                    </div>
+                                </th>
+                                <th style="padding: 1rem; text-align: center; background-color: #e0f2fe; border: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        <svg class="icon text-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                        </svg>
+                                        <span class="text-blue">Pragmatic Adopter (28%)</span>
+                                    </div>
+                                </th>
+                                <th style="padding: 1rem; text-align: center; background-color: #ede9fe; border: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        <svg class="icon text-purple" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                            <path d="M7 16.3c0-.2 0-.5.1-.7a3.5 3.5 0 0 1 5-1.4 3.5 3.5 0 0 1 4.8.1c.1.2.1.5.1.7"></path>
+                                        </svg>
+                                        <span class="text-purple">Curious Observer (21%)</span>
+                                    </div>
+                                </th>
+                                <th style="padding: 1rem; text-align: center; background-color: #fef3c7; border: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        <svg class="icon text-amber" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17 18a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12z"></path>
+                                            <path d="M17 14H9"></path>
+                                            <path d="M8 4h8"></path>
+                                            <path d="M13 4v4"></path>
+                                            <path d="m9 10.5 2.45 2.45c.2.2.5.2.7 0L14.5 10.5"></path>
+                                        </svg>
+                                        <span class="text-amber">Relationship-Focused Veteran (18%)</span>
+                                    </div>
+                                </th>
+                                <th style="padding: 1rem; text-align: center; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+                                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                        <svg class="icon text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                        </svg>
+                                        <span class="text-gray">Resource-Constrained Planner (8%)</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid #e5e7eb;"><strong>Currently Using AI</strong></td>
+                                <td style="padding: 1rem; text-align: center; background-color: #d1fae5; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-green">100%</div>
+                                    <div class="stat-label">Using AI regularly</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #e0f2fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-blue">100%</div>
+                                    <div class="stat-label">Using AI selectively</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #ede9fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-purple">0%</div>
+                                    <div class="stat-label">Not currently using</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #fef3c7; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-amber">8%</div>
+                                    <div class="stat-label">Limited usage</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-gray">13%</div>
+                                    <div class="stat-label">Limited due to resources</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid #e5e7eb;"><strong>Productivity Improvement</strong></td>
+                                <td style="padding: 1rem; text-align: center; background-color: #d1fae5; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-green">32%</div>
+                                    <div class="stat-label">Average improvement</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #e0f2fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-blue">19%</div>
+                                    <div class="stat-label">Average improvement</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #ede9fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-purple">N/A</div>
+                                    <div class="stat-label">Not yet using AI</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #fef3c7; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-amber">8%</div>
+                                    <div class="stat-label">Average improvement</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-gray">14%</div>
+                                    <div class="stat-label">Average improvement</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid #e5e7eb;"><strong>Likely to Expand AI Use (0-12 mo)</strong></td>
+                                <td style="padding: 1rem; text-align: center; background-color: #d1fae5; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-green">94%</div>
+                                    <div class="stat-label">Expansion plans</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #e0f2fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-blue">77%</div>
+                                    <div class="stat-label">Selective expansion</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #ede9fe; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-purple">72%</div>
+                                    <div class="stat-label">Planning to adopt</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #fef3c7; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-amber">31%</div>
+                                    <div class="stat-label">Cautious interest</div>
+                                </td>
+                                <td style="padding: 1rem; text-align: center; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+                                    <div class="stat-value text-gray">58%</div>
+                                    <div class="stat-label">Budget-dependent plans</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 1rem; border: 1px solid #e5e7eb;"><strong>Top AI Use Cases</strong></td>
+                                <td style="padding: 1rem; background-color: #d1fae5; border: 1px solid #e5e7eb;">
+                                    <ul class="list" style="list-style: none; padding-left: 0;">
+                                        <li class="list-item">
+                                            <div class="bullet bg-green-dot"></div>
+                                            <span>Content creation (83%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-green-dot"></div>
+                                            <span>Marketing (76%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-green-dot"></div>
+                                            <span>Analytics (59%)</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="padding: 1rem; background-color: #e0f2fe; border: 1px solid #e5e7eb;">
+                                    <ul class="list" style="list-style: none; padding-left: 0;">
+                                        <li class="list-item">
+                                            <div class="bullet bg-blue-dot"></div>
+                                            <span>Scheduling (72%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-blue-dot"></div>
+                                            <span>Budget tracking (68%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-blue-dot"></div>
+                                            <span>Marketing (54%)</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="padding: 1rem; background-color: #ede9fe; border: 1px solid #e5e7eb;">
+                                    <ul class="list" style="list-style: none; padding-left: 0;">
+                                        <li class="list-item">
+                                            <div class="bullet bg-purple-dot"></div>
+                                            <span>Planned: Content (68%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-purple-dot"></div>
+                                            <span>Planned: Chatbots (54%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-purple-dot"></div>
+                                            <span>Planned: Scheduling (49%)</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="padding: 1rem; background-color: #fef3c7; border: 1px solid #e5e7eb;">
+                                    <ul class="list" style="list-style: none; padding-left: 0;">
+                                        <li class="list-item">
+                                            <div class="bullet bg-amber-dot"></div>
+                                            <span>Backend operations (73%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-amber-dot"></div>
+                                            <span>Administrative tasks (65%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-amber-dot"></div>
+                                            <span>Data analysis (38%)</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td style="padding: 1rem; background-color: #f3f4f6; border: 1px solid #e5e7eb;">
+                                    <ul class="list" style="list-style: none; padding-left: 0;">
+                                        <li class="list-item">
+                                            <div class="bullet bg-gray-dot"></div>
+                                            <span>Multi-purpose tools (93%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-gray-dot"></div>
+                                            <span>Cost-effective solutions (96%)</span>
+                                        </li>
+                                        <li class="list-item">
+                                            <div class="bullet bg-gray-dot"></div>
+                                            <span>Low training needs (85%)</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requested Support & Resources -->
+        <div class="card bg-yellow-light" style="margin-top: 2rem;">
+            <h2 class="text-yellow" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                Requested Support & Resources by Persona
+            </h2>
+            <div class="grid grid-1-col grid-2-col" style="gap: 1.5rem;">
+                <div>
+                    <div class="bar-chart">
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name">Training & Education</span>
+                                <span class="bar-value">76%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar" style="width: 76%; background: linear-gradient(to right, #059669, #2563eb, #7c3aed, #d97706)"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name">Implementation Guides</span>
+                                <span class="bar-value">64%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar" style="width: 64%; background: linear-gradient(to right, #059669, #2563eb, #7c3aed, #d97706)"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name">Technical Support</span>
+                                <span class="bar-value">58%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar" style="width: 58%; background: linear-gradient(to right, #059669, #2563eb, #7c3aed, #d97706)"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name">Financial Resources</span>
+                                <span class="bar-value">46%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar" style="width: 46%; background: linear-gradient(to right, #059669, #2563eb, #7c3aed, #d97706)"></div>
+                            </div>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-label">
+                                <span class="bar-name">Use Case Examples</span>
+                                <span class="bar-value">41%</span>
+                            </div>
+                            <div class="bar-bg">
+                                <div class="bar" style="width: 41%; background: linear-gradient(to right, #059669, #2563eb, #7c3aed, #d97706)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-yellow">Support Preferences by Persona</h3>
+                    <div class="list" style="margin-top: 0.75rem;">
+                        <p style="margin-bottom: 0.75rem;"><strong class="text-green">Tech-Forward Planner:</strong> Prioritizes integration support (56%), advanced training (59%), and AI implementation (48%)</p>
+                        
+                        <p style="margin-bottom: 0.75rem;"><strong class="text-blue">Pragmatic Adopter:</strong> Values proven use cases (78%), cost-benefit analyses (73%), and implementation guides (65%)</p>
+                        
+                        <p style="margin-bottom: 0.75rem;"><strong class="text-purple">Curious Observer:</strong> Needs beginner-level training (91%), tool recommendations (83%), and hands-on experience (79%)</p>
+                        
+                        <p style="margin-bottom: 0.75rem;"><strong class="text-amber">Relationship-Focused Veteran:</strong> Seeks relationship enhancement examples (68%), peer testimonials (54%), and guidance on maintaining personal touch (92%)</p>
+                        
+                        <p style="margin-bottom: 0.75rem;"><strong class="text-gray">Resource-Constrained Planner:</strong> Desires affordable solutions (92%), multi-functionality (93%), and self-service guides (85%)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Experience Level Breakdown -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>Experience Level Distribution by Persona</h2>
+            
+            <div class="grid grid-1-col grid-2-col" style="gap: 1.5rem;">
+                <div>
+                    <h3>Years of Experience Distribution</h3>
+                    <div style="margin-top: 1rem;">
+                        <!-- Tech-Forward Planner -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #059669; border-radius: 0.25rem;"></div>
+                                <span class="text-green" style="font-weight: 500;">Tech-Forward Planner</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-green-light" style="width: 15%;">15%</div>
+                                <div class="distribution-segment bg-green dark" style="width: 60%;">60%</div>
+                                <div class="distribution-segment bg-green-light" style="width: 25%;">25%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;5 years</span>
+                                <span>5-15 years</span>
+                                <span>15+ years</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Pragmatic Adopter -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #2563eb; border-radius: 0.25rem;"></div>
+                                <span class="text-blue" style="font-weight: 500;">Pragmatic Adopter</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-blue-light" style="width: 8%;">8%</div>
+                                <div class="distribution-segment bg-blue dark" style="width: 67%;">67%</div>
+                                <div class="distribution-segment bg-blue-light" style="width: 25%;">25%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;5 years</span>
+                                <span>5-15 years</span>
+                                <span>15+ years</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Curious Observer -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #7c3aed; border-radius: 0.25rem;"></div>
+                                <span class="text-purple" style="font-weight: 500;">Curious Observer</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-purple dark" style="width: 42%;">42%</div>
+                                <div class="distribution-segment bg-purple-light" style="width: 48%;">48%</div>
+                                <div class="distribution-segment bg-purple dark" style="width: 10%;">10%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;5 years</span>
+                                <span>5-15 years</span>
+                                <span>15+ years</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Relationship-Focused Veteran -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #d97706; border-radius: 0.25rem;"></div>
+                                <span class="text-amber" style="font-weight: 500;">Relationship-Focused Veteran</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-amber-light" style="width: 5%;">5%</div>
+                                <div class="distribution-segment bg-amber-light" style="width: 18%;">18%</div>
+                                <div class="distribution-segment bg-amber dark" style="width: 77%;">77%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;5 years</span>
+                                <span>5-15 years</span>
+                                <span>15+ years</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource-Constrained Planner -->
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #4b5563; border-radius: 0.25rem;"></div>
+                                <span class="text-gray" style="font-weight: 500;">Resource-Constrained Planner</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-gray-light" style="width: 25%;">25%</div>
+                                <div class="distribution-segment bg-gray dark" style="width: 60%;">60%</div>
+                                <div class="distribution-segment bg-gray-light" style="width: 15%;">15%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;5 years</span>
+                                <span>5-15 years</span>
+                                <span>15+ years</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Event Size Distribution</h3>
+                    <div style="margin-top: 1rem;">
+                        <!-- Tech-Forward Planner -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #059669; border-radius: 0.25rem;"></div>
+                                <span class="text-green" style="font-weight: 500;">Tech-Forward Planner</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-green-light" style="width: 12%;">12%</div>
+                                <div class="distribution-segment bg-green-light" style="width: 30%;">30%</div>
+                                <div class="distribution-segment bg-green dark" style="width: 58%;">58%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;100 attendees</span>
+                                <span>100-500 attendees</span>
+                                <span>500+ attendees</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Pragmatic Adopter -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #2563eb; border-radius: 0.25rem;"></div>
+                                <span class="text-blue" style="font-weight: 500;">Pragmatic Adopter</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-blue-light" style="width: 23%;">23%</div>
+                                <div class="distribution-segment bg-blue dark" style="width: 62%;">62%</div>
+                                <div class="distribution-segment bg-blue-light" style="width: 15%;">15%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;100 attendees</span>
+                                <span>100-500 attendees</span>
+                                <span>500+ attendees</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Curious Observer -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #7c3aed; border-radius: 0.25rem;"></div>
+                                <span class="text-purple" style="font-weight: 500;">Curious Observer</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-purple dark" style="width: 54%;">54%</div>
+                                <div class="distribution-segment bg-purple-light" style="width: 35%;">35%</div>
+                                <div class="distribution-segment bg-purple-light" style="width: 11%;">11%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;100 attendees</span>
+                                <span>100-500 attendees</span>
+                                <span>500+ attendees</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Relationship-Focused Veteran -->
+                        <div style="margin-bottom: 1.25rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #d97706; border-radius: 0.25rem;"></div>
+                                <span class="text-amber" style="font-weight: 500;">Relationship-Focused Veteran</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-amber-light" style="width: 14%;">14%</div>
+                                <div class="distribution-segment bg-amber-light" style="width: 26%;">26%</div>
+                                <div class="distribution-segment bg-amber dark" style="width: 60%;">60%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;100 attendees</span>
+                                <span>100-500 attendees</span>
+                                <span>500+ attendees</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Resource-Constrained Planner -->
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <div style="width: 1rem; height: 1rem; background-color: #4b5563; border-radius: 0.25rem;"></div>
+                                <span class="text-gray" style="font-weight: 500;">Resource-Constrained Planner</span>
+                            </div>
+                            <div class="distribution-bar">
+                                <div class="distribution-segment bg-gray dark" style="width: 84%;">84%</div>
+                                <div class="distribution-segment bg-gray-light" style="width: 16%;">16%</div>
+                                <div class="distribution-segment bg-gray-light" style="width: 0%;">0%</div>
+                            </div>
+                            <div class="distribution-label">
+                                <span>&lt;100 attendees</span>
+                                <span>100-500 attendees</span>
+                                <span>500+ attendees</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Insights -->
+        <div class="card bg-blue-light" style="margin-top: 2rem;">
+            <h2 class="text-blue" style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg style="width: 1.5rem; height: 1.5rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                </svg>
+                Key Insights from Survey Data
+            </h2>
+            <div class="grid grid-1-col grid-2-col" style="gap: 1.5rem;">
+                <div>
+                    <h3 class="text-blue">Adoption Trends</h3>
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>The Pragmatic Adopter is the most common persona (28%), indicating a value-focused industry approach to AI adoption</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>Tech-Forward Planners report productivity improvements up to 32%, highlighting AI's potential value in event planning</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>Content creation (83%) and marketing (76%) are the most common AI applications, showing initial focus on creative tasks</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>73% of survey respondents (across all personas) plan to increase AI use in the next 12 months</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-blue">Implementation Challenges</h3>
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>Training and education is the most requested resource (76%), indicating widespread knowledge gaps</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>Experience correlates with adoption approach - veterans often either embrace tech (Tech-Forward) or resist it (Relationship-Focused)</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>Event size impacts technology adoption - larger events (500+ attendees) correlate with higher AI usage</span>
+                        </li>
+                        <li class="list-item">
+                            <div class="bullet bg-blue-dot"></div>
+                            <span>The industry shows classic late-adopter characteristics compared to sectors like manufacturing and banking</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
