@@ -404,8 +404,7 @@
                 <a href="index.html" class="back-to-blog">← Back to Blog</a>
             </div>
         </div>
-    </section>
-    
+
                  <!-- Email Signup Box -->
                 <div class="signup-box">
                     <h3>Never Miss an Update</h3>
@@ -415,20 +414,30 @@
                  <!-- End JotForm Embed -->
                     <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
                 </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="#about">About Us</a>
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="../index.html#contact-form">Contact</a>
+                
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h3>Join the Conversation</h3>
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = window.location.href;
+                            this.page.identifier = window.location.pathname;
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://insightslab.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                </div>
+                
+                <a href="index.html" class="back-to-blog">← Back to Blog</a>
             </div>
-            <p class="copyright">© 2025 Insights Lab. All rights reserved.</p>
         </div>
-    </footer>
+    </section>
 
     <!-- JavaScript for mobile menu toggle -->
     <script>
