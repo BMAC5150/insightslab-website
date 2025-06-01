@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIEXPO Workshop Participant Content Resources</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+        }
+        
+        /* Header styles */
+        .page-header {
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+        
+        .page-header h1 {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Content styles */
+        .page-content {
+            padding: 60px 0;
+        }
+        
+        /* Resource links */
+        .resource-links {
+            margin-top: 40px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-color-bar {
+            height: 8px;
+            background-color: #FF8C00;
+        }
+        
+        .resource-content {
+            padding: 25px;
+            flex-grow: 1;
+        }
+        
+        .resource-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #531b93;
+        }
+        
+        .resource-description {
+            margin-bottom: 20px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-link:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+       /* Call to action */
+        .cta {
+            background-color: #531b93;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .cta-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-message {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #e67e00;
+            color: #f3f4f6;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        
+        .cta-button:hover {
+            background-color: #e67e00;
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #1e40af;
+                flex-direction: column;
+                padding: 20px 0;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">   
+                <h1>insightslab</h1>
+            </div>
+            <!-- Add menu toggle button for mobile -->
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="https://dmoinsightslab.com/">Home</a>
+                <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+                <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+                <a href="https://dmoinsightslab.com/#team">Team</a>
+                <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+        
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>FIEXPO ICCA Advantage Workshop Participant Resources</h1>
+            <p>PRE-WORK and resources to prepare participants including insights from Soundings/InslightsLab comprehensive survey of EventProfs</p>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="page-content">
+        <div class="container">
+
+            <!-- Key Insights Box -->
+            <div style="background-color: #f0f9ff; border-radius: 0.5rem; padding: 1.5rem; margin-top: 3rem; border-left: 4px solid #531b93;">
+                <h2 style="color: #531b93; margin-bottom: 1rem;">Why You Need to Attend This Workshop</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.75rem; display: flex; align-items: flex-start;">
+                        <span style="color: #531b93; font-weight: bold; margin-right: 0.5rem;">•</span> 
+                        <span><strong>Industry AI Maturity Score: 2.6/5:</strong> Business events industry trails behind banking (4.0), manufacturing (4.2), and even healthcare (3.1). Your ability to meet clients' rising AI expectations will give you a sales competitive advantage.</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Resource Links -->
+            <div class="resource-links">
+                <!-- Resource 1 - Personal AI Assessment -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">PRE-WORK: Benchmark Your AI Mindset</h3>
+                        <p class="resource-description">Take a quick, simple ten-question CONFIDENTIAL personal assessment of your outlook on AI as compared to the general workforce. We will discuss results during the workshop. Requires a ChatGPT account. </p>
+                        <a href="https://chatgpt.com/g/g-6739e69cf3e08191b1db0b9a596a62bc-ai-self-assessment-tool-2-0" class="resource-link" target="_blank" rel="noopener noreferrer">TAKE THE ASSESSMENT</a>
+                    </div>
+                </div>                
+                
+                <!-- Resource 2 - ICCA Workshop Outline -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">FIEXPO ICCA Advantage Workshop Outline</h3>
+                        <p class="resource-description">A half-day in-person workshop that will show you how to use available AI tools to increase your business event sales in 90 days.</p>
+                        <a href="fiexpo-workshop-infographic.html" class="resource-link">VIEW OUTLINE</a>
+                    </div>
+                </div>
+
+            <!-- Resource 2 - AI Adoption Results -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Business Events Industry AI Adoption Survey Results</h3>
+                        <p class="resource-description">Comprehensive analysis of Soundings/InsightsLab industry-wide survey of AI adoption rates, usage patterns, and productivity improvements across different business event professional personas. This dashboard reveals statistical insights, key metrics, and implementation preferences by persona segment.</p>
+                        <a href="AI Adoption Results FINAL.html" class="resource-link">VIEW INSIGHTS</a>
+                    </div>
+                </div>
+                
+                <!-- Resource 3 - Provocative Survey Insights -->
+                <div class="resource-card">
+                    <div class="resource-color-bar"></div>
+                    <div class="resource-content">
+                        <h3 class="resource-title">Business Events Industry AI Adoption: Insights on the State of the Industry</h3>
+                        <p class="resource-description">Compelling insights from Soundings/InsightsLab industry-wide survey revealing critical challenges and opportunities for business event professionals. This analysis highlights industry maturity gaps and training imperatives.</p>
+                        <a href="Provocative Survey Insights FINAL.HTML" class="resource-link">VIEW INSIGHTS</a>
+                    </div>
+                </div>
+              </div>
+
+        <!-- Call to Action -->
+        <div class="cta">
+            <div class="cta-title">Grow Your Business with AI in 90 Days</div>
+            <div class="cta-message">The FIEXPO ICCA Advantage Workshop will show you how to do it.</div>
+            <a href="https://events.iccaworld.org/iccaadvantage-ai-fiexpo2025/registration/Site/Register" class="cta-button">REGISTER FOR THE WORKSHOP</a>
+            <p class="copyright">© 2025 Powered by InsightsLab.</p>
+        </div>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
