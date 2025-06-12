@@ -1,152 +1,326 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Medellin DMO Project Gantt Chart</title>
+    <title>Medellin Project Gantt Chart - InsightsLab</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
+            line-height: 1.6;
         }
         .container {
             background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .brand-tag {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
         }
         h1 {
-            color: #333;
-            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 3.2em;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .tagline {
+            color: #2a5298;
+            font-size: 1.4em;
+            font-weight: 600;
             margin-bottom: 30px;
-            font-size: 2.5em;
         }
         .project-info {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 45px;
+            border: 2px solid #e2e8f0;
+        }
+        .project-info h3 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+        .project-description {
+            color: #475569;
+            font-size: 17px;
             margin-bottom: 30px;
-            border-left: 4px solid #007bff;
+            line-height: 1.7;
         }
         .download-section {
             text-align: center;
-            margin: 30px 0;
+            margin: 50px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 20px;
+            color: white;
+        }
+        .download-section h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+        .download-section p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-size: 1.1em;
         }
         .download-btn {
-            background: #28a745;
-            color: white;
-            padding: 15px 30px;
+            background: white;
+            color: #1e3c72;
+            padding: 18px 36px;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            margin: 10px;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            margin: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
         .download-btn:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+        }
+        .preview-section h3 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
         }
         .preview-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 12px;
-        }
-        .preview-table th, .preview-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+            margin-top: 30px;
+            font-size: 14px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
         .preview-table th {
-            background-color: #f2f2f2;
-            font-weight: bold;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 16px;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 13px;
         }
-        .phase-0 { background-color: #f8f9fa; }
-        .phase-1 { background-color: #e3f2fd; }
-        .phase-2 { background-color: #e8f5e8; }
-        .phase-3 { background-color: #f3e5f5; }
-        .phase-4 { background-color: #fff3e0; }
-        .phase-5 { background-color: #e0f2f1; }
+        .preview-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        .preview-table tr:hover {
+            background-color: #f8fafc;
+            transition: background-color 0.2s ease;
+        }
+        .preview-table tr:last-child td {
+            border-bottom: none;
+        }
+        .phase-0 { background-color: rgba(107, 114, 128, 0.08); }
+        .phase-1 { background-color: rgba(30, 60, 114, 0.08); }
+        .phase-2 { background-color: rgba(16, 185, 129, 0.08); }
+        .phase-3 { background-color: rgba(139, 92, 246, 0.08); }
+        .phase-4 { background-color: rgba(245, 158, 11, 0.08); }
+        .phase-5 { background-color: rgba(34, 197, 94, 0.08); }
         .gantt-cell {
-            background-color: #007bff;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             text-align: center;
             font-weight: bold;
+            border-radius: 6px;
+            padding: 8px;
         }
         .partial-cell {
-            background: linear-gradient(to right, #007bff 50%, transparent 50%);
+            background: linear-gradient(to right, #1e3c72 50%, #e2e8f0 50%);
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
         }
         .info-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
         }
         .info-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #007bff;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #1e3c72;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .info-card strong {
+            color: #1e3c72;
+            font-weight: 600;
+        }
+        .value-prop {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #f59e0b;
+        }
+        .value-prop h4 {
+            color: #92400e;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .value-prop p {
+            color: #78350f;
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-top: 4px solid #1e3c72;
+        }
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 800;
+            color: #1e3c72;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .phase-name {
+            font-weight: 700;
+            color: #1e3c72;
+            font-size: 15px;
+        }
+        .hours-cell {
+            text-align: center;
+            font-weight: 700;
+            color: #2a5298;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📊 Medellin DMO Project Gantt Chart</h1>
+        <div class="header">
+            <div class="brand-tag">by InsightsLab</div>
+            <h1>🎯 DMO Project Gantt Chart</h1>
+            <div class="tagline">Effective. Fast. No heavy-lifting.</div>
+        </div>
         
         <div class="project-info">
-            <h3>🎯 Project Overview</h3>
+            <h3>📊 85-Hour Enhanced Discovery Methodology</h3>
+            <p class="project-description">
+                Our purpose-built approach delivers clear, actionable insights without requiring new infrastructure or data expertise. 
+                Unlike generic consulting engagements, this methodology reveals hidden opportunities and optimizes resources for maximum ROI.
+            </p>
             <div class="info-grid">
                 <div class="info-card">
-                    <strong>Total Duration:</strong> 4 weeks<br>
-                    <strong>Total Hours:</strong> 85 hours<br>
-                    <strong>Client:</strong> Medellin Colombia Convention Bureau
+                    <strong>Project Scope:</strong> 4 weeks, 85 hours<br>
+                    <strong>Approach:</strong> Survey-Enhanced Discovery<br>
+                    <strong>Client:</strong> Medellin Colombia DMO
                 </div>
                 <div class="info-card">
                     <strong>Phases:</strong> 6 phases (0-5)<br>
-                    <strong>Approach:</strong> Survey-Enhanced Discovery<br>
-                    <strong>Deliverable:</strong> AI Data Audit & Roadmap
+                    <strong>Focus:</strong> Business-prioritized insights<br>
+                    <strong>Outcome:</strong> AI-ready data strategy
                 </div>
+            </div>
+            
+            <div class="value-prop">
+                <h4>🚀 Why This Approach Works</h4>
+                <p>By frontloading discovery with stakeholder surveys, we ensure every consulting hour focuses on your highest-impact business priorities. Start seeing results in 90 days with concrete ROI metrics and implementation roadmaps.</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">85</div>
+                <div class="stat-label">Total Hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Phases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Weeks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3x</div>
+                <div class="stat-label">Higher Adoption</div>
             </div>
         </div>
 
         <div class="download-section">
-            <h3>📥 Download Project Schedule</h3>
+            <h3>📥 Professional Project Templates</h3>
+            <p>Download ready-to-use Excel templates for your next DMO engagement</p>
             <button class="download-btn" onclick="downloadGanttChart()">
-                📊 Download Excel Gantt Chart
+                📊 Gantt Chart Template
             </button>
             <button class="download-btn" onclick="downloadTaskList()">
-                📋 Download Task List
+                📋 Detailed Task List
             </button>
             <button class="download-btn" onclick="downloadResourcePlan()">
-                👥 Download Resource Plan
+                👥 Resource Allocation Plan
             </button>
         </div>
 
-        <h3>📅 Project Timeline Preview</h3>
-        <table class="preview-table" id="previewTable">
-            <thead>
-                <tr>
-                    <th>Phase</th>
-                    <th>Task</th>
-                    <th>Hours</th>
-                    <th>Week 1</th>
-                    <th>Week 2</th>
-                    <th>Week 3</th>
-                    <th>Week 4</th>
-                    <th>Deliverable</th>
-                </tr>
-            </thead>
-            <tbody id="ganttTableBody">
-                <!-- Table content will be generated by JavaScript -->
-            </tbody>
-        </table>
+        <div class="preview-section">
+            <h3>📅 Project Execution Timeline</h3>
+            <table class="preview-table" id="previewTable">
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Key Activities</th>
+                        <th>Hours</th>
+                        <th>Week 1</th>
+                        <th>Week 2</th>
+                        <th>Week 3</th>
+                        <th>Week 4</th>
+                        <th>Business Value</th>
+                    </tr>
+                </thead>
+                <tbody id="ganttTableBody">
+                    <!-- Table content will be generated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
@@ -159,12 +333,13 @@
                     duration: 16,
                     startWeek: 1,
                     endWeek: 1,
-                    color: "#6c757d",
+                    color: "#6b7280",
                     tasks: [
-                        { name: "Stakeholder engagement & framework establishment", hours: 8, start: 1, duration: 0.5 },
-                        { name: "Preliminary data discovery", hours: 8, start: 1, duration: 0.5 }
+                        { name: "Stakeholder alignment & project framework", hours: 8, start: 1, duration: 0.5 },
+                        { name: "System discovery & audit methodology setup", hours: 8, start: 1, duration: 0.5 }
                     ],
-                    deliverables: "Project charter, stakeholder plan, system inventory"
+                    deliverables: "Project charter, stakeholder engagement plan, high-level system inventory",
+                    businessValue: "Foundation for targeted, efficient audit execution"
                 },
                 {
                     phase: "Phase 1",
@@ -172,14 +347,15 @@
                     duration: 10,
                     startWeek: 1,
                     endWeek: 2,
-                    color: "#007bff",
+                    color: "#1e3c72",
                     tasks: [
-                        { name: "Deploy bilingual survey", hours: 2, start: 1.5, duration: 0.25 },
-                        { name: "Monitor responses & follow-ups", hours: 3, start: 1.75, duration: 0.5 },
-                        { name: "Data collection & cleaning", hours: 2, start: 2, duration: 0.25 },
-                        { name: "Initial analysis & priority ranking", hours: 3, start: 2.25, duration: 0.25 }
+                        { name: "Deploy bilingual stakeholder survey", hours: 2, start: 1.5, duration: 0.25 },
+                        { name: "Response monitoring & targeted follow-ups", hours: 3, start: 1.75, duration: 0.5 },
+                        { name: "Data aggregation & quality validation", hours: 2, start: 2, duration: 0.25 },
+                        { name: "Business priority analysis & quick wins identification", hours: 3, start: 2.25, duration: 0.25 }
                     ],
-                    deliverables: "Survey dataset, priority matrix, quick wins report"
+                    deliverables: "Survey response dataset, business priority matrix, pain point analysis",
+                    businessValue: "Ensures all audit activities focus on highest business impact areas"
                 },
                 {
                     phase: "Phase 2",
@@ -187,12 +363,13 @@
                     duration: 24,
                     startWeek: 2,
                     endWeek: 3,
-                    color: "#28a745",
+                    color: "#10b981",
                     tasks: [
-                        { name: "Business-prioritized data asset inventory", hours: 12, start: 2.5, duration: 0.75 },
-                        { name: "Stakeholder & actor ecosystem mapping", hours: 12, start: 3, duration: 0.75 }
+                        { name: "Business-prioritized comprehensive data asset catalog", hours: 12, start: 2.5, duration: 0.75 },
+                        { name: "Stakeholder ecosystem mapping & governance analysis", hours: 12, start: 3, duration: 0.75 }
                     ],
-                    deliverables: "Data asset catalog, ecosystem map, governance matrix"
+                    deliverables: "Prioritized data asset catalog, ecosystem map, governance responsibility matrix",
+                    businessValue: "Focus on data assets supporting stated business goals vs technical completeness"
                 },
                 {
                     phase: "Phase 3",
@@ -200,12 +377,13 @@
                     duration: 20,
                     startWeek: 3,
                     endWeek: 3,
-                    color: "#6f42c1",
+                    color: "#8b5cf6",
                     tasks: [
                         { name: "Decision-process data flow mapping", hours: 10, start: 3.25, duration: 0.5 },
-                        { name: "Value exchange documentation", hours: 10, start: 3.75, duration: 0.25 }
+                        { name: "Value exchange documentation & bottleneck analysis", hours: 10, start: 3.75, duration: 0.25 }
                     ],
-                    deliverables: "Data flow maps, value analysis, bottleneck identification"
+                    deliverables: "Decision-centric flow maps, value creation analysis, process bottlenecks",
+                    businessValue: "Addresses specific user pain points and decision-making challenges"
                 },
                 {
                     phase: "Phase 4",
@@ -213,12 +391,13 @@
                     duration: 10,
                     startWeek: 4,
                     endWeek: 4,
-                    color: "#fd7e14",
+                    color: "#f59e0b",
                     tasks: [
-                        { name: "Survey-validated quality assessment", hours: 6, start: 4, duration: 0.25 },
-                        { name: "ROI-focused gap analysis", hours: 4, start: 4.25, duration: 0.25 }
+                        { name: "Survey-validated quality issue assessment", hours: 6, start: 4, duration: 0.25 },
+                        { name: "ROI-focused improvement prioritization", hours: 4, start: 4.25, duration: 0.25 }
                     ],
-                    deliverables: "Quality assessment, impact analysis, ROI priorities"
+                    deliverables: "Quality validation report, business impact analysis, ROI-prioritized opportunities",
+                    businessValue: "Concrete cost justification for data investments based on user-reported impacts"
                 },
                 {
                     phase: "Phase 5",
@@ -226,12 +405,13 @@
                     duration: 5,
                     startWeek: 4,
                     endWeek: 4,
-                    color: "#20c997",
+                    color: "#22c55e",
                     tasks: [
-                        { name: "Synthesis & stakeholder summaries", hours: 3, start: 4.5, duration: 0.25 },
+                        { name: "Stakeholder-specific recommendation synthesis", hours: 3, start: 4.5, duration: 0.25 },
                         { name: "Implementation roadmap & ROI projections", hours: 2, start: 4.75, duration: 0.25 }
                     ],
-                    deliverables: "Executive summary, detailed recommendations, implementation roadmap"
+                    deliverables: "Executive summary, detailed recommendations, implementation roadmap with metrics",
+                    businessValue: "Recommendations address stakeholder needs, ensuring high adoption rates"
                 }
             ]
         };
@@ -262,11 +442,11 @@
                     }
                     
                     row.innerHTML = `
-                        <td>${taskIndex === 0 ? phase.phase : ''}</td>
+                        <td class="phase-name">${taskIndex === 0 ? phase.phase : ''}</td>
                         <td>${task.name}</td>
-                        <td>${task.hours}h</td>
+                        <td class="hours-cell">${task.hours}h</td>
                         ${weekCells.join('')}
-                        <td>${taskIndex === 0 ? phase.deliverables : ''}</td>
+                        <td style="font-size: 13px; color: #475569;">${taskIndex === 0 ? phase.businessValue : ''}</td>
                     `;
                     tbody.appendChild(row);
                 });
@@ -277,16 +457,12 @@
         function downloadGanttChart() {
             const wb = XLSX.utils.book_new();
             
-            // Create main Gantt chart worksheet
-            const ganttData = [];
+            const ganttData = [
+                ['InsightsLab DMO Project Template - 85 Hour Enhanced Discovery'],
+                [''],
+                ['Phase', 'Task Name', 'Duration (Hours)', 'Start Week', 'End Week', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Business Value', 'Status']
+            ];
             
-            // Headers
-            ganttData.push([
-                'Phase', 'Task Name', 'Duration (Hours)', 'Start Week', 'End Week',
-                'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Deliverables', 'Status'
-            ]);
-            
-            // Add data rows
             projectData.phases.forEach(phase => {
                 phase.tasks.forEach((task, taskIndex) => ganttData.push([
                     taskIndex === 0 ? `${phase.phase}: ${phase.title}` : '',
@@ -298,53 +474,28 @@
                     task.start <= 2 && task.start + task.duration > 2 ? '████' : '',
                     task.start <= 3 && task.start + task.duration > 3 ? '████' : '',
                     task.start <= 4 && task.start + task.duration > 4 ? '████' : '',
-                    taskIndex === 0 ? phase.deliverables : '',
+                    taskIndex === 0 ? phase.businessValue : '',
                     'Not Started'
                 ]));
             });
             
             const ws = XLSX.utils.aoa_to_sheet(ganttData);
-            
-            // Set column widths
             ws['!cols'] = [
-                {wch: 20}, {wch: 40}, {wch: 12}, {wch: 10}, {wch: 10},
-                {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 50}, {wch: 12}
+                {wch: 25}, {wch: 45}, {wch: 12}, {wch: 10}, {wch: 10},
+                {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 60}, {wch: 12}
             ];
             
             XLSX.utils.book_append_sheet(wb, ws, "Gantt Chart");
-            
-            // Add summary sheet
-            const summaryData = [
-                ['Medellin DMO Project Summary'],
-                [''],
-                ['Project Details', 'Value'],
-                ['Total Duration', '4 weeks'],
-                ['Total Hours', '85 hours'],
-                ['Number of Phases', '6'],
-                ['Client', 'Medellin Colombia Convention Bureau'],
-                ['Approach', 'Survey-Enhanced Discovery'],
-                [''],
-                ['Phase Breakdown', 'Hours', 'Percentage'],
-                ['Phase 0: Planning & Setup', 16, '18.8%'],
-                ['Phase 1: Discovery & Data Collection', 10, '11.8%'],
-                ['Phase 2: Data Asset Inventory', 24, '28.2%'],
-                ['Phase 3: Data Flow Analysis', 20, '23.5%'],
-                ['Phase 4: Quality Assessment', 10, '11.8%'],
-                ['Phase 5: Reporting', 5, '5.9%']
-            ];
-            
-            const summaryWs = XLSX.utils.aoa_to_sheet(summaryData);
-            XLSX.utils.book_append_sheet(wb, summaryWs, "Project Summary");
-            
-            // Download file
-            XLSX.writeFile(wb, 'Medellin_DMO_85Hour_Gantt_Chart.xlsx');
+            XLSX.writeFile(wb, 'InsightsLab_DMO_85Hour_Gantt_Chart.xlsx');
         }
         
         function downloadTaskList() {
             const wb = XLSX.utils.book_new();
             
             const taskData = [
-                ['Task ID', 'Phase', 'Task Name', 'Hours', 'Start Week', 'Dependencies', 'Assigned To', 'Status']
+                ['InsightsLab DMO Task List - 85 Hour Enhanced Discovery'],
+                [''],
+                ['Task ID', 'Phase', 'Task Name', 'Hours', 'Week', 'Dependencies', 'Business Value', 'Status']
             ];
             
             let taskId = 1;
@@ -356,8 +507,8 @@
                         task.name,
                         task.hours,
                         `Week ${Math.floor(task.start)}`,
-                        taskId > 1 ? `T${(taskId-1).toString().padStart(3, '0')}` : 'None',
-                        'TBD',
+                        taskId > 1 ? `T${(taskId-1).toString().padStart(3, '0')}` : 'Project Start',
+                        phase.businessValue,
                         'Not Started'
                     ]);
                     taskId++;
@@ -366,37 +517,38 @@
             
             const ws = XLSX.utils.aoa_to_sheet(taskData);
             ws['!cols'] = [
-                {wch: 8}, {wch: 35}, {wch: 40}, {wch: 8}, {wch: 12}, {wch: 15}, {wch: 15}, {wch: 12}
+                {wch: 8}, {wch: 35}, {wch: 45}, {wch: 8}, {wch: 12}, {wch: 15}, {wch: 50}, {wch: 12}
             ];
             
             XLSX.utils.book_append_sheet(wb, ws, "Task List");
-            XLSX.writeFile(wb, 'Medellin_DMO_Task_List.xlsx');
+            XLSX.writeFile(wb, 'InsightsLab_DMO_Task_List.xlsx');
         }
         
         function downloadResourcePlan() {
             const wb = XLSX.utils.book_new();
             
             const resourceData = [
-                ['Resource Planning - Medellin DMO Project'],
+                ['InsightsLab DMO Resource Planning - 85 Hour Enhanced Discovery'],
                 [''],
-                ['Week', 'Primary Consultant Hours', 'Secondary Consultant Hours', 'Total Hours', 'Focus Area'],
-                ['Week 1', 12, 4, 16, 'Planning & Survey Deployment'],
-                ['Week 2', 8, 2, 10, 'Data Collection & Analysis'],
-                ['Week 3', 32, 12, 44, 'Inventory & Flow Analysis'],
-                ['Week 4', 12, 3, 15, 'Assessment & Reporting'],
-                ['', '', '', '', ''],
-                ['Total', 64, 21, 85, ''],
-                ['', '', '', '', ''],
-                ['Resource Allocation', '', '', '', ''],
-                ['Primary Consultant', '75%', '64 hours', '', 'Technical lead, analysis'],
-                ['Secondary Consultant', '25%', '21 hours', '', 'Stakeholder engagement, documentation']
+                ['Week', 'Lead Consultant', 'Support Consultant', 'Total Hours', 'Focus Area', 'Key Deliverables'],
+                ['Week 1', 12, 4, 16, 'Planning & Survey Launch', 'Project charter, stakeholder survey'],
+                ['Week 2', 8, 2, 10, 'Data Collection & Analysis', 'Response analysis, priority matrix'],
+                ['Week 3', 32, 12, 44, 'Inventory & Flow Mapping', 'Asset catalog, process flows'],
+                ['Week 4', 12, 3, 15, 'Assessment & Roadmap', 'Final recommendations, implementation plan'],
+                ['', '', '', '', '', ''],
+                ['Total', 64, 21, 85, '', ''],
+                ['', '', '', '', '', ''],
+                ['InsightsLab Methodology Benefits', '', '', '', '', ''],
+                ['Survey-Enhanced Discovery', 'Ensures business alignment from day 1', '', '', '', ''],
+                ['Prioritized Approach', 'Focus on highest-impact opportunities', '', '', '', ''],
+                ['Actionable Insights', 'Clear implementation roadmap with ROI metrics', '', '', '', '']
             ];
             
             const ws = XLSX.utils.aoa_to_sheet(resourceData);
-            ws['!cols'] = [{wch: 15}, {wch: 20}, {wch: 22}, {wch: 12}, {wch: 35}];
+            ws['!cols'] = [{wch: 25}, {wch: 15}, {wch: 20}, {wch: 12}, {wch: 30}, {wch: 40}];
             
             XLSX.utils.book_append_sheet(wb, ws, "Resource Plan");
-            XLSX.writeFile(wb, 'Medellin_DMO_Resource_Plan.xlsx');
+            XLSX.writeFile(wb, 'InsightsLab_DMO_Resource_Plan.xlsx');
         }
         
         // Initialize page
