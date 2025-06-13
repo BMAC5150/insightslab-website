@@ -5,129 +5,160 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: #f8fafc;
             min-height: 100vh;
             line-height: 1.6;
         }
         .container {
             background: white;
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 40px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
         }
         .header {
             text-align: center;
             margin-bottom: 40px;
         }
         .brand-tag {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            font-size: 1.2em;
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 1.1em;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         h1 {
-            color: #1e3c72;
+            color: #1a202c;
             margin-bottom: 10px;
-            font-size: 3.2em;
-            font-weight: 800;
+            font-size: 2.8em;
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
         .tagline {
-            color: #2a5298;
-            font-size: 1.4em;
-            font-weight: 600;
-            margin-bottom: 30px;
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
         }
         .project-info {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-radius: 16px;
-            padding: 35px;
-            margin-bottom: 45px;
-            border: 2px solid #e2e8f0;
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 4px solid #FF4444;
         }
         .project-info h3 {
-            color: #1e3c72;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 600;
         }
         .project-description {
-            color: #475569;
-            font-size: 17px;
-            margin-bottom: 30px;
-            line-height: 1.7;
+            color: #4a5568;
+            font-size: 16px;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
         .download-section {
             text-align: center;
-            margin: 50px 0;
-            padding: 40px;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            border-radius: 20px;
+            margin: 40px 0;
+            padding: 35px;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            border-radius: 8px;
             color: white;
         }
         .download-section h3 {
             color: white;
-            margin-bottom: 25px;
-            font-size: 2.2em;
-            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: 600;
         }
         .download-section p {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             opacity: 0.9;
-            font-size: 1.1em;
+            font-size: 1em;
         }
         .download-btn {
-            background: white;
-            color: #1e3c72;
-            padding: 18px 36px;
+            background: #FF4444;
+            color: white;
+            padding: 16px 32px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            margin: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin: 10px;
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
         }
         .download-btn:hover {
-            background: #f1f5f9;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            background: #e53e3e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 68, 68, 0.4);
+        }
+        .download-btn:active {
+            transform: translateY(0);
+            background: #c53030;
+        }
+        .test-section {
+            background: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-section h3 {
+            color: #2c7a7b;
+            margin-bottom: 15px;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status-success {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .status-error {
+            background: #fed7d7;
+            color: #742a2a;
         }
         .preview-section h3 {
-            color: #1e3c72;
-            font-size: 2em;
+            color: #1a202c;
+            font-size: 1.8em;
             margin-bottom: 25px;
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
         }
         .preview-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
             font-size: 14px;
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .preview-table th {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: white;
-            padding: 20px 16px;
+            padding: 18px 16px;
             text-align: left;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-size: 13px;
+            letter-spacing: 0.5px;
+            font-size: 12px;
         }
         .preview-table td {
             padding: 16px;
@@ -135,103 +166,59 @@
             vertical-align: top;
         }
         .preview-table tr:hover {
-            background-color: #f8fafc;
+            background-color: #f7fafc;
             transition: background-color 0.2s ease;
         }
         .preview-table tr:last-child td {
             border-bottom: none;
         }
         .phase-0 { background-color: rgba(107, 114, 128, 0.08); }
-        .phase-1 { background-color: rgba(30, 60, 114, 0.08); }
-        .phase-2 { background-color: rgba(16, 185, 129, 0.08); }
-        .phase-3 { background-color: rgba(139, 92, 246, 0.08); }
-        .phase-4 { background-color: rgba(245, 158, 11, 0.08); }
-        .phase-5 { background-color: rgba(34, 197, 94, 0.08); }
+        .phase-1 { background-color: rgba(26, 32, 44, 0.08); }
+        .phase-2 { background-color: rgba(255, 68, 68, 0.08); }
+        .phase-3 { background-color: rgba(74, 85, 104, 0.08); }
+        .phase-4 { background-color: rgba(237, 137, 54, 0.08); }
+        .phase-5 { background-color: rgba(56, 178, 172, 0.08); }
         .gantt-cell {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #FF4444 0%, #e53e3e 100%);
             color: white;
             text-align: center;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 4px;
             padding: 8px;
         }
         .partial-cell {
-            background: linear-gradient(to right, #1e3c72 50%, #e2e8f0 50%);
-            border-radius: 6px;
+            background: linear-gradient(to right, #FF4444 50%, #e2e8f0 50%);
+            border-radius: 4px;
             padding: 8px;
             text-align: center;
         }
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
             margin: 30px 0;
         }
         .info-card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            border-left: 5px solid #1e3c72;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #FF4444;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         .info-card strong {
-            color: #1e3c72;
-            font-weight: 600;
-        }
-        .value-prop {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            border-left: 5px solid #f59e0b;
-        }
-        .value-prop h4 {
-            color: #92400e;
-            margin-bottom: 12px;
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        .value-prop p {
-            color: #78350f;
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 25px;
-            margin: 35px 0;
-        }
-        .stat-card {
-            text-align: center;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-            border-top: 4px solid #1e3c72;
-        }
-        .stat-number {
-            font-size: 2.8em;
-            font-weight: 800;
-            color: #1e3c72;
-            margin-bottom: 8px;
-        }
-        .stat-label {
-            color: #64748b;
-            font-size: 15px;
+            color: #1a202c;
             font-weight: 600;
         }
         .phase-name {
-            font-weight: 700;
-            color: #1e3c72;
-            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+            font-size: 14px;
         }
         .hours-cell {
             text-align: center;
-            font-weight: 700;
-            color: #2a5298;
-            font-size: 15px;
+            font-weight: 600;
+            color: #FF4444;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -242,18 +229,16 @@
             <h1>🎯 Medellin Project Chart</h1>
         </div>
         
-            <div class="info-grid">
-                <div class="info-card">
-                    <strong>Project Scope:</strong> 4 weeks, 85 hours<br>
-                    <strong>Client:</strong> Medellin Colombia DMO
-                </div>
-                <div class="info-card">
-                    <strong>Phases:</strong> 6 phases (0-5)<br>
-                    <strong>Focus:</strong> Business-prioritized insights<br>
-                    <strong>Outcome:</strong> AI-ready data strategy
-                </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <strong>Project Scope:</strong> 4 weeks, 85 hours<br>
+                <strong>Client:</strong> Medellin Colombia DMO
             </div>
-            
+            <div class="info-card">
+                <strong>Phases:</strong> 6 phases (0-5)<br>
+                <strong>Focus:</strong> Business-prioritized insights<br>
+                <strong>Outcome:</strong> AI-ready data strategy
+            </div>
         </div>
 
         <div class="download-section">
@@ -384,6 +369,49 @@
             ]
         };
 
+        // Test function to verify XLSX library availability
+        function testXLSXAvailability() {
+            const results = document.getElementById('testResults');
+            let testHtml = '';
+            
+            // Test 1: XLSX Library Loading
+            if (typeof XLSX !== 'undefined') {
+                testHtml += '<p>✅ XLSX Library: <span class="status-indicator status-success">LOADED</span></p>';
+            } else {
+                testHtml += '<p>❌ XLSX Library: <span class="status-indicator status-error">NOT LOADED</span></p>';
+                results.innerHTML = testHtml;
+                return;
+            }
+            
+            // Test 2: Basic XLSX functionality
+            try {
+                const testWorkbook = XLSX.utils.book_new();
+                const testData = [['Test', 'Data'], ['Row 1', 'Value 1']];
+                const testWorksheet = XLSX.utils.aoa_to_sheet(testData);
+                XLSX.utils.book_append_sheet(testWorkbook, testWorksheet, "Test");
+                testHtml += '<p>✅ XLSX Functions: <span class="status-indicator status-success">WORKING</span></p>';
+            } catch (error) {
+                testHtml += '<p>❌ XLSX Functions: <span class="status-indicator status-error">ERROR</span></p>';
+                testHtml += '<p style="color: #742a2a; font-size: 12px;">Error: ' + error.message + '</p>';
+            }
+            
+            // Test 3: Data validation
+            if (projectData && projectData.phases && projectData.phases.length > 0) {
+                testHtml += '<p>✅ Project Data: <span class="status-indicator status-success">VALID</span></p>';
+            } else {
+                testHtml += '<p>❌ Project Data: <span class="status-indicator status-error">INVALID</span></p>';
+            }
+            
+            // Test 4: Browser download capability
+            if (typeof document.createElement('a').download !== 'undefined') {
+                testHtml += '<p>✅ Download Support: <span class="status-indicator status-success">SUPPORTED</span></p>';
+            } else {
+                testHtml += '<p>❌ Download Support: <span class="status-indicator status-error">NOT SUPPORTED</span></p>';
+            }
+            
+            results.innerHTML = testHtml;
+        }
+
         // Generate preview table
         function generatePreviewTable() {
             const tbody = document.getElementById('ganttTableBody');
@@ -414,113 +442,138 @@
                         <td>${task.name}</td>
                         <td class="hours-cell">${task.hours}h</td>
                         ${weekCells.join('')}
-                        <td style="font-size: 13px; color: #475569;">${taskIndex === 0 ? phase.businessValue : ''}</td>
+                        <td style="font-size: 13px; color: #4a5568;">${taskIndex === 0 ? phase.businessValue : ''}</td>
                     `;
                     tbody.appendChild(row);
                 });
             });
         }
 
-        // Download functions
+        // Enhanced download functions with error handling
         function downloadGanttChart() {
-            const wb = XLSX.utils.book_new();
-            
-            const ganttData = [
-                ['InsightsLab DMO Project Template - 85 Hour Enhanced Discovery'],
-                [''],
-                ['Phase', 'Task Name', 'Duration (Hours)', 'Start Week', 'End Week', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Business Value', 'Status']
-            ];
-            
-            projectData.phases.forEach(phase => {
-                phase.tasks.forEach((task, taskIndex) => ganttData.push([
-                    taskIndex === 0 ? `${phase.phase}: ${phase.title}` : '',
-                    task.name,
-                    task.hours,
-                    task.start,
-                    task.start + task.duration,
-                    task.start <= 1 && task.start + task.duration > 1 ? '████' : '',
-                    task.start <= 2 && task.start + task.duration > 2 ? '████' : '',
-                    task.start <= 3 && task.start + task.duration > 3 ? '████' : '',
-                    task.start <= 4 && task.start + task.duration > 4 ? '████' : '',
-                    taskIndex === 0 ? phase.businessValue : '',
-                    'Not Started'
-                ]));
-            });
-            
-            const ws = XLSX.utils.aoa_to_sheet(ganttData);
-            ws['!cols'] = [
-                {wch: 25}, {wch: 45}, {wch: 12}, {wch: 10}, {wch: 10},
-                {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 60}, {wch: 12}
-            ];
-            
-            XLSX.utils.book_append_sheet(wb, ws, "Gantt Chart");
-            XLSX.writeFile(wb, 'InsightsLab_DMO_85Hour_Gantt_Chart.xlsx');
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                const ganttData = [
+                    ['InsightsLab DMO Project Template - 85 Hour Enhanced Discovery'],
+                    [''],
+                    ['Phase', 'Task Name', 'Duration (Hours)', 'Start Week', 'End Week', 'Week 1', 'Week 2', 'Week 3', 'Week 4', 'Business Value', 'Status']
+                ];
+                
+                projectData.phases.forEach(phase => {
+                    phase.tasks.forEach((task, taskIndex) => ganttData.push([
+                        taskIndex === 0 ? `${phase.phase}: ${phase.title}` : '',
+                        task.name,
+                        task.hours,
+                        task.start,
+                        task.start + task.duration,
+                        task.start <= 1 && task.start + task.duration > 1 ? '████' : '',
+                        task.start <= 2 && task.start + task.duration > 2 ? '████' : '',
+                        task.start <= 3 && task.start + task.duration > 3 ? '████' : '',
+                        task.start <= 4 && task.start + task.duration > 4 ? '████' : '',
+                        taskIndex === 0 ? phase.businessValue : '',
+                        'Not Started'
+                    ]));
+                });
+                
+                const ws = XLSX.utils.aoa_to_sheet(ganttData);
+                ws['!cols'] = [
+                    {wch: 25}, {wch: 45}, {wch: 12}, {wch: 10}, {wch: 10},
+                    {wch: 12}, {wch: 12}, {wch: 12}, {wch: 12}, {wch: 60}, {wch: 12}
+                ];
+                
+                XLSX.utils.book_append_sheet(wb, ws, "Gantt Chart");
+                XLSX.writeFile(wb, 'InsightsLab_DMO_85Hour_Gantt_Chart.xlsx');
+                
+                console.log('✅ Gantt Chart download initiated successfully');
+            } catch (error) {
+                console.error('❌ Gantt Chart download failed:', error);
+                alert('Download failed: ' + error.message);
+            }
         }
         
         function downloadTaskList() {
-            const wb = XLSX.utils.book_new();
-            
-            const taskData = [
-                ['InsightsLab DMO Task List - 85 Hour Enhanced Discovery'],
-                [''],
-                ['Task ID', 'Phase', 'Task Name', 'Hours', 'Week', 'Dependencies', 'Business Value', 'Status']
-            ];
-            
-            let taskId = 1;
-            projectData.phases.forEach(phase => {
-                phase.tasks.forEach(task => {
-                    taskData.push([
-                        `T${taskId.toString().padStart(3, '0')}`,
-                        `${phase.phase}: ${phase.title}`,
-                        task.name,
-                        task.hours,
-                        `Week ${Math.floor(task.start)}`,
-                        taskId > 1 ? `T${(taskId-1).toString().padStart(3, '0')}` : 'Project Start',
-                        phase.businessValue,
-                        'Not Started'
-                    ]);
-                    taskId++;
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                const taskData = [
+                    ['InsightsLab DMO Task List - 85 Hour Enhanced Discovery'],
+                    [''],
+                    ['Task ID', 'Phase', 'Task Name', 'Hours', 'Week', 'Dependencies', 'Business Value', 'Status']
+                ];
+                
+                let taskId = 1;
+                projectData.phases.forEach(phase => {
+                    phase.tasks.forEach(task => {
+                        taskData.push([
+                            `T${taskId.toString().padStart(3, '0')}`,
+                            `${phase.phase}: ${phase.title}`,
+                            task.name,
+                            task.hours,
+                            `Week ${Math.floor(task.start)}`,
+                            taskId > 1 ? `T${(taskId-1).toString().padStart(3, '0')}` : 'Project Start',
+                            phase.businessValue,
+                            'Not Started'
+                        ]);
+                        taskId++;
+                    });
                 });
-            });
-            
-            const ws = XLSX.utils.aoa_to_sheet(taskData);
-            ws['!cols'] = [
-                {wch: 8}, {wch: 35}, {wch: 45}, {wch: 8}, {wch: 12}, {wch: 15}, {wch: 50}, {wch: 12}
-            ];
-            
-            XLSX.utils.book_append_sheet(wb, ws, "Task List");
-            XLSX.writeFile(wb, 'InsightsLab_DMO_Task_List.xlsx');
+                
+                const ws = XLSX.utils.aoa_to_sheet(taskData);
+                ws['!cols'] = [
+                    {wch: 8}, {wch: 35}, {wch: 45}, {wch: 8}, {wch: 12}, {wch: 15}, {wch: 50}, {wch: 12}
+                ];
+                
+                XLSX.utils.book_append_sheet(wb, ws, "Task List");
+                XLSX.writeFile(wb, 'InsightsLab_DMO_Task_List.xlsx');
+                
+                console.log('✅ Task List download initiated successfully');
+            } catch (error) {
+                console.error('❌ Task List download failed:', error);
+                alert('Download failed: ' + error.message);
+            }
         }
         
         function downloadResourcePlan() {
-            const wb = XLSX.utils.book_new();
-            
-            const resourceData = [
-                ['InsightsLab DMO Resource Planning - 85 Hour Enhanced Discovery'],
-                [''],
-                ['Week', 'Lead Consultant', 'Support Consultant', 'Total Hours', 'Focus Area', 'Key Deliverables'],
-                ['Week 1', 12, 4, 16, 'Planning & Survey Launch', 'Project charter, stakeholder survey'],
-                ['Week 2', 8, 2, 10, 'Data Collection & Analysis', 'Response analysis, priority matrix'],
-                ['Week 3', 32, 12, 44, 'Inventory & Flow Mapping', 'Asset catalog, process flows'],
-                ['Week 4', 12, 3, 15, 'Assessment & Roadmap', 'Final recommendations, implementation plan'],
-                ['', '', '', '', '', ''],
-                ['Total', 64, 21, 85, '', ''],
-                ['', '', '', '', '', ''],
-                ['InsightsLab Methodology Benefits', '', '', '', '', ''],
-                ['Survey-Enhanced Discovery', 'Ensures business alignment from day 1', '', '', '', ''],
-                ['Prioritized Approach', 'Focus on highest-impact opportunities', '', '', '', ''],
-                ['Actionable Insights', 'Clear implementation roadmap with ROI metrics', '', '', '', '']
-            ];
-            
-            const ws = XLSX.utils.aoa_to_sheet(resourceData);
-            ws['!cols'] = [{wch: 25}, {wch: 15}, {wch: 20}, {wch: 12}, {wch: 30}, {wch: 40}];
-            
-            XLSX.utils.book_append_sheet(wb, ws, "Resource Plan");
-            XLSX.writeFile(wb, 'InsightsLab_DMO_Resource_Plan.xlsx');
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                const resourceData = [
+                    ['InsightsLab DMO Resource Planning - 85 Hour Enhanced Discovery'],
+                    [''],
+                    ['Week', 'Lead Consultant', 'Support Consultant', 'Total Hours', 'Focus Area', 'Key Deliverables'],
+                    ['Week 1', 12, 4, 16, 'Planning & Survey Launch', 'Project charter, stakeholder survey'],
+                    ['Week 2', 8, 2, 10, 'Data Collection & Analysis', 'Response analysis, priority matrix'],
+                    ['Week 3', 32, 12, 44, 'Inventory & Flow Mapping', 'Asset catalog, process flows'],
+                    ['Week 4', 12, 3, 15, 'Assessment & Roadmap', 'Final recommendations, implementation plan'],
+                    ['', '', '', '', '', ''],
+                    ['Total', 64, 21, 85, '', ''],
+                    ['', '', '', '', '', ''],
+                    ['InsightsLab Methodology Benefits', '', '', '', '', ''],
+                    ['Survey-Enhanced Discovery', 'Ensures business alignment from day 1', '', '', '', ''],
+                    ['Prioritized Approach', 'Focus on highest-impact opportunities', '', '', '', ''],
+                    ['Actionable Insights', 'Clear implementation roadmap with ROI metrics', '', '', '', '']
+                ];
+                
+                const ws = XLSX.utils.aoa_to_sheet(resourceData);
+                ws['!cols'] = [{wch: 25}, {wch: 15}, {wch: 20}, {wch: 12}, {wch: 30}, {wch: 40}];
+                
+                XLSX.utils.book_append_sheet(wb, ws, "Resource Plan");
+                XLSX.writeFile(wb, 'InsightsLab_DMO_Resource_Plan.xlsx');
+                
+                console.log('✅ Resource Plan download initiated successfully');
+            } catch (error) {
+                console.error('❌ Resource Plan download failed:', error);
+                alert('Download failed: ' + error.message);
+            }
         }
         
         // Initialize page
-        generatePreviewTable();
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePreviewTable();
+            // Run tests after a short delay to ensure XLSX library is loaded
+            setTimeout(testXLSXAvailability, 100);
+        });
     </script>
 </body>
 </html>
