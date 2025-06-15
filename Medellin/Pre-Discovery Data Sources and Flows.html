@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Discovery Anticipated Data Sources and Flows - InsightsLab</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 8px;
+        }
+        .badge-red {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .badge-orange {
+            background: #ffedd5;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 24px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .category-card {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .category-card:hover {
+            background: #f9fafb;
+            transform: scale(1.02);
+        }
+        .category-card.active {
+            background: #FF4444;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+            border-color: #dc2626;
+        }
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            margin: 0 auto 8px;
+            fill: currentColor;
+        }
+        .category-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .category-priority {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .priority-tier1 {
+            background: #dc2626;
+            color: white;
+        }
+        .priority-tier2 {
+            background: #6b7280;
+            color: white;
+        }
+        .category-card.active .priority-tier1,
+        .category-card.active .priority-tier2 {
+            background: white;
+            color: #dc2626;
+        }
+        .detail-card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .detail-icon {
+            background: #FF4444;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .detail-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        .detail-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1a202c;
+            margin: 0;
+        }
+        .detail-priority {
+            display: inline-flex;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .view-toggle {
+            display: flex;
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 24px;
+            gap: 4px;
+        }
+        .view-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #6b7280;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .view-btn:hover {
+            color: #1f2937;
+            background: #e5e7eb;
+        }
+        .view-btn.active {
+            background: #dc2626;
+            color: white;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+        }
+        .content-area {
+            min-height: 400px;
+        }
+        .source-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .source-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 16px;
+        }
+        .source-title {
+            font-weight: 600;
+            color: #1a202c;
+            flex: 1;
+        }
+        .source-badges {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .source-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .criticality-critical {
+            background: #dc2626;
+            color: white;
+        }
+        .criticality-high {
+            background: #ea580c;
+            color: white;
+        }
+        .criticality-medium {
+            background: #2563eb;
+            color: white;
+        }
+        .criticality-low {
+            background: #16a34a;
+            color: white;
+        }
+        .type-badge {
+            background: #e5e7eb;
+            color: #374151;
+        }
+        .data-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+        }
+        .data-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .check-icon {
+            width: 12px;
+            height: 12px;
+            fill: #16a34a;
+        }
+        .flow-item {
+            margin-bottom: 24px;
+            transition: all 0.5s ease;
+        }
+        .flow-item.animated {
+            transform: scale(1.05);
+        }
+        .flow-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .flow-box {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            min-width: 120px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        }
+        .flow-box.end {
+            background: #16a34a;
+            box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+        }
+        .flow-arrow {
+            flex: 1;
+            height: 12px;
+            background: linear-gradient(to right, #2563eb, #16a34a);
+            border-radius: 6px;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        .flow-item.animated .flow-arrow {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+        }
+        .flow-arrow::after {
+            content: '→';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+        .flow-item.animated .flow-arrow::after {
+            color: #fbbf24;
+            transform: translateY(-50%) scale(1.2);
+        }
+        .flow-details {
+            text-align: center;
+            margin-top: 8px;
+        }
+        .flow-data {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .flow-frequency {
+            font-size: 12px;
+            color: #16a34a;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .integration-item {
+            background: white;
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .integration-title {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: 14px;
+        }
+        .gap-item {
+            background: white;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .gap-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #c2410c;
+        }
+        .eye-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+        .gap-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .stat-green {
+            border: 1px solid #bbf7d0;
+        }
+        .stat-green .stat-number {
+            color: #16a34a;
+        }
+        .stat-green .stat-label {
+            color: #15803d;
+        }
+        .stat-blue {
+            border: 1px solid #dbeafe;
+        }
+        .stat-blue .stat-number {
+            color: #2563eb;
+        }
+        .stat-blue .stat-label {
+            color: #1d4ed8;
+        }
+        .stat-purple {
+            border: 1px solid #e9d5ff;
+        }
+        .stat-purple .stat-number {
+            color: #9333ea;
+        }
+        .stat-purple .stat-label {
+            color: #7c3aed;
+        }
+        .stat-orange {
+            border: 1px solid #fed7aa;
+        }
+        .stat-orange .stat-number {
+            color: #ea580c;
+        }
+        .stat-orange .stat-label {
+            color: #c2410c;
+        }
+        .footer-card {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        .footer-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-description {
+            color: #374151;
+            margin-bottom: 16px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        .footer-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .footer-item-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .footer-item-blue {
+            border: 1px solid #dbeafe;
+        }
+        .footer-item-blue .footer-item-title {
+            color: #1d4ed8;
+        }
+        .footer-item-orange {
+            border: 1px solid #fed7aa;
+        }
+        .footer-item-orange .footer-item-title {
+            color: #c2410c;
+        }
+        .footer-item-green {
+            border: 1px solid #bbf7d0;
+        }
+        .footer-item-green .footer-item-title {
+            color: #15803d;
+        }
+        .footer-item-desc {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-card">
+            <div class="brand-tag">by InsightsLab</div>
+            <h1 class="main-title">Pre-Discovery Anticipated Data Sources and Flows</h1>
+            <p class="subtitle">Medellin Convention & Visitors Bureau</p>
+            <div class="badge-container">
+                <div class="badge badge-red">
+                    <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 6a3 3 0 013-3h12a3 3 0 013 3v12a3 3 0 01-3 3H6a3 3 0 01-3-3V6zM5 6v12a1 1 0 001 1h12a1 1 0 001-1V6a1 1 0 00-1-1H6a1 1 0 00-1 1z"/>
+                        <path d="M8 10h8M8 14h6"/>
+                    </svg>
+                    Benchmark for Post-Discovery Analysis
+                </div>
+                <div class="badge badge-orange">
+                    <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22 12l-4-4v3H3v2h15v3l4-4z"/>
+                    </svg>
+                    Gap Identification Framework
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="footer-card">
+            <h4 class="footer-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ea580c">
+                    <path d="M12 2L13.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L10.91 8.26L12 2Z"/>
+                </svg>
+                Pre-Discovery Benchmark Framework
+            </h4>
+            <p class="footer-description">
+                This comprehensive mapping represents our <strong>anticipated data landscape</strong> based on industry expertise and organizational analysis. 
+                It serves as a structured benchmark to:
+            </p>
+            <div class="footer-grid">
+                <div class="footer-item footer-item-blue">
+                    <div class="footer-item-title">Compare Expectations vs Reality</div>
+                    <div class="footer-item-desc">Identify where actual systems differ from anticipated architecture</div>
+                </div>
+                <div class="footer-item footer-item-orange">
+                    <div class="footer-item-title">Focus on Critical Gaps</div>
+                    <div class="footer-item-desc">Prioritize missing data sources and broken flows that impact business goals</div>
+                </div>
+                <div class="footer-item footer-item-green">
+                    <div class="footer-item-title">Eliminate Unnecessary Complexity</div>
+                    <div class="footer-item-desc">Identify redundant processes and data sources that don't serve core objectives</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div class="section-title">Critical Data Categories</div>
+        <div class="category-grid" id="categoryGrid">
+            <!-- Categories will be populated by JavaScript -->
+        </div>
+
+        <!-- Selected Category Details -->
+        <div class="detail-card">
+            <div class="detail-header" id="detailHeader">
+                <!-- Header will be populated by JavaScript -->
+            </div>
+
+            <div class="view-toggle">
+                <button class="view-btn active" data-view="sources">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+                    </svg>
+                    Data Sources
+                </button>
+                <button class="view-btn" data-view="flows">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22 12l-4-4v3H3v2h15v3l4-4z"/>
+                    </svg>
+                    Data Flows
+                </button>
+                <button class="view-btn" data-view="integration">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Integration Points
+                </button>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="stats-grid">
+            <div class="stat-card stat-green">
+                <div class="stat-number" id="totalSources">24</div>
+                <div class="stat-label">Total Data Sources</div>
+            </div>
+            <div class="stat-card stat-blue">
+                <div class="stat-number" id="totalFlows">24</div>
+                <div class="stat-label">Data Flow Processes</div>
+            </div>
+            <div class="stat-card stat-purple">
+                <div class="stat-number" id="totalIntegrations">18</div>
+                <div class="stat-label">Integration Points</div>
+            </div>
+            <div class="stat-card stat-orange">
+                <div class="stat-number" id="totalGaps">18</div>
+                <div class="stat-label">Expected Gaps</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-card">
+            <h4 class="footer-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ea580c">
+                    <path d="M12 2L13.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L10.91 8.26L12 2Z"/>
+                </svg>
+                Pre-Discovery Benchmark Framework
+            </h4>
+            <p class="footer-description">
+                This comprehensive mapping represents our <strong>anticipated data landscape</strong> based on industry expertise and organizational analysis. 
+                It serves as a structured benchmark to:
+            </p>
+            <div class="footer-grid">
+                <div class="footer-item footer-item-blue">
+                    <div class="footer-item-title">Compare Expectations vs Reality</div>
+                    <div class="footer-item-desc">Identify where actual systems differ from anticipated architecture</div>
+                </div>
+                <div class="footer-item footer-item-orange">
+                    <div class="footer-item-title">Focus on Critical Gaps</div>
+                    <div class="footer-item-desc">Prioritize missing data sources and broken flows that impact business goals</div>
+                </div>
+                <div class="footer-item footer-item-green">
+                    <div class="footer-item-title">Eliminate Unnecessary Complexity</div>
+                    <div class="footer-item-desc">Identify redundant processes and data sources that don't serve core objectives</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure
+        const dataCategories = [
+            {
+                id: 1,
+                title: "Economic Impact & ROI",
+                icon: "dollar",
+                priority: "TIER 1",
+                dataSources: [
+                    { name: "Event Financial Performance Database", type: "Internal System", criticality: "Critical", dataTypes: ["Revenue per event", "Cost structures", "Profit margins by event type", "Vendor payments"] },
+                    { name: "Economic Multiplier Tracking System", type: "Analytics Platform", criticality: "High", dataTypes: ["Direct spending", "Indirect spending", "Job creation metrics", "Tax revenue generation"] },
+                    { name: "GDP Contribution Analytics", type: "Government Interface", criticality: "Critical", dataTypes: ["Tourism GDP percentage", "Quarterly impact reports", "Benchmark comparisons", "Growth trajectories"] },
+                    { name: "Hotel Revenue Management System", type: "Partner Data", criticality: "High", dataTypes: ["Occupancy rates", "ADR (Average Daily Rate)", "RevPAR", "Seasonal patterns"] }
+                ],
+                dataFlows: [
+                    { from: "Event Booking System", to: "Financial Performance DB", data: "Event contracts, pricing, dates", frequency: "Real-time" },
+                    { from: "Financial Performance DB", to: "Economic Impact Calculator", data: "Revenue, attendee count, duration", frequency: "Daily" },
+                    { from: "Economic Impact Calculator", to: "Stakeholder Dashboard", data: "ROI metrics, economic multipliers", frequency: "Weekly" },
+                    { from: "Government Systems", to: "GDP Analytics", data: "Tourism contribution data", frequency: "Quarterly" }
+                ],
+                integrationPoints: ["CRM → Financial", "Partner Systems → Economics", "Government → Reporting"],
+                expectedGaps: ["Real-time economic impact calculation", "Automated multiplier modeling", "Integrated ROI dashboards"]
+            },
+            {
+                id: 2,
+                title: "Customer Journey Analytics",
+                icon: "users",
+                priority: "TIER 1",
+                dataSources: [
+                    { name: "Lead Management System", type: "CRM Platform", criticality: "Critical", dataTypes: ["Prospect identification", "Lead scoring", "Pursuit tracking", "Contact management"] },
+                    { name: "Proposal & Bid Management", type: "Internal System", criticality: "Critical", dataTypes: ["RFP responses", "Win/loss tracking", "Proposal timelines", "Decision factors"] },
+                    { name: "Client Relationship Database", type: "CRM Platform", criticality: "High", dataTypes: ["Communication history", "Preference profiles", "Decision makers", "Relationship mapping"] },
+                    { name: "Post-Event Satisfaction System", type: "Survey Platform", criticality: "High", dataTypes: ["Client feedback", "Net Promoter Score", "Repeat business tracking", "Referral sources"] }
+                ],
+                dataFlows: [
+                    { from: "Market Research", to: "Lead Management", data: "Target event identification, market opportunities", frequency: "Weekly" },
+                    { from: "Lead Management", to: "Proposal System", data: "Qualified leads, client requirements", frequency: "Real-time" },
+                    { from: "Proposal System", to: "Event Execution", data: "Won proposals, client specifications", frequency: "As needed" },
+                    { from: "Event Execution", to: "Satisfaction System", data: "Event outcomes, client experience", frequency: "Post-event" }
+                ],
+                integrationPoints: ["Marketing → CRM", "Proposals → Events", "Events → Retention"],
+                expectedGaps: ["Unified customer view", "Predictive lead scoring", "Automated follow-up workflows"]
+            },
+            {
+                id: 3,
+                title: "Competitive Intelligence",
+                icon: "target",
+                priority: "TIER 2",
+                dataSources: [
+                    { name: "Competitor Event Tracking", type: "Intelligence Platform", criticality: "High", dataTypes: ["Events won/lost to competitors", "Pricing intelligence", "Service comparisons", "Market positioning"] },
+                    { name: "Market Share Analytics", type: "Industry Database", criticality: "Medium", dataTypes: ["Event volume by destination", "Growth trends", "Market penetration", "Industry reports"] },
+                    { name: "Destination Benchmarking System", type: "Research Platform", criticality: "Medium", dataTypes: ["Infrastructure comparisons", "Service quality metrics", "Reputation analysis", "Capability assessments"] },
+                    { name: "Industry Trend Monitoring", type: "External Feed", criticality: "Medium", dataTypes: ["Emerging event types", "Client preferences", "Technology trends", "Market opportunities"] }
+                ],
+                dataFlows: [
+                    { from: "Industry Sources", to: "Competitor Tracking", data: "Event announcements, market intelligence", frequency: "Daily" },
+                    { from: "Competitor Tracking", to: "Market Analysis", data: "Competitive positioning, pricing data", frequency: "Weekly" },
+                    { from: "Market Analysis", to: "Strategic Planning", data: "Market opportunities, positioning gaps", frequency: "Monthly" },
+                    { from: "Strategic Planning", to: "Proposal Enhancement", data: "Competitive advantages, differentiation", frequency: "As needed" }
+                ],
+                integrationPoints: ["Intelligence → Strategy", "Strategy → Marketing", "Marketing → Proposals"],
+                expectedGaps: ["Automated competitor monitoring", "Real-time pricing intelligence", "Integrated competitive dashboards"]
+            },
+            {
+                id: 4,
+                title: "Sustainability Management",
+                icon: "leaf",
+                priority: "TIER 2",
+                dataSources: [
+                    { name: "Visitor Volume & Density Tracking", type: "Analytics Platform", criticality: "High", dataTypes: ["Peak period analysis", "Venue capacity utilization", "Crowding indicators", "Flow patterns"] },
+                    { name: "Environmental Impact Monitor", type: "Sustainability Platform", criticality: "Medium", dataTypes: ["Carbon footprint per event", "Waste generation", "Resource consumption", "Environmental KPIs"] },
+                    { name: "Infrastructure Stress Indicators", type: "City Systems", criticality: "Medium", dataTypes: ["Transportation capacity", "Accommodation availability", "Service quality metrics", "Infrastructure load"] },
+                    { name: "Community Impact Assessment", type: "Survey System", criticality: "Low", dataTypes: ["Resident satisfaction", "Quality of life metrics", "Social carrying capacity", "Community feedback"] }
+                ],
+                dataFlows: [
+                    { from: "Event Planning", to: "Capacity Assessment", data: "Event size, duration, requirements", frequency: "Pre-event" },
+                    { from: "Capacity Assessment", to: "Sustainability Validation", data: "Impact projections, resource needs", frequency: "Planning phase" },
+                    { from: "Sustainability Validation", to: "Event Approval", data: "Sustainability score, recommendations", frequency: "Planning phase" },
+                    { from: "Event Execution", to: "Impact Monitoring", data: "Actual impact, resource usage", frequency: "Post-event" }
+                ],
+                integrationPoints: ["Planning → Assessment", "Assessment → Approval", "Monitoring → Planning"],
+                expectedGaps: ["Predictive impact modeling", "Real-time capacity monitoring", "Integrated sustainability scoring"]
+            },
+            {
+                id: 5,
+                title: "Marketing Attribution",
+                icon: "megaphone",
+                priority: "TIER 1",
+                dataSources: [
+                    { name: "Digital Marketing Analytics", type: "Marketing Platform", criticality: "Critical", dataTypes: ["Campaign performance", "Channel attribution", "Audience engagement", "Conversion rates"] },
+                    { name: "Content Performance Tracking", type: "Analytics Platform", criticality: "High", dataTypes: ["Website analytics", "Social media metrics", "Content effectiveness", "User journey mapping"] },
+                    { name: "Brand Reputation Monitoring", type: "Monitoring Platform", criticality: "Medium", dataTypes: ["Media coverage", "Sentiment analysis", "Brand mentions", "Reputation scores"] },
+                    { name: "Market Segmentation Data", type: "Analytics Platform", criticality: "High", dataTypes: ["Meetings vs leisure performance", "Geographic segments", "Demographic targeting", "Behavioral patterns"] }
+                ],
+                dataFlows: [
+                    { from: "Marketing Campaigns", to: "Performance Analytics", data: "Campaign data, audience targeting", frequency: "Real-time" },
+                    { from: "Performance Analytics", to: "Lead Generation", data: "Qualified traffic, conversion metrics", frequency: "Daily" },
+                    { from: "Lead Generation", to: "ROI Measurement", data: "Lead quality, conversion rates", frequency: "Weekly" },
+                    { from: "ROI Measurement", to: "Strategy Optimization", data: "Performance insights, recommendations", frequency: "Monthly" }
+                ],
+                integrationPoints: ["Campaigns → Analytics", "Analytics → CRM", "CRM → Strategy"],
+                expectedGaps: ["Cross-channel attribution", "Unified marketing view", "Predictive campaign optimization"]
+            },
+            {
+                id: 6,
+                title: "Stakeholder Ecosystem",
+                icon: "network",
+                priority: "TIER 2",
+                dataSources: [
+                    { name: "Partner Performance Database", type: "Relationship Platform", criticality: "High", dataTypes: ["Service provider performance", "Partnership value", "Collaboration effectiveness", "Quality ratings"] },
+                    { name: "Government Reporting System", type: "Compliance Platform", criticality: "Critical", dataTypes: ["Performance dashboards", "Transparency reports", "Compliance metrics", "Public accountability"] },
+                    { name: "Stakeholder Communication Hub", type: "Communication Platform", criticality: "Medium", dataTypes: ["Board interactions", "Decision processes", "Consensus building", "Communication logs"] },
+                    { name: "Vendor Management System", type: "Procurement Platform", criticality: "Medium", dataTypes: ["Vendor performance", "Contract management", "Service agreements", "Payment tracking"] }
+                ],
+                dataFlows: [
+                    { from: "Partner Operations", to: "Performance Tracking", data: "Service delivery, quality metrics", frequency: "Ongoing" },
+                    { from: "Performance Tracking", to: "Relationship Scoring", data: "Performance data, satisfaction scores", frequency: "Monthly" },
+                    { from: "Relationship Scoring", to: "Strategic Decisions", data: "Partner rankings, recommendations", frequency: "Quarterly" },
+                    { from: "Strategic Decisions", to: "Service Optimization", data: "Partnership strategies, improvements", frequency: "As needed" }
+                ],
+                integrationPoints: ["Partners → Performance", "Performance → Strategy", "Government → Compliance"],
+                expectedGaps: ["Automated partner scoring", "Integrated stakeholder view", "Predictive relationship management"]
+            }
+        ];
+
+        // State management
+        let selectedCategory = 0;
+        let currentView = 'sources';
+        let animatedFlowIndex = 0;
+
+        // Icon SVGs
+        const icons = {
+            dollar: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+            users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+            target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+            leaf: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+            megaphone: '<path d="M3 11h3l3-3v8l-3-3H3z"/><path d="M21 6L9 18l-6-6"/>',
+            network: '<path d="M16 3h5v5M8 3H3v5M12 19h5v5M8 19H3v5M21 8L8 21M3 8l13 13"/>'
+        };
+
+        // Initialize the application
+        function init() {
+            renderCategories();
+            renderDetailHeader();
+            renderContent();
+            updateStats();
+            startFlowAnimation();
+        }
+
+        // Render category grid
+        function renderCategories() {
+            const grid = document.getElementById('categoryGrid');
+            grid.innerHTML = dataCategories.map((category, index) => `
+                <div class="category-card ${index === selectedCategory ? 'active' : ''}" 
+                     onclick="selectCategory(${index})">
+                    <svg class="category-icon" viewBox="0 0 24 24" fill="currentColor">
+                        ${icons[category.icon]}
+                    </svg>
+                    <div class="category-title">${category.title}</div>
+                    <div class="category-priority ${category.priority === 'TIER 1' ? 'priority-tier1' : 'priority-tier2'}">
+                        ${category.priority}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render detail header
+        function renderDetailHeader() {
+            const category = dataCategories[selectedCategory];
+            const header = document.getElementById('detailHeader');
+            header.innerHTML = `
+                <div class="detail-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        ${icons[category.icon]}
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="detail-title">${category.title}</h3>
+                    <div class="detail-priority ${category.priority === 'TIER 1' ? 'priority-tier1' : 'priority-tier2'}">
+                        ${category.priority} Priority
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render content based on current view
+        function renderContent() {
+            const contentArea = document.getElementById('contentArea');
+            const category = dataCategories[selectedCategory];
+
+            if (currentView === 'sources') {
+                contentArea.innerHTML = category.dataSources.map(source => `
+                    <div class="source-item">
+                        <div class="source-header">
+                            <div class="source-title">${source.name}</div>
+                            <div class="source-badges">
+                                <span class="source-badge criticality-${source.criticality.toLowerCase()}">${source.criticality}</span>
+                                <span class="source-badge type-badge">${source.type}</span>
+                            </div>
+                        </div>
+                        <div class="data-types">
+                            ${source.dataTypes.map(type => `
+                                <div class="data-type">
+                                    <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    ${type}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            } else if (currentView === 'flows') {
+                contentArea.innerHTML = category.dataFlows.map((flow, index) => `
+                    <div class="flow-item ${index === animatedFlowIndex ? 'animated' : ''}">
+                        <div class="flow-container">
+                            <div class="flow-box">${flow.from}</div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-box end">${flow.to}</div>
+                        </div>
+                        <div class="flow-details">
+                            <div class="flow-data">${flow.data}</div>
+                            <div class="flow-frequency">${flow.frequency}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else if (currentView === 'integration') {
+                contentArea.innerHTML = `
+                    <div style="margin-bottom: 24px;">
+                        <h4 style="font-size: 1.1em; font-weight: 600; color: #1a202c; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#2563eb">
+                                ${icons.network}
+                            </svg>
+                            Integration Points
+                        </h4>
+                        <div class="integration-grid">
+                            ${category.integrationPoints.map(point => `
+                                <div class="integration-item">
+                                    <div class="integration-title">${point}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 1.1em; font-weight: 600; color: #1a202c; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ea580c">
+                                <path d="M12 2L13.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L10.91 8.26L12 2Z"/>
+                            </svg>
+                            Expected Gaps
+                        </h4>
+                        ${category.expectedGaps.map(gap => `
+                            <div class="gap-item">
+                                <div class="gap-content">
+                                    <svg class="eye-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
+                                    <span class="gap-text">${gap}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalSources = dataCategories.reduce((sum, cat) => sum + cat.dataSources.length, 0);
+            const totalFlows = dataCategories.reduce((sum, cat) => sum + cat.dataFlows.length, 0);
+            const totalIntegrations = dataCategories.reduce((sum, cat) => sum + cat.integrationPoints.length, 0);
+            const totalGaps = dataCategories.reduce((sum, cat) => sum + cat.expectedGaps.length, 0);
+
+            document.getElementById('totalSources').textContent = totalSources;
+            document.getElementById('totalFlows').textContent = totalFlows;
+            document.getElementById('totalIntegrations').textContent = totalIntegrations;
+            document.getElementById('totalGaps').textContent = totalGaps;
+        }
+
+        // Select category
+        function selectCategory(index) {
+            selectedCategory = index;
+            renderCategories();
+            renderDetailHeader();
+            renderContent();
+        }
+
+        // Switch view
+        function switchView(view) {
+            currentView = view;
+            
+            // Update button states
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-view="${view}"]`).classList.add('active');
+            
+            renderContent();
+        }
+
+        // Start flow animation
+        function startFlowAnimation() {
+            setInterval(() => {
+                const category = dataCategories[selectedCategory];
+                animatedFlowIndex = (animatedFlowIndex + 1) % category.dataFlows.length;
+                if (currentView === 'flows') {
+                    renderContent();
+                }
+            }, 2500);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Add click handlers for view buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.view-btn')) {
+                const view = e.target.closest('.view-btn').getAttribute('data-view');
+                switchView(view);
+            }
+        });
+    </script>
+</body>
+</html>
