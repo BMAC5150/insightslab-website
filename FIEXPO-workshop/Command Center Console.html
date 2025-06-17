@@ -441,7 +441,6 @@
     // Debug: LucideReact contents
     console.log('LucideReact icons:', LucideReact);
 
-    // -- Your entire WorkshopInfographic component code goes here unchanged --
 const { useState } = React;
 const { ChevronDown, ChevronRight, Target, Mail, Clock, BarChart3, ArrowRight } = LucideReact;
 const WorkshopInfographic = () => {
@@ -1282,7 +1281,12 @@ const WorkshopInfographic = () => {
 };
 
 // Render the WorkshopInfographic component (NOT LoadingComponent)
-ReactDOM.render(React.createElement(WorkshopInfographic), document.getElementById('react-infographic-root'));
+const rootElem = document.getElementById('react-infographic-root');
+if (ReactDOM.createRoot) {
+  ReactDOM.createRoot(rootElem).render(React.createElement(WorkshopInfographic));
+} else {
+  ReactDOM.render(React.createElement(WorkshopInfographic), rootElem);
+}
 </script>
 
 </body>
