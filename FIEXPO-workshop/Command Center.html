@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3-2-1 Tradeshow Command Center - Interactive Infographic</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Interactive 3-2-1 Tradeshow Command Center infographic showing how to transform tradeshow chaos into closed business with AI-powered lead prioritization">
+    <meta name="keywords" content="tradeshow ROI, AI lead scoring, business events, DMO, convention center, FIEXPO, ICCA">
+    <meta property="og:title" content="3-2-1 Tradeshow Command Center - Interactive Infographic">
+    <meta property="og:description" content="Learn the AI-powered system for tradeshow lead prioritization and instant follow-up">
+    <meta property="og:type" content="website">
+    
     <style>
         /* Global Styles */
         * {
@@ -16,6 +24,7 @@
         body {
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
         
         .container {
@@ -48,6 +57,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .nav-container {
@@ -78,6 +88,11 @@
             text-decoration: none;
             margin-left: 30px;
             font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
         }
         
         /* Header styles */
@@ -101,16 +116,19 @@
             margin: 0 auto 30px;
         }
         
-        /* React Component Container */
+        /* React Component Container - FIXED */
         .react-container {
             width: 100%;
             min-height: 100vh;
             background: transparent;
+            position: relative;
+            z-index: 1;
+            clear: both;
         }
         
-        /* Loading placeholder styles */
+        /* Loading placeholder styles - IMPROVED */
         .loading-placeholder {
-            display: flex;
+            display: flex !important;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -120,7 +138,9 @@
             text-align: center;
             padding: 40px 20px;
             border-radius: 15px;
-            margin: 20px 0;
+            margin: 20px auto;
+            max-width: 1200px;
+            visibility: visible;
         }
         
         .loading-spinner {
@@ -201,6 +221,8 @@
             font-size: 24px;
             color: white;
             cursor: pointer;
+            background: none;
+            border: none;
         }
         
         /* Responsive Adjustments */
@@ -223,6 +245,7 @@
                 flex-direction: column;
                 padding: 20px 0;
                 z-index: 2000;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             }
             
             .nav-links.active {
@@ -244,60 +267,66 @@
             }
         }
 
-@media (max-width: 480px) {
-    .page-header h1 {
-        font-size: 28px;
-    }
-    
-    .page-header p {
-        font-size: 16px;
-    }
-    
-    /* Ensure React component content doesn't overflow */
-    .react-container {
-        overflow-x: hidden;
-    }
-    
-    /* Make navigation tabs stack better on very small screens */
-    .react-container button {
-        font-size: 0.9rem !important;
-        padding: 8px 16px !important;
-    }
-}
-    </style>
-    <!-- Move the error handling script to load first -->
-<script>
-// Error handling for better debugging
-window.addEventListener('error', function(e) {
-    console.error('JavaScript Error:', e.error);
-    const fallbackDiv = document.getElementById('react-infographic-root');
-    if (fallbackDiv && fallbackDiv.innerHTML.includes('Loading')) {
-        fallbackDiv.innerHTML = `
-            <div style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 40px; text-align: center; border-radius: 15px; margin: 20px 0;">
-                <h2>Unable to Load Interactive Content</h2>
-                <p>Please refresh the page or check your browser's JavaScript settings.</p>
-                <p style="font-size: 0.9rem; opacity: 0.8;">Error: ${e.message}</p>
-            </div>
-        `;
-    }
-});
-
-// Add loading check
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        const rootElement = document.getElementById('react-infographic-root');
-        if (rootElement && rootElement.innerHTML.includes('Loading 3-2-1 Framework Infographic')) {
-            console.warn('React component may have failed to load');
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .page-header p {
+                font-size: 16px;
+            }
+            
+            /* Ensure React component content doesn't overflow */
+            .react-container {
+                overflow-x: hidden;
+            }
+            
+            /* Make navigation tabs stack better on very small screens */
+            .react-container button {
+                font-size: 0.9rem !important;
+                padding: 8px 16px !important;
+            }
         }
-    }, 3000);
-});
-</script>
 
-<!-- Then load React scripts -->
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+        /* Error and fallback styles */
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            border: 2px solid #ef4444;
+        }
+        
+        .fallback-message {
+            background: rgba(255, 140, 0, 0.1);
+            color: #FF8C00;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            border: 2px solid #FF8C00;
+        }
+        
+        .action-button {
+            background: #FF8C00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background: #e67e00;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -306,8 +335,7 @@ window.addEventListener('load', function() {
             <div class="logo">   
                 <h1>insightslab</h1>
             </div>
-            <!-- Add menu toggle button for mobile -->
-            <div class="menu-toggle">☰</div>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
             <div class="nav-links">
                 <a href="https://dmoinsightslab.com/">Home</a>
                 <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
@@ -359,42 +387,133 @@ window.addEventListener('load', function() {
         </div>
     </footer>
 
-    <!-- PLACEHOLDER FOR REACT COMPONENT CODE -->
-    <!-- 
-    ========================================================================
-    INSERT 3-2-1 FRAMEWORK REACT COMPONENT CODE HERE VIA GITHUB
-    ========================================================================
+    <!-- Error handling MUST load first -->
+    <script>
+    console.log('🚀 Starting error handler setup...');
     
-    Instructions for GitHub insertion:
-    1. Replace the entire script block below with the React component code
-    2. Ensure the component renders to the element with id "react-infographic-root"
-    3. The component should be wrapped in Babel script tags for JSX transformation
-    4. Example structure:
-    
-    <script type="text/babel">
-        // INSERT REACT COMPONENT CODE HERE
-        // Component should render to: document.getElementById('react-infographic-root')
+    window.addEventListener('error', function(e) {
+        console.error('❌ JavaScript Error detected:', e.error);
+        const fallbackDiv = document.getElementById('react-infographic-root');
+        if (fallbackDiv && fallbackDiv.innerHTML.includes('Loading')) {
+            fallbackDiv.innerHTML = `
+                <div class="error-message">
+                    <h2>❌ Unable to Load Interactive Content</h2>
+                    <p>A JavaScript error occurred while loading the interactive infographic.</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 15px;">
+                        <strong>Error:</strong> ${e.message}
+                    </p>
+                    <button class="action-button" onclick="location.reload()">
+                        Refresh Page
+                    </button>
+                </div>
+            `;
+        }
+    });
+
+    // Debug loading process
+    console.log('🔧 Debug mode enabled - monitoring script loading...');
     </script>
+
+    <!-- Load React scripts in correct order -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+
+    <!-- Debug script to check if libraries loaded -->
+    <script>
+    console.log('📚 Checking library loading status...');
     
-    ========================================================================
-    -->
+    const libraries = {
+        'React': typeof React !== 'undefined',
+        'ReactDOM': typeof ReactDOM !== 'undefined', 
+        'Babel': typeof Babel !== 'undefined',
+        'LucideReact': typeof LucideReact !== 'undefined'
+    };
     
-<script>
-// Fallback for slow loading
-setTimeout(function() {
-    const loadingElement = document.querySelector('.loading-placeholder');
-    if (loadingElement && loadingElement.style.display !== 'none') {
-        loadingElement.innerHTML = `
-            <div class="loading-spinner"></div>
-            <h2>Still Loading...</h2>
-            <p>The interactive content is taking longer than expected.</p>
-            <button onclick="location.reload()" style="background: #FF8C00; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; margin-top: 15px;">
-                Refresh Page
-            </button>
-        `;
+    Object.entries(libraries).forEach(([name, loaded]) => {
+        console.log(`${loaded ? '✅' : '❌'} ${name}: ${loaded ? 'loaded' : 'FAILED'}`);
+    });
+    
+    // Check for any failed libraries
+    const failedLibraries = Object.entries(libraries)
+        .filter(([name, loaded]) => !loaded)
+        .map(([name]) => name);
+    
+    if (failedLibraries.length > 0) {
+        console.error('🚨 Critical libraries failed to load:', failedLibraries);
+        
+        setTimeout(() => {
+            const container = document.getElementById('react-infographic-root');
+            if (container && container.innerHTML.includes('Loading')) {
+                container.innerHTML = `
+                    <div class="fallback-message">
+                        <h2>🌐 External Resources Loading Issue</h2>
+                        <p>Some required libraries failed to load. This may be due to:</p>
+                        <ul style="text-align: left; max-width: 400px; margin: 20px auto; line-height: 1.8;">
+                            <li>Network connectivity issues</li>
+                            <li>Corporate firewall blocking CDN resources</li>
+                            <li>Ad blockers interfering with external scripts</li>
+                            <li>Browser security settings</li>
+                        </ul>
+                        <p><strong>Failed libraries:</strong> ${failedLibraries.join(', ')}</p>
+                        <button class="action-button" onclick="location.reload()">
+                            Try Again
+                        </button>
+                    </div>
+                `;
+            }
+        }, 3000);
     }
-}, 8000);
-</script>
+    </script>
+
+    <!-- Container visibility check -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('📱 DOM loaded, checking container visibility...');
+        
+        const container = document.getElementById('react-infographic-root');
+        if (container) {
+            console.log('✅ Container found');
+            console.log('📏 Container dimensions:', {
+                height: container.offsetHeight,
+                width: container.offsetWidth,
+                visible: container.offsetHeight > 0
+            });
+            
+            // Force visibility if hidden
+            container.style.display = 'block';
+            container.style.visibility = 'visible';
+            container.style.minHeight = '400px';
+            
+            console.log('🎯 Container forced visible');
+        } else {
+            console.error('❌ Container element not found!');
+        }
+    });
+    </script>
+
+    <!-- Fallback for slow loading -->
+    <script>
+    setTimeout(function() {
+        console.log('⏰ 8-second timeout check...');
+        
+        const loadingElement = document.querySelector('.loading-placeholder');
+        if (loadingElement && loadingElement.style.display !== 'none') {
+            console.log('⚠️ Content still loading after 8 seconds');
+            
+            loadingElement.innerHTML = `
+                <div class="loading-spinner"></div>
+                <h2>🐌 Still Loading...</h2>
+                <p>The interactive content is taking longer than expected.</p>
+                <p style="font-size: 0.9rem; opacity: 0.8;">This usually indicates a network or script loading issue.</p>
+                <button class="action-button" onclick="location.reload()">
+                    Refresh Page
+                </button>
+            `;
+        }
+    }, 8000);
+    </script>
 
     <script type="text/babel">
 const { useState } = React;
@@ -1246,5 +1365,45 @@ ReactDOM.render(React.createElement(WorkshopInfographic), document.getElementByI
         document.querySelector('.nav-links').classList.toggle('active');
     });
 </script>
+
+ <!-- Mobile menu toggle functionality -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('📱 Setting up mobile menu...');
+        
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                console.log('📱 Mobile menu toggled');
+            });
+            console.log('✅ Mobile menu setup complete');
+        } else {
+            console.log('⚠️ Mobile menu elements not found');
+        }
+    });
+    </script>
+
+    <!-- Final loading status check -->
+    <script>
+    window.addEventListener('load', function() {
+        console.log('🏁 Page fully loaded');
+        
+        setTimeout(function() {
+            const reactRoot = document.getElementById('react-infographic-root');
+            if (reactRoot) {
+                const content = reactRoot.innerHTML;
+                console.log('📊 Final content check:', {
+                    hasContent: content.length > 100,
+                    stillLoading: content.includes('Loading'),
+                    hasError: content.includes('Error') || content.includes('Unable'),
+                    contentPreview: content.substring(0, 100) + '...'
+                });
+            }
+        }, 2000);
+    });
+    </script>
 </body>
 </html>
