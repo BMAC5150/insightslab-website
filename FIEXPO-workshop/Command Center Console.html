@@ -394,7 +394,6 @@
         'React': typeof React !== 'undefined',
         'ReactDOM': typeof ReactDOM !== 'undefined', 
         'Babel': typeof Babel !== 'undefined',
-        'LucideReact': typeof LucideReact !== 'undefined'
     };
     Object.entries(libraries).forEach(([name, loaded]) => {
         console.log(`${loaded ? '✅' : '❌'} ${name}: ${loaded ? 'loaded' : 'FAILED'}`);
@@ -442,10 +441,8 @@
 console.log('React:', typeof React);
 console.log('ReactDOM:', typeof ReactDOM);
 console.log('Babel:', typeof Babel);
-console.log('LucideReact:', typeof LucideReact);
 console.log('rootElem:', document.getElementById('react-infographic-root'));
 
-    console.log('LucideReact icons:', LucideReact);
 
 const { useState } = React;
 const ChevronDown = window.lucide.ChevronDown;
