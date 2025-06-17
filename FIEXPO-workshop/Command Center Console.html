@@ -970,7 +970,9 @@ const WorkshopInfographic = () => {
                         </p>
                       </div>
                     </div>
-                    {expandedLead === lead.id ? <ChevronDown color={lead.color} /> : <ChevronRight color={lead.color} />}
+                {expandedLead === lead.id 
+                    ? ChevronDown({ color: lead.color }) 
+                    : ChevronRight({ color: lead.color })}
                   </div>
                   
                   {expandedLead === lead.id && (
