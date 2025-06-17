@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-2-1 Tradeshow Command Center - Interactive Infographic</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+        
+        p {
+            margin-bottom: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-left: 10px;
+            margin-bottom: 0;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+        }
+        
+        /* Header styles */
+        .page-header {
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+            padding: 150px 0 50px;
+            margin-top: 70px;
+        }
+        
+        .page-header h1 {
+            font-size: 50px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* React Component Container */
+        .react-container {
+            width: 100%;
+            min-height: 100vh;
+            background: transparent;
+        }
+        
+        /* Loading placeholder styles */
+        .loading-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            background: linear-gradient(135deg, #531b93 0%, #1e3a8a 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 140, 0, 0.3);
+            border-top: 4px solid #FF8C00;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Back to resources button */
+        .back-button {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer styles */
+        .page-footer {
+            background-color: #531b93;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #531b93;
+                flex-direction: column;
+                padding: 20px 0;
+                z-index: 2000;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+            
+            .page-header h1 {
+                font-size: 36px;
+            }
+            
+            .page-header p {
+                font-size: 18px;
+            }
+        }
+    </style>
+    
+    <!-- React and Babel for JSX transformation -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide React Icons -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/umd/lucide-react.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">   
+                <h1>insightslab</h1>
+            </div>
+            <!-- Add menu toggle button for mobile -->
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="https://dmoinsightslab.com/">Home</a>
+                <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+                <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+                <a href="https://dmoinsightslab.com/#team">Team</a>
+                <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+        
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>The 3-2-1 Tradeshow Command Center</h1>
+            <p>Interactive infographic showing how to transform tradeshow chaos into closed business with AI-powered lead prioritization</p>
+            
+            <!-- Back to Resources Button -->
+            <a href="content-landing-page.html" class="back-button">← Back to Workshop Resources</a>
+        </div>
+    </header>
+
+    <!-- React Component Container -->
+    <div class="react-container">
+        <div id="react-infographic-root">
+            <!-- Loading Placeholder - will be replaced by React component -->
+            <div class="loading-placeholder">
+                <div class="loading-spinner"></div>
+                <h2>Loading 3-2-1 Framework Infographic...</h2>
+                <p>Interactive presentation loading</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://dmoinsightslab.com/">Home</a>
+                    <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+                    <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+                    <a href="https://dmoinsightslab.com/#team">Team</a>
+                    <a href="https://dmoinsightslab.com/#contact-form">Contact</a>
+                </div>
+                <div class="copyright">
+                    © 2025 Powered by InsightsLab. Transform your tradeshow ROI with AI.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PLACEHOLDER FOR REACT COMPONENT CODE -->
+    <!-- 
+    ========================================================================
+    INSERT 3-2-1 FRAMEWORK REACT COMPONENT CODE HERE VIA GITHUB
+    ========================================================================
+    
+    Instructions for GitHub insertion:
+    1. Replace the entire script block below with the React component code
+    2. Ensure the component renders to the element with id "react-infographic-root"
+    3. The component should be wrapped in Babel script tags for JSX transformation
+    4. Example structure:
+    
+    <script type="text/babel">
+        // INSERT REACT COMPONENT CODE HERE
+        // Component should render to: document.getElementById('react-infographic-root')
+    </script>
+    
+    ========================================================================
+    -->
+    
+    <script type="text/babel">
+const { useState } = React;
+const { ChevronDown, ChevronRight, Target, Mail, Clock, BarChart3, ArrowRight } = LucideReact;
+const WorkshopInfographic = () => {
+  const [activeSection, setActiveSection] = useState('command');
+  const [expandedLead, setExpandedLead] = useState(null);
+
+  const leadExamples = [
+    {
+      id: 5,
+      title: "Maria Rodriguez - Pfizer",
+      interaction: "Scheduled Meeting",
+      need: "500 rooms Q2 2026",
+      nugget: "Chose booth for pharma compliance expertise",
+      followup: "Template A1: Corporate - Immediate Need",
+      color: "
+#22c55e"
+    },
+
+
+        // Render the loading component
+        ReactDOM.render(React.createElement(LoadingComponent), document.getElementById('react-infographic-root'));
+    </script>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
