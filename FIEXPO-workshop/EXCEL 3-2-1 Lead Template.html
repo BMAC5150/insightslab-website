@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-2-1 Excel Lead Template Demo</title>
+  <meta name="description" content="Interactive demonstration of the tradeshow lead collection Excel template for AI-powered business event sales.">
+  <meta name="keywords" content="Excel template, 3-2-1 framework, tradeshow, lead collection, AI, business events">
+  <meta property="og:title" content="3-2-1 Excel Template Demo">
+  <meta property="og:description" content="Interactive demonstration of the tradeshow lead collection Excel template for AI-powered business event sales.">
+  <meta property="og:type" content="website">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { line-height: 1.6; color: #333; overflow-x: hidden; }
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    h1, h2, h3 { margin-bottom: 20px; color: #111; }
+    p { margin-bottom: 20px; }
+    nav {
+      background-color: #531b93; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+    .logo { display: flex; align-items: center; }
+    .logo h1 { color: #FF8C00; font-size: 28px; margin-left: 10px; margin-bottom: 0; }
+    .nav-links { display: flex; }
+    .nav-links a {
+      color: white; text-decoration: none; margin-left: 30px; font-weight: 500; transition: opacity 0.3s;
+    }
+    .nav-links a:hover { opacity: 0.8; }
+    .menu-toggle { display: none; font-size: 24px; color: white; cursor: pointer; background: none; border: none; }
+    /* Page Header Hero (COMMAND CONSOLE MATCH) */
+    .page-header {
+      background-color: #531b93;
+      color: white;
+      text-align: center;
+      padding: 150px 0 50px;
+      margin-top: 70px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    @media (max-width: 768px) {
+      .nav-container { flex-wrap: wrap; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; width: 100%; position: absolute; top: 80px; left: 0; background-color: #531b93; flex-direction: column; padding: 20px 0; z-index: 2000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+      .nav-links.active { display: flex; }
+      .nav-links a { margin: 10px 0; padding: 10px 0; text-align: center; }
+      .page-header { padding: 100px 0 30px; }
+      .page-header h1 { font-size: 36px; }
+      .page-header p { font-size: 18px; }
+    }
+    @media (max-width: 480px) {
+      .page-header h1 { font-size: 28px; }
+      .page-header p { font-size: 16px; }
+      .react-container { overflow-x: hidden; }
+    }
+    .react-container {
+      width: 100%;
+      min-height: 100vh;
+      background: transparent;
+      position: relative;
+      z-index: 1;
+      clear: both;
+    }
+    /* Footer styles */
+    .page-footer {
+      background-color: #531b93; color: white; padding: 40px 0; text-align: center; margin-top: 40px;
+    }
+    .footer-content { max-width: 800px; margin: 0 auto; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a {
+      color: white; margin: 0 15px; text-decoration: none; opacity: 0.8; transition: opacity 0.3s;
+    }
+    .footer-links a:hover { opacity: 1; }
+    .copyright { margin-top: 20px; font-size: 14px; opacity: 0.7; }
+    /* Hide scrollbars for code preview, etc */
+    ::-webkit-scrollbar { width: 6px; background: #f3f4f6; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 6px; }
+    /* Error and fallback styles */
+    .error-message {
+      background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 40px; text-align: center; border-radius: 15px;
+      margin: 20px auto; max-width: 800px; border: 2px solid #ef4444;
+    }
+    .action-button {
+      background: #FF8C00; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;
+      margin-top: 15px; font-weight: bold; transition: background-color 0.3s ease;
+    }
+    .action-button:hover { background: #e67e00; }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo"><h1>insightslab</h1></div>
+      <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+      <div class="nav-links">
+        <a href="https://dmoinsightslab.com/">Home</a>
+        <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+        <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+        <a href="https://dmoinsightslab.com/#team">Team</a>
+        <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+  <!-- HERO HEADER (COMMAND CONSOLE MATCH) -->
+  <div class="page-header">
+    <h1>3-2-1 Excel Lead Template Demo</h1>
+    <p>Interactive demonstration of the tradeshow lead collection template</p>
+  </div>
+  <!-- React Component Container -->
+  <div class="react-container">
+    <div id="excel-template-demo-root">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; background: linear-gradient(135deg, #531b93 0%, #1e3a8a 100%); color: white; text-align: center; padding: 40px 20px; border-radius: 15px; margin: 20px auto; max-width: 1200px;">
+        <div style="width: 50px; height: 50px; border: 4px solid rgba(255, 140, 0, 0.3); border-top: 4px solid #FF8C00; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;"></div>
+        <h2>Loading Excel Template Demo...</h2>
+        <p>Interactive demo loading</p>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="https://dmoinsightslab.com/">Home</a>
+          <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+          <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+          <a href="https://dmoinsightslab.com/#team">Team</a>
+          <a href="https://dmoinsightslab.com/#contact-form">Contact</a>
+        </div>
+        <div class="copyright">
+          © 2025 Powered by InsightsLab. Transform your tradeshow ROI with AI.
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Scripts: React, Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    window.addEventListener('error', function(e) {
+      console.error('❌ JavaScript Error detected:', e.error);
+      const fallbackDiv = document.getElementById('excel-template-demo-root');
+      if (fallbackDiv && fallbackDiv.innerHTML.includes('Loading')) {
+        fallbackDiv.innerHTML = `
+          <div class="error-message">
+            <h2>❌ Unable to Load Interactive Content</h2>
+            <p>A JavaScript error occurred while loading the Excel Template Demo.</p>
+            <p style="font-size:0.9rem;opacity:0.8;margin-top:15px;"><strong>Error:</strong> ${e.message}</p>
+            <button class="action-button" onclick="location.reload()">Refresh Page</button>
+          </div>`;
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', function() {
+          navLinks.classList.toggle('active');
+        });
+      }
+    });
+  </script>
+  <!-- React App (Babel JSX) -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    // Inline SVG icons (custom, so no dependency on lucide-react)
+    const Download = ({ size=24, color="#fff" }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+    );
+    const FileSpreadsheet = ({ size=24, color="#fff", style={} }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M8 3v18" />
+        <path d="M16 3v18" />
+        <path d="M3 8h18" />
+        <path d="M3 16h18" />
+      </svg>
+    );
+    const Users = ({ size=24, color="#fff", style={} }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+        <path d="M17 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M7 21v-2a4 4 0 0 1 3-3.87" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    );
+    const Target = ({ size=24, color="#22c55e", style={} }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+        <circle cx="12" cy="12" r="10"></circle>
+        <circle cx="12" cy="12" r="6"></circle>
+        <circle cx="12" cy="12" r="2"></circle>
+      </svg>
+    );
+
+    const sampleLeads = [
+      {
+        id: "TF001",
+        name: "Maria Rodriguez - Pfizer",
+        score: 5,
+        interaction: "Scheduled Meeting",
+        need: "500 rooms Q2 2026, pharma compliance required",
+        timeline: "Immediate (next 6 months)",
+        nugget: "Chose us for pharma compliance expertise",
+        value: "$250,000",
+        authority: "Final Decision Maker",
+        color: "#22c55e"
+      },
+      {
+        id: "TF002",
+        name: "Dr. Elena Santos - Cardiology Society",
+        score: 4,
+        interaction: "Booth Conversation",
+        need: "2026 Annual Conference - 2,500 attendees",
+        timeline: "Future (12+ months)",
+        nugget: "Vision for Americas medical collaboration",
+        value: "$400,000",
+        authority: "Final Decision Maker",
+        color: "#3b82f6"
+      },
+      {
+        id: "TF003",
+        name: "Carlos Mendez - Event Coordinator",
+        score: 3,
+        interaction: "Networking Contact",
+        need: "Research phase for multiple client events",
+        timeline: "Near-term (6-12 months)",
+        nugget: "Budget constraints for non-profit sector",
+        value: "$75,000",
+        authority: "Recommends to Decision Maker",
+        color: "#f59e0b"
+      }
+    ];
+    const steps = [
+      { id: 1, title: "Download Template", description: "Get the pre-formatted Excel template" },
+      { id: 2, title: "Collect Data", description: "Use 3-2-1 framework during tradeshows" },
+      { id: 3, title: "Upload to AI", description: "Import data to your Command Center" }
+    ];
+    const fields = [
+      { name: "Lead_ID", example: "TF001", required: true },
+      { name: "Date_Time", example: "2025-02-15 10:30", required: true },
+      { name: "Contact_Name", example: "Maria Rodriguez", required: true },
+      { name: "Company_Organization", example: "Pfizer Inc", required: true },
+      { name: "Lead_Score_1_to_5", example: "5", required: true, highlight: true },
+      { name: "Interaction_Type", example: "Scheduled Meeting", required: true, highlight: true },
+      { name: "Next_Action", example: "Send proposal", required: true, highlight: true },
+      { name: "Specific_Need_Mentioned", example: "500 rooms Q2 2026", required: true, highlight: true },
+      { name: "Event_Timeline", example: "Immediate (next 6 months)", required: true, highlight: true },
+      { name: "Golden_Nugget_Why_Us", example: "Chose us for compliance expertise", required: true, highlight: true },
+      { name: "Estimated_Event_Value", example: "$250,000", required: false },
+      { name: "Decision_Making_Authority", example: "Final Decision Maker", required: false }
+    ];
+
+    function ExcelTemplateDemo() {
+      const [activeStep, setActiveStep] = useState(1);
+      const [selectedLead, setSelectedLead] = useState(null);
+
+      return (
+        <div style={{
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg, #531b93 0%, #1e3a8a 100%)',
+          color: 'white',
+          fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+          padding: '40px 20px'
+        }}>
+          {/* Process Steps */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '40px',
+            flexWrap: 'wrap',
+            gap: '20px'
+          }}>
+            {steps.map((step) => (
+              <div
+                key={step.id}
+                onClick={() => setActiveStep(step.id)}
+                style={{
+                  background: activeStep === step.id ? '#FF8C00' : 'rgba(255,255,255,0.1)',
+                  padding: '20px',
+                  borderRadius: '15px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  border: `2px solid ${activeStep === step.id ? '#FF8C00' : 'rgba(255,255,255,0.3)'}`,
+                  minWidth: '200px',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{
+                  fontSize: '2rem',
+                  marginBottom: '10px',
+                  color: activeStep === step.id ? 'white' : '#FF8C00'
+                }}>
+                  {step.id}
+                </div>
+                <h3 style={{ marginBottom: '10px', fontSize: '1.2rem' }}>{step.title}</h3>
+                <p style={{ opacity: 0.8, fontSize: '0.9rem' }}>{step.description}</p>
+              </div>
+            ))}
+          </div>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            {/* Step 1: Download Template */}
+            {activeStep === 1 && (
+              <div>
+                <div style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  borderRadius: '15px',
+                  padding: '40px',
+                  textAlign: 'center',
+                  marginBottom: '30px'
+                }}>
+                  <FileSpreadsheet size={60} color="#FF8C00" style={{ marginBottom: '20px' }} />
+                  <h2 style={{ color: '#FF8C00', marginBottom: '20px' }}>Download Your Template</h2>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '30px', opacity: 0.9 }}>
+                    Get the pre-formatted Excel template with built-in validation and examples
+                  </p>
+                  <button style={{
+                    background: 'linear-gradient(45deg, #FF8C00, #e67e00)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '15px 30px',
+                    borderRadius: '30px',
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                    margin: '0 auto',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    <Download size={20} />
+                    Download Excel Template
+                  </button>
+                </div>
+                {/* Template Structure Preview */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  borderRadius: '15px',
+                  padding: '30px'
+                }}>
+                  <h3 style={{ color: '#22c55e', marginBottom: '20px' }}>Template Structure Preview</h3>
+                  <div style={{
+                    background: '#1a1a1a',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    overflow: 'auto'
+                  }}>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                      gap: '15px'
+                    }}>
+                      {fields.map((field, index) => (
+                        <div key={index} style={{
+                          background: field.highlight ? 'rgba(255, 140, 0, 0.2)' : 'rgba(255,255,255,0.05)',
+                          padding: '15px',
+                          borderRadius: '8px',
+                          border: field.highlight ? '1px solid #FF8C00' : '1px solid rgba(255,255,255,0.1)'
+                        }}>
+                          <div style={{
+                            fontWeight: 'bold',
+                            color: field.highlight ? '#FF8C00' : '#22c55e',
+                            marginBottom: '5px',
+                            fontSize: '0.9rem'
+                          }}>
+                            {field.name}
+                            {field.required && <span style={{ color: '#ef4444' }}> *</span>}
+                          </div>
+                          <div style={{
+                            fontSize: '0.8rem',
+                            opacity: 0.7,
+                            fontStyle: 'italic'
+                          }}>
+                            {field.example}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{
+                    marginTop: '20px',
+                    padding: '15px',
+                    background: 'rgba(255, 140, 0, 0.1)',
+                    borderRadius: '10px',
+                    border: '1px solid #FF8C00'
+                  }}>
+                    <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                      <strong>🎯 Highlighted fields</strong> represent the core 3-2-1 framework data points. These are essential for AI-powered lead prioritization.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* Step 2: Data Collection */}
+            {activeStep === 2 && (
+              <div>
+                <div style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  borderRadius: '15px',
+                  padding: '40px',
+                  marginBottom: '30px'
+                }}>
+                  <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                    <Users size={60} color="#3b82f6" style={{ marginBottom: '20px' }} />
+                    <h2 style={{ color: '#3b82f6', marginBottom: '20px' }}>Collect Lead Data</h2>
+                    <p style={{ fontSize: '1.1rem', opacity: 0.9 }}>
+                      Use the 3-2-1 framework to capture essential information in 30 seconds
+                    </p>
+                  </div>
+                  {/* Sample Leads Grid */}
+                  <div style={{ display: 'grid', gap: '20px' }}>
+                    {sampleLeads.map((lead) => (
+                      <div
+                        key={lead.id}
+                        onClick={() => setSelectedLead(selectedLead === lead.id ? null : lead.id)}
+                        style={{
+                          background: 'rgba(255,255,255,0.1)',
+                          borderRadius: '15px',
+                          border: `2px solid ${lead.color}`,
+                          padding: '25px',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          transform: selectedLead === lead.id ? 'scale(1.02)' : 'scale(1)'
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '15px' }}>
+                          <div style={{
+                            background: lead.color,
+                            color: 'white',
+                            borderRadius: '50%',
+                            width: '50px',
+                            height: '50px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold'
+                          }}>
+                            {lead.score}
+                          </div>
+                          <div>
+                            <h3 style={{ color: lead.color, marginBottom: '5px' }}>{lead.name}</h3>
+                            <p style={{ opacity: 0.8, margin: 0 }}>{lead.interaction} • {lead.value}</p>
+                          </div>
+                        </div>
+                        {selectedLead === lead.id && (
+                          <div style={{
+                            background: 'rgba(0,0,0,0.2)',
+                            borderRadius: '10px',
+                            padding: '20px',
+                            marginTop: '15px'
+                          }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                              <div>
+                                <h4 style={{ color: '#FF8C00', marginBottom: '10px' }}>🎯 3 Essential Points:</h4>
+                                <ul style={{ listStyle: 'none', padding: 0 }}>
+                                  <li><strong>Score:</strong> {lead.score}/5</li>
+                                  <li><strong>Interaction:</strong> {lead.interaction}</li>
+                                  <li><strong>Next Action:</strong> {lead.score >= 4 ? 'Send proposal' : lead.score === 3 ? 'Schedule meeting' : 'Add to campaigns'}</li>
+                                </ul>
+                              </div>
+                              <div>
+                                <h4 style={{ color: '#22c55e', marginBottom: '10px' }}>📊 2 Intelligence Points:</h4>
+                                <ul style={{ listStyle: 'none', padding: 0 }}>
+                                  <li><strong>Need:</strong> {lead.need}</li>
+                                  <li><strong>Timeline:</strong> {lead.timeline}</li>
+                                </ul>
+                              </div>
+                              <div style={{ gridColumn: 'span 2' }}>
+                                <h4 style={{ color: '#f59e0b', marginBottom: '10px' }}>💎 1 Golden Nugget:</h4>
+                                <p style={{
+                                  background: 'rgba(245, 158, 11, 0.1)',
+                                  padding: '10px',
+                                  borderRadius: '5px',
+                                  border: '1px solid #f59e0b',
+                                  fontStyle: 'italic',
+                                  margin: 0
+                                }}>
+                                  "{lead.nugget}"
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div style={{
+                  background: 'rgba(255, 140, 0, 0.1)',
+                  border: '2px solid #FF8C00',
+                  borderRadius: '15px',
+                  padding: '25px',
+                  textAlign: 'center'
+                }}>
+                  <h3 style={{ color: '#FF8C00', marginBottom: '15px' }}>Pro Tip: Color Coding</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '15px' }}>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ color: '#22c55e', fontSize: '2rem', marginBottom: '5px' }}>5-4</div>
+                      <div style={{ fontSize: '0.9rem' }}>Green<br />Immediate Action</div>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ color: '#f59e0b', fontSize: '2rem', marginBottom: '5px' }}>3</div>
+                      <div style={{ fontSize: '0.9rem' }}>Yellow<br />Medium Priority</div>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <div style={{ color: '#ef4444', fontSize: '2rem', marginBottom: '5px' }}>2-1</div>
+                      <div style={{ fontSize: '0.9rem' }}>Orange/Gray<br />Nurture</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* Step 3: Upload to AI */}
+            {activeStep === 3 && (
+              <div>
+                <div style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  borderRadius: '15px',
+                  padding: '40px',
+                  textAlign: 'center',
+                  marginBottom: '30px'
+                }}>
+                  <Target size={60} color="#22c55e" style={{ marginBottom: '20px' }} />
+                  <h2 style={{ color: '#22c55e', marginBottom: '20px' }}>Upload to AI Command Center</h2>
+                  <p style={{ fontSize: '1.1rem', marginBottom: '30px', opacity: 0.9 }}>
+                    Transform your collected data into actionable insights and automated follow-ups
+                  </p>
+                  <div style={{
+                    background: 'rgba(0,0,0,0.2)',
+                    borderRadius: '10px',
+                    padding: '20px',
+                    marginBottom: '30px'
+                  }}>
+                    <h3 style={{ color: '#FF8C00', marginBottom: '15px' }}>Upload Process:</h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{
+                          background: '#22c55e',
+                          borderRadius: '50%',
+                          width: '40px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: '0 auto 10px',
+                          color: 'white',
+                          fontWeight: 'bold'
+                        }}>1</div>
+                        <p style={{ margin: 0, fontSize: '0.9rem' }}>Save Excel as CSV</p>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{
+                          background: '#3b82f6',
+                          borderRadius: '50%',
+                          width: '40px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: '0 auto 10px',
+                          color: 'white',
+                          fontWeight: 'bold'
+                        }}>2</div>
+                        <p style={{ margin: 0, fontSize: '0.9rem' }}>Upload to AI Project</p>
+                      </div>
+                      <div style={{ textAlign: 'center' }}>
+                        <div style={{
+                          background: '#f59e0b',
+                          borderRadius: '50%',
+                          width: '40px',
+                          height: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: '0 auto 10px',
+                          color: 'white',
+                          fontWeight: 'bold'
+                        }}>3</div>
+                        <p style={{ margin: 0, fontSize: '0.9rem' }}>Generate Follow-ups</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{
+                    background: 'rgba(34, 197, 94, 0.1)',
+                    border: '2px solid #22c55e',
+                    borderRadius: '15px',
+                    padding: '20px'
+                  }}>
+                    <h3 style={{ color: '#22c55e', marginBottom: '15px' }}>What Happens Next:</h3>
+                    <div style={{ textAlign: 'left', maxWidth: '600px', margin: '0 auto' }}>
+                      <div style={{ marginBottom: '10px' }}>✅ Automatic lead prioritization by score</div>
+                      <div style={{ marginBottom: '10px' }}>✅ Personalized follow-up email generation</div>
+                      <div style={{ marginBottom: '10px' }}>✅ ROI analysis and recommendations</div>
+                      <div style={{ marginBottom: '10px' }}>✅ Next action scheduling</div>
+                      <div>✅ Performance tracking and insights</div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{
+                  background: 'rgba(255, 140, 0, 0.1)',
+                  border: '2px solid #FF8C00',
+                  borderRadius: '15px',
+                  padding: '25px',
+                  textAlign: 'center'
+                }}>
+                  <h3 style={{ color: '#FF8C00', marginBottom: '15px' }}>Ready to Get Started?</h3>
+                  <p style={{ marginBottom: '20px', opacity: 0.9 }}>
+                    Download the template and start collecting leads with the proven 3-2-1 framework
+                  </p>
+                  <button style={{
+                    background: 'linear-gradient(45deg, #FF8C00, #e67e00)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '15px 30px',
+                    borderRadius: '30px',
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'transform 0.3s ease'
+                  }}>
+                    Get the Template Now
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.render(<ExcelTemplateDemo />, document.getElementById('excel-template-demo-root'));
+  </script>
+</body>
+</html>
