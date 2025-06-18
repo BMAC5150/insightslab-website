@@ -527,35 +527,41 @@
           fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
         }}>
           
-         {/* Header */}
-<div style={{ 
-  padding: '60px 20px 40px 20px', // Increased top padding from 40px to 60px
-  textAlign: 'center',
-  background: 'rgba(0,0,0,0.2)'
-}}>
-  <h1 style={{ 
-    fontSize: '3rem', 
-    marginBottom: '20px',
-    marginTop: '0', // Explicitly set top margin to 0
-    background: 'linear-gradient(45deg, #FF8C00, #FFD700)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    color: '#FF8C00',
-    display: 'inline-block',
-    lineHeight: '1.2' // Ensure proper line height
+return (
+  <div style={{ 
+    minHeight: '100vh', 
+    background: 'linear-gradient(135deg, #531b93 0%, #1e3a8a 100%)',
+    color: 'white',
+    fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif',
+    paddingTop: '70px' // Add this to push content below the fixed nav (which is 70px tall)
   }}>
-    The 3-2-1 Tradeshow Command Center
-  </h1>
-  <p style={{ 
-    fontSize: '1.25rem', 
-    maxWidth: '800px', 
-    margin: '0 auto',
-    opacity: 0.9
-  }}>
-    Transform tradeshow chaos into closed business with AI-powered lead prioritization and instant follow-up
-  </p>
-</div>
+    
+    {/* Header */}
+    <div style={{ 
+      padding: '40px 20px',
+      textAlign: 'center',
+      background: 'rgba(0,0,0,0.2)'
+    }}>
+      <h1 style={{ 
+        fontSize: '3rem', 
+        marginBottom: '20px',
+        background: 'linear-gradient(45deg, #FF8C00, #FFD700)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        display: 'inline-block'
+      }}>
+        The 3-2-1 Tradeshow Command Center
+      </h1>
+      <p style={{ 
+        fontSize: '1.25rem', 
+        maxWidth: '800px', 
+        margin: '0 auto',
+        opacity: 0.9
+      }}>
+        Transform tradeshow chaos into closed business with AI-powered lead prioritization and instant follow-up
+      </p>
+    </div>
 
           {/* Navigation Tabs - REORDERED to start with Command Center */}
           <div style={{ 
