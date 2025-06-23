@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICCA LATAM Workshop #2 - AI-Driven Tradeshow ROI Optimization</title>
+    <meta name="description" content="Transform tradeshow chaos into closed business with AI-driven ROI optimization. Join the ICCA LATAM Workshop #2">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin: 0;
+        }
+        .nav-links {
+            display: flex;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        /* Main container */
+        .main-container {
+            margin-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #531b93 0%, #1e3a8a 100%);
+            padding: 40px 20px;
+        }
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* Header section */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .header-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+        .header-section h2 {
+            font-size: 2rem;
+            color: #8b5cf6;
+            margin-bottom: 16px;
+        }
+        .header-section p {
+            color: #6b7280;
+            font-size: 1.25rem;
+            margin-bottom: 32px;
+        }
+        /* Key stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ddd6fe, #dbeafe);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-icon {
+            color: #8b5cf6;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        /* Outcomes section */
+        .outcomes-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .outcome-card {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            border-radius: 12px;
+            padding: 16px;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+        .outcome-card.clickable {
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .outcome-card.clickable:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #f97316;
+        }
+        .outcome-icon {
+            color: #f97316;
+            font-size: 20px;
+        }
+        .outcome-text {
+            color: #1f2937;
+            font-weight: 500;
+            flex: 1;
+        }
+        .external-link-icon {
+            color: #f97316;
+            opacity: 0.7;
+            font-size: 16px;
+        }
+        /* Takeaway section */
+        .takeaway-section {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .takeaway-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .takeaway-text {
+            font-size: 1.125rem;
+        }
+        /* Modules section */
+        .modules-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 32px;
+        }
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .module-card {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .module-card:hover, .module-card.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.4);
+        }
+        .module-header {
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .module-title {
+            font-weight: bold;
+            font-size: 1.125rem;
+        }
+        .module-duration {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .module-content {
+            padding: 16px;
+            min-height: 120px;
+            background: #fafafa;
+        }
+        .module-content.active {
+            background: #f3f4f6;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .module-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 4px;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+        .module-list .chevron {
+            margin-right: 4px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            color: #8b5cf6;
+        }
+        .explore-text {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            font-style: italic;
+        }
+        /* Footer */
+        .page-footer {
+            background-color: #531b93;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .header-section h1 {
+                font-size: 2rem;
+            }
+            .header-section h2 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><h1>insightslab</h1></div>
+            <div class="nav-links">
+                <a href="https://dmoinsightslab.com/">Home</a>
+                <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+                <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+                <a href="https://dmoinsightslab.com/#team">Team</a>
+                <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            
+            <!-- Header Section -->
+            <div class="header-section">
+                <h1>ICCA LATAM Workshop #2</h1>
+                <h2>AI-Driven Tradeshow ROI Optimization</h2>
+                <p>Transform tradeshow chaos into closed business</p>
+                
+                <!-- Key Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">$100K</div>
+                        <div class="stat-label">Average Investment</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value">4-8</div>
+                        <div class="stat-label">Shows Per Year</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-value">5-7 days</div>
+                        <div class="stat-label">Current Follow-up</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-value">24 hrs</div>
+                        <div class="stat-label">Target Follow-up</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workshop Outcomes -->
+            <div class="outcomes-section">
+                <h3 class="section-title">
+                    🏆 You'll Leave With
+                </h3>
+                
+                <div class="outcomes-grid">
+                    <div class="outcome-card clickable" onclick="window.open('https://drive.google.com/drive/folders/1WNM0vpD8RDqwbWC64fI3gyS87xRj4KGj?usp=sharing', '_blank')">
+                        <div class="outcome-icon">🤖</div>
+                        <span class="outcome-text">AI project for tradeshow analysis</span>
+                        <div class="external-link-icon">↗</div>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-icon">📊</div>
+                        <span class="outcome-text">3-2-1 data collection system</span>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-icon">📈</div>
+                        <span class="outcome-text">ROI measurement framework</span>
+                    </div>
+                    <div class="outcome-card">
+                        <div class="outcome-icon">✉️</div>
+                        <span class="outcome-text">24-hour follow-up workflow</span>
+                    </div>
+                </div>
+                
+                <div class="takeaway-section">
+                    <h4 class="takeaway-title">Your Biggest Takeaway</h4>
+                    <p class="takeaway-text">
+                        While competitors take <strong>7 days</strong> to follow up,
+                        you'll be closing deals in <strong style="color: #fbbf24">24 hours</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Workshop Flow -->
+            <div class="modules-section">
+                <h3 class="section-title">
+                    ⏰ 2-Hour Journey to Tradeshow Excellence
+                </h3>
+                
+                <div class="modules-grid" id="modules-container">
+                    <!-- Modules will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="footer-links">
+            <a href="https://dmoinsightslab.com/">Home</a>
+            <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+            <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+            <a href="https://dmoinsightslab.com/#team">Team</a>
+            <a href="https://dmoinsightslab.com/#contact-form">Contact</a>
+        </div>
+        <div class="copyright">
+            © 2025 Powered by InsightsLab. Transform your tradeshow ROI with AI.
+        </div>
+    </footer>
+
+    <script>
+        // Workshop modules data
+        const modules = [
+            { 
+                id: 1, 
+                title: "Opening: The WHY", 
+                duration: "15 min", 
+                icon: "🎯", 
+                color: "#3b82f6", 
+                content: [
+                    "Meeting planners rank F2F events #2 for engagement", 
+                    "Your follow-up speed directly impacts decisions", 
+                    "The $100K question: What's your tradeshow ROI?"
+                ] 
+            },
+            { 
+                id: 2, 
+                title: "AI Command Center", 
+                duration: "15 min", 
+                icon: "🤖", 
+                color: "#8b5cf6", 
+                content: [
+                    "Create dedicated ChatGPT/Gemini project", 
+                    "Upload destination knowledge base", 
+                    "Your 24/7 tradeshow analyst"
+                ] 
+            },
+            { 
+                id: 3, 
+                title: "Data Workflow", 
+                duration: "15 min", 
+                icon: "📄", 
+                color: "#f97316", 
+                content: [
+                    "Booth scans → Excel → AI", 
+                    "Networking events tracking", 
+                    "Post-show opt-in list analysis"
+                ] 
+            },
+            { 
+                id: 4, 
+                title: "3-2-1 Framework", 
+                duration: "20 min", 
+                icon: "🗄️", 
+                color: "#22c55e", 
+                content: [
+                    "3 must-capture data points", 
+                    "2 intelligence insights", 
+                    "1 golden nugget per lead", 
+                    "30 seconds per contact"
+                ] 
+            },
+            { 
+                id: 5, 
+                title: "Break", 
+                duration: "15 min", 
+                icon: "⏰", 
+                color: "#6b7280", 
+                content: ["Refresh & Recharge"] 
+            },
+            { 
+                id: 6, 
+                title: "Show Selection", 
+                duration: "15 min", 
+                icon: "📊", 
+                color: "#ef4444", 
+                content: [
+                    "5 metrics that matter", 
+                    "ROI scorecard system", 
+                    "Investment decisions backed by data"
+                ] 
+            },
+            { 
+                id: 7, 
+                title: "24-Hour System", 
+                duration: "15 min", 
+                icon: "⚡", 
+                color: "#eab308", 
+                content: [
+                    "From 5-7 days to 24 hours", 
+                    "35% vs 8% response rates", 
+                    "AI-powered personalization"
+                ] 
+            },
+            { 
+                id: 8, 
+                title: "Action Plan", 
+                duration: "10 min", 
+                icon: "✅", 
+                color: "#14b8a6", 
+                content: [
+                    "30-day transformation roadmap", 
+                    "Team training plan", 
+                    "Implementation commitment"
+                ] 
+            }
+        ];
+
+        let activeModule = null;
+
+        // Render modules
+        function renderModules() {
+            const container = document.getElementById('modules-container');
+            container.innerHTML = '';
+
+            modules.forEach(module => {
+                const moduleCard = document.createElement('div');
+                moduleCard.className = `module-card ${activeModule === module.id ? 'active' : ''}`;
+                moduleCard.onclick = () => toggleModule(module.id);
+
+                moduleCard.innerHTML = `
+                    <div class="module-header" style="background-color: ${module.color}">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 24px;">${module.icon}</span>
+                            <span class="module-title">${module.title}</span>
+                        </div>
+                        <span class="module-duration">${module.duration}</span>
+                    </div>
+                    <div class="module-content ${activeModule === module.id ? 'active' : ''}">
+                        ${activeModule === module.id ? 
+                            `<ul class="module-list">
+                                ${module.content.map(item => 
+                                    `<li><span class="chevron">▶</span><span>${item}</span></li>`
+                                ).join('')}
+                            </ul>` :
+                            `<p class="explore-text">Click to explore</p>`
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(moduleCard);
+            });
+        }
+
+        function toggleModule(moduleId) {
+            activeModule = activeModule === moduleId ? null : moduleId;
+            renderModules();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderModules();
+        });
+    </script>
+</body>
+</html>
