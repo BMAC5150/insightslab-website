@@ -65,7 +65,7 @@ function MedellinSurvey() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          subject: `Medellin Phase 0 Interview Response: ${responses.interviewee}`,
+          subject: `Medellin Phase 0 Interview Questionnaire: ${responses.interviewee}`,
           message: JSON.stringify(payload, null, 2),
           _replyto: 'survey@dmoinsightslab.com'
         })
@@ -86,8 +86,8 @@ function MedellinSurvey() {
         <div className="bg-white shadow-xl rounded-xl max-w-xl w-full p-8 text-center">
           <div className="text-6xl mb-6">✅</div>
           <h1 className="text-2xl font-bold mb-3">Thank you!</h1>
-          <p className="mb-4 text-gray-700">Your survey response has been submitted.</p>
-          <div className="mt-6 text-sm text-gray-500">Contact: survey@dmoinsightslab.com</div>
+          <p className="mb-4 text-gray-700">Your questionnaire response has been submitted.</p>
+          <div className="mt-6 text-sm text-gray-500">Contact: bmac@dmoinsightslab.com</div>
         </div>
       </div>
     );
