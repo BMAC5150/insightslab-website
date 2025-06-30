@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Medellin DMO Phase 0 Interview Discovery Survey</title>
+  <title>Medellin DMO Phase 0 Interview Discovery Questionnaire</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -98,12 +98,12 @@ function MedellinSurvey() {
       <div className="max-w-3xl mx-auto px-2">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-6 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Medellín DMO & Convention Center</h1>
-          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Interview Discovery Survey</h2>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Medellín DMO</h1>
+          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Interview Discovery Questionnaire</h2>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mx-auto mb-1 max-w-lg text-sm">
             <p>
               Please complete this form before your interview. <br/>
-              <span className="text-blue-600 font-medium">Interviewer, Interviewee, and Date are required.</span>
+              <span className="text-blue-600 font-medium">Executive Interviewee, and Date are required.</span>
             </p>
           </div>
         </div>
@@ -111,6 +111,7 @@ function MedellinSurvey() {
         {/* Interviewer / Date */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div className="grid md:grid-cols-3 gap-4">
+            <div>
               <label className="block text-sm font-medium mb-1">Leader (Name/Role) <span className="text-red-500">*</span></label>
               <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.interviewee||""} onChange={e=>update("interviewee",e.target.value)} required />
