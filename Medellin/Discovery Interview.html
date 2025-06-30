@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Medellin DMO Phase 0 Interview Discovery Questionnaire</title>
+  <title>Medellin DMO Phase 0 Discovery Interview Questionnaire</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -99,11 +99,11 @@ function MedellinSurvey() {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-6 text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Medellín DMO</h1>
-          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Interview Discovery Questionnaire</h2>
+          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Discovery Interview Questionnaire</h2>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mx-auto mb-1 max-w-lg text-sm">
             <p>
               Please complete this form before your interview. <br/>
-              <span className="text-blue-600 font-medium">Executive Interviewee, and Date are required.</span>
+              <span className="text-blue-600 font-medium">Executive Leader and Date are required.</span>
             </p>
           </div>
         </div>
@@ -175,10 +175,11 @@ function MedellinSurvey() {
                 How is data currently collected, stored, accessed, and shared within your team and across the organization?
               </label>
               <div className="text-xs text-gray-600 mb-2">
-                <div><b>Bureau Director:</b> Inter-department and stakeholder data sharing</div>
-                <div><b>IT Manager:</b> Technical platforms, security, silo issues</div>
-                <div><b>Marketing Director:</b> Data for marketing/reporting, integration with other teams</div>
-                <div><b>Operations Manager:</b> Data sharing across operations, front-line teams</div>
+                <div><b>FOR YOUR CONSIDERATION:</b></div>
+                <div><b>DMO Leader:</b> Inter-department and stakeholder data sharing</div>
+                <div><b>IT Leader:</b> Technical platforms, security, silo issues</div>
+                <div><b>Sales and Marketing Leader:</b> Data for marketing/reporting, integration with other teams</div>
+                <div><b>Operations Leader:</b> Data sharing across operations, front-line teams</div>
               </div>
               <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.data_collection||""} onChange={e=>update("data_collection",e.target.value)} />
@@ -207,7 +208,7 @@ function MedellinSurvey() {
                 What are your main challenges or pain points with the current data ecosystem (e.g., quality, availability, timeliness, relevance)?
               </label>
               <span className="text-xs text-gray-600 mb-2">
-                Explore frustrations, workarounds, missing tools or insights
+                Consider frustrations, workarounds, missing tools or insights
               </span>
               <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.data_challenges||""} onChange={e=>update("data_challenges",e.target.value)} />
@@ -236,10 +237,11 @@ function MedellinSurvey() {
                 How do you currently collaborate or share data with other departments or external stakeholders (e.g., government, private sector, partners)?
               </label>
               <div className="text-xs text-gray-600 mb-2">
-                <div><b>Bureau Director:</b> Transparency, compliance, stakeholder alignment</div>
-                <div><b>IT Manager:</b> Technical integrations, APIs, agreements</div>
-                <div><b>Marketing Director:</b> Campaign and external data partnerships</div>
-                <div><b>Operations Manager:</b> Data flow between operations and other entities</div>
+                <div><b>FOR YOUR CONSIDERATION:</b></div>
+                <div><b>DMO Leader:</b> Transparency, compliance, stakeholder alignment</div>
+                <div><b>IT Leader:</b> Technical integrations, APIs, agreements</div>
+                <div><b>Sales and Marketing Leader:</b> Campaign and external data partnerships</div>
+                <div><b>Operations Leader:</b> Data flow between operations and other entities</div>
               </div>
               <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.collaboration||""} onChange={e=>update("collaboration",e.target.value)} />
@@ -268,7 +270,7 @@ function MedellinSurvey() {
                 If you could improve or automate any single aspect of your data management or reporting in the next year, what would it be—and why?
               </label>
               <span className="text-xs text-gray-600 mb-2">
-                Focus on the “quick win” or high-impact wish list for each area
+                What would be a “quick win” or high-impact wishlist for your area
               </span>
               <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.improvements||""} onChange={e=>update("improvements",e.target.value)} />
