@@ -295,7 +295,7 @@ function MedellinSurvey() {
               className="flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg transition-colors">
               <span className="text-xl">💾</span><span>Save Backup Copy</span>
             </button>
-            <<button onClick={submit} disabled={isSubmitting || !responses.interviewee || !responses.date}
+            <button onClick={submit} disabled={isSubmitting || !responses.interviewee || !responses.date}
               className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-lg transition-colors font-medium">
               <span className="text-xl">📧</span><span>{isSubmitting ? 'Submitting...' : 'Submit Survey'}</span>
             </button>
