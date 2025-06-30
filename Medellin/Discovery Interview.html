@@ -147,10 +147,11 @@ function MedellinSurvey() {
                 What are the most critical data sources and reports you rely on for your day-to-day decisions?
               </label>
               <div className="text-xs text-gray-600 mb-2">
-                <div><b>Bureau Director:</b> Strategic KPIs, board/municipal reports</div>
-                <div><b>IT Manager:</b> Core systems, data repositories, integrations</div>
-                <div><b>Marketing Director:</b> Campaign data, visitor stats, attribution models</div>
-                <div><b>Operations Manager:</b> Operational metrics, workflow/process data</div>
+                <div><b>FOR YOUR CONSIDERATION:</b></div>
+                <div><b>DMO Leader:</b> Strategic KPIs, board/municipal reports</div>
+                <div><b>IT Leader:</b> Core systems, data repositories, integrations</div>
+                <div><b>Sales and Marketing Leader:</b> Campaign data, visitor stats, attribution models</div>
+                <div><b>Operations Leader:</b> Operational metrics, workflow/process data</div>
               </div>
               <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.data_sources||""} onChange={e=>update("data_sources",e.target.value)} />
