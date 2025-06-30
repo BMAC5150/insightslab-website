@@ -112,7 +112,7 @@ function MedellinSurvey() {
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div className="grid md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Leader (Name/Role) <span className="text-red-500">*</span></label>
+              <label className="block text-sm font-medium mb-1">Executive Leader (Name/Title) <span className="text-red-500">*</span></label>
               <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={responses.interviewee||""} onChange={e=>update("interviewee",e.target.value)} required />
             </div>
