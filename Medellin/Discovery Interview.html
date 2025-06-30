@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Medellin Convention Bureau Interview Discovery Survey</title>
+  <title>Medellin DMO Phase 0 Interview Discovery Survey</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -21,26 +21,22 @@
 const { useState, useEffect } = React;
 
 function MedellinSurvey() {
-  // Which canvases are expanded by default?
   const [expanded, setExpanded] = useState({
-    canvas1: true, canvas2: false, canvas3: false, canvas4: false, canvas5: false, canvas6: false, canvas7: false, canvas8: false
+    s1: true, s2: false, s3: false, s4: false, s5: false
   });
   const [responses, setResponses] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [saveStatus, setSaveStatus] = useState('');
 
-  // For local autosave
+  // Autosave/load
   useEffect(() => {
-    const saved = localStorage.getItem('medellin_interview_survey');
+    const saved = localStorage.getItem('medellin_phase0_survey');
     if (saved) setResponses(JSON.parse(saved));
   }, []);
   useEffect(() => {
-    localStorage.setItem('medellin_interview_survey', JSON.stringify(responses));
+    localStorage.setItem('medellin_phase0_survey', JSON.stringify(responses));
   }, [responses]);
-
   const update = (id, value) => setResponses(r => ({ ...r, [id]: value }));
-
   const toggle = (id) => setExpanded(e => ({ ...e, [id]: !e[id] }));
 
   // Backup
@@ -48,14 +44,14 @@ function MedellinSurvey() {
     const blob = new Blob([JSON.stringify(responses, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'medellin-survey-backup.json';
+    a.href = url; a.download = 'medellin-phase0-backup.json';
     a.click();
   };
 
   // Submit
   const submit = async () => {
-    if (!responses.name || !responses.position) {
-      alert("Please provide your Name and Position before submitting.");
+    if (!responses.interviewer || !responses.interviewee || !responses.date) {
+      alert("Please provide Interviewer, Interviewee, and Date.");
       return;
     }
     setIsSubmitting(true);
@@ -69,14 +65,14 @@ function MedellinSurvey() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          subject: `Medellin Interview Survey Response: ${responses.name}`,
+          subject: `Medellin Phase 0 Interview Response: ${responses.interviewee}`,
           message: JSON.stringify(payload, null, 2),
           _replyto: 'survey@dmoinsightslab.com'
         })
       });
       if (res.ok) {
         setIsSubmitted(true);
-        localStorage.removeItem('medellin_interview_survey');
+        localStorage.removeItem('medellin_phase0_survey');
       } else throw new Error("Formspree error");
     } catch {
       alert("There was an issue submitting. Please use Save Backup Copy and email your file to survey@dmoinsightslab.com");
@@ -103,252 +99,186 @@ function MedellinSurvey() {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-6 text-center">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Medellín DMO & Convention Center</h1>
-          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Interview Discovery Canvas</h2>
+          <h2 className="text-xl text-blue-600 mb-4 font-semibold">Phase 0 Interview Discovery Survey</h2>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mx-auto mb-1 max-w-lg text-sm">
             <p>
-              Please complete this form before your interview. Only your Name and Position are required.<br />
-              <span className="text-blue-600 font-medium">All other questions are optional.</span>
+              Please complete this form before your interview. <br/>
+              <span className="text-blue-600 font-medium">Interviewer, Interviewee, and Date are required.</span>
             </p>
           </div>
         </div>
 
-        {/* Canvas 1 */}
+        {/* Interviewer / Interviewee / Date */}
+        <div className="bg-white rounded-lg shadow p-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Interviewer <span className="text-red-500">*</span></label>
+              <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.interviewer||""} onChange={e=>update("interviewer",e.target.value)} required />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Interviewee (Name/Role) <span className="text-red-500">*</span></label>
+              <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.interviewee||""} onChange={e=>update("interviewee",e.target.value)} required />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Date <span className="text-red-500">*</span></label>
+              <input type="date" className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.date||""} onChange={e=>update("date",e.target.value)} required />
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 1 */}
         <div className="bg-white rounded-lg shadow-lg mb-4">
           <div className="section-header bg-green-50 border-l-4 border-green-500 p-4"
-            onClick={() => toggle('canvas1')}>
+            onClick={() => toggle('s1')}>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">👤</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 1 – BASIC PROFILE</h2>
+                <span className="text-2xl">📊</span>
+                <h2 className="text-xl font-semibold text-gray-800">Critical Data Sources & Reports</h2>
               </div>
-              <span className="text-gray-500">{expanded.canvas1 ? "▼" : "▶"}</span>
+              <span className="text-gray-500">{expanded.s1 ? "▼" : "▶"}</span>
             </div>
           </div>
-          {expanded.canvas1 && (
+          {expanded.s1 && (
             <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Name <span className="text-red-500">*</span></label>
-                <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.name||""} onChange={e=>update("name",e.target.value)} required />
+              <label className="block text-sm font-medium mb-2">
+                What are the most critical data sources and reports you rely on for your day-to-day decisions?
+              </label>
+              <div className="text-xs text-gray-600 mb-2">
+                <div><b>Bureau Director:</b> Strategic KPIs, board/municipal reports</div>
+                <div><b>IT Manager:</b> Core systems, data repositories, integrations</div>
+                <div><b>Marketing Director:</b> Campaign data, visitor stats, attribution models</div>
+                <div><b>Operations Manager:</b> Operational metrics, workflow/process data</div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Position <span className="text-red-500">*</span></label>
-                <input className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.position||""} onChange={e=>update("position",e.target.value)} required />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Please describe your area of responsibility within the organization.
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.responsibility||""} onChange={e=>update("responsibility",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Who do you report to? What teams or departments do you work most closely with?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.reports_to||""} onChange={e=>update("reports_to",e.target.value)} />
-              </div>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_sources||""} onChange={e=>update("data_sources",e.target.value)} />
+              <label className="block text-sm font-medium mb-1 mt-4">Notes:</label>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_sources_notes||""} onChange={e=>update("data_sources_notes",e.target.value)} />
             </div>
           )}
         </div>
 
-        {/* Canvas 2 */}
+        {/* SECTION 2 */}
         <div className="bg-white rounded-lg shadow-lg mb-4">
           <div className="section-header bg-blue-50 border-l-4 border-blue-500 p-4"
-            onClick={() => toggle('canvas2')}>
+            onClick={() => toggle('s2')}>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">🎯</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 2 – ORGANIZATIONAL GOALS</h2>
+                <span className="text-2xl">💾</span>
+                <h2 className="text-xl font-semibold text-gray-800">Data Collection, Storage & Sharing</h2>
               </div>
-              <span className="text-gray-500">{expanded.canvas2 ? "▼" : "▶"}</span>
+              <span className="text-gray-500">{expanded.s2 ? "▼" : "▶"}</span>
             </div>
           </div>
-          {expanded.canvas2 && (
+          {expanded.s2 && (
             <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What are the top 3 business goals for your organization in the next 12-18 months?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.goals||""} onChange={e=>update("goals",e.target.value)} />
+              <label className="block text-sm font-medium mb-2">
+                How is data currently collected, stored, accessed, and shared within your team and across the organization?
+              </label>
+              <div className="text-xs text-gray-600 mb-2">
+                <div><b>Bureau Director:</b> Inter-department and stakeholder data sharing</div>
+                <div><b>IT Manager:</b> Technical platforms, security, silo issues</div>
+                <div><b>Marketing Director:</b> Data for marketing/reporting, integration with other teams</div>
+                <div><b>Operations Manager:</b> Data sharing across operations, front-line teams</div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What are the main KPIs or metrics your leadership uses to measure progress?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.kpis||""} onChange={e=>update("kpis",e.target.value)} />
-              </div>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_collection||""} onChange={e=>update("data_collection",e.target.value)} />
+              <label className="block text-sm font-medium mb-1 mt-4">Notes:</label>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_collection_notes||""} onChange={e=>update("data_collection_notes",e.target.value)} />
             </div>
           )}
         </div>
 
-        {/* Canvas 3 */}
+        {/* SECTION 3 */}
         <div className="bg-white rounded-lg shadow-lg mb-4">
           <div className="section-header bg-yellow-50 border-l-4 border-yellow-500 p-4"
-            onClick={() => toggle('canvas3')}>
+            onClick={() => toggle('s3')}>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">🧩</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 3 – DATA & INFORMATION USE CASES</h2>
+                <span className="text-2xl">⚠️</span>
+                <h2 className="text-xl font-semibold text-gray-800">Data Challenges & Pain Points</h2>
               </div>
-              <span className="text-gray-500">{expanded.canvas3 ? "▼" : "▶"}</span>
+              <span className="text-gray-500">{expanded.s3 ? "▼" : "▶"}</span>
             </div>
           </div>
-          {expanded.canvas3 && (
+          {expanded.s3 && (
             <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  In your own words, how is data currently used to support your work and decisions?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_use||""} onChange={e=>update("data_use",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Are there key reports or dashboards you rely on? Please describe.
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.reports_dashboards||""} onChange={e=>update("reports_dashboards",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What data or information do you wish you had but can’t get today?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_wish||""} onChange={e=>update("data_wish",e.target.value)} />
-              </div>
+              <label className="block text-sm font-medium mb-2">
+                What are your main challenges or pain points with the current data ecosystem (e.g., quality, availability, timeliness, relevance)?
+              </label>
+              <span className="text-xs text-gray-600 mb-2">
+                Explore frustrations, workarounds, missing tools or insights
+              </span>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_challenges||""} onChange={e=>update("data_challenges",e.target.value)} />
+              <label className="block text-sm font-medium mb-1 mt-4">Notes:</label>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.data_challenges_notes||""} onChange={e=>update("data_challenges_notes",e.target.value)} />
             </div>
           )}
         </div>
 
-        {/* Canvas 4 */}
+        {/* SECTION 4 */}
         <div className="bg-white rounded-lg shadow-lg mb-4">
           <div className="section-header bg-cyan-50 border-l-4 border-cyan-500 p-4"
-            onClick={() => toggle('canvas4')}>
+            onClick={() => toggle('s4')}>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
                 <span className="text-2xl">🔗</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 4 – DATA SYSTEMS & PROCESSES</h2>
+                <h2 className="text-xl font-semibold text-gray-800">Collaboration & Data Sharing</h2>
               </div>
-              <span className="text-gray-500">{expanded.canvas4 ? "▼" : "▶"}</span>
+              <span className="text-gray-500">{expanded.s4 ? "▼" : "▶"}</span>
             </div>
           </div>
-          {expanded.canvas4 && (
+          {expanded.s4 && (
             <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What technology systems or tools do you use for storing or analyzing data (e.g. CRM, spreadsheets, event management, finance, marketing tools)?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.systems||""} onChange={e=>update("systems",e.target.value)} />
+              <label className="block text-sm font-medium mb-2">
+                How do you currently collaborate or share data with other departments or external stakeholders (e.g., government, private sector, partners)?
+              </label>
+              <div className="text-xs text-gray-600 mb-2">
+                <div><b>Bureau Director:</b> Transparency, compliance, stakeholder alignment</div>
+                <div><b>IT Manager:</b> Technical integrations, APIs, agreements</div>
+                <div><b>Marketing Director:</b> Campaign and external data partnerships</div>
+                <div><b>Operations Manager:</b> Data flow between operations and other entities</div>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  How are data/reports collected, stored, and shared in your department?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_sharing||""} onChange={e=>update("data_sharing",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What are the biggest pain points or challenges you experience with current data systems or processes?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.system_pain||""} onChange={e=>update("system_pain",e.target.value)} />
-              </div>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.collaboration||""} onChange={e=>update("collaboration",e.target.value)} />
+              <label className="block text-sm font-medium mb-1 mt-4">Notes:</label>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.collaboration_notes||""} onChange={e=>update("collaboration_notes",e.target.value)} />
             </div>
           )}
         </div>
 
-        {/* Canvas 5 */}
+        {/* SECTION 5 */}
         <div className="bg-white rounded-lg shadow-lg mb-4">
           <div className="section-header bg-fuchsia-50 border-l-4 border-fuchsia-500 p-4"
-            onClick={() => toggle('canvas5')}>
+            onClick={() => toggle('s5')}>
             <div className="flex justify-between items-center">
               <div className="flex items-center space-x-3">
-                <span className="text-2xl">📈</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 5 – DATA SKILLS & CULTURE</h2>
+                <span className="text-2xl">🚀</span>
+                <h2 className="text-xl font-semibold text-gray-800">Priority Data Improvements</h2>
               </div>
-              <span className="text-gray-500">{expanded.canvas5 ? "▼" : "▶"}</span>
+              <span className="text-gray-500">{expanded.s5 ? "▼" : "▶"}</span>
             </div>
           </div>
-          {expanded.canvas5 && (
+          {expanded.s5 && (
             <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  How comfortable are you and your team working with data (e.g., finding, interpreting, making decisions)?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_skill||""} onChange={e=>update("data_skill",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What training, resources, or support would help increase data confidence or skills in your role?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_training||""} onChange={e=>update("data_training",e.target.value)} />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Canvas 6 */}
-        <div className="bg-white rounded-lg shadow-lg mb-4">
-          <div className="section-header bg-rose-50 border-l-4 border-rose-500 p-4"
-            onClick={() => toggle('canvas6')}>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">🤝</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 6 – DECISION-MAKING & CHANGE</h2>
-              </div>
-              <span className="text-gray-500">{expanded.canvas6 ? "▼" : "▶"}</span>
-            </div>
-          </div>
-          {expanded.canvas6 && (
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  How are important decisions made in your organization (data, experience, consensus, other)?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.decision||""} onChange={e=>update("decision",e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  What would help your team/organization become more data-driven in the future?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.data_driven||""} onChange={e=>update("data_driven",e.target.value)} />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Canvas 7 */}
-        <div className="bg-white rounded-lg shadow-lg mb-4">
-          <div className="section-header bg-amber-50 border-l-4 border-amber-500 p-4"
-            onClick={() => toggle('canvas7')}>
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">💡</span>
-                <h2 className="text-xl font-semibold text-gray-800">CANVAS 7 – ADDITIONAL COMMENTS & SUGGESTIONS</h2>
-              </div>
-              <span className="text-gray-500">{expanded.canvas7 ? "▼" : "▶"}</span>
-            </div>
-          </div>
-          {expanded.canvas7 && (
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Anything else you would like to share about data, reporting, or analytics needs?
-                </label>
-                <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                  value={responses.final_comments||""} onChange={e=>update("final_comments",e.target.value)} />
-              </div>
+              <label className="block text-sm font-medium mb-2">
+                If you could improve or automate any single aspect of your data management or reporting in the next year, what would it be—and why?
+              </label>
+              <span className="text-xs text-gray-600 mb-2">
+                Focus on the “quick win” or high-impact wish list for each area
+              </span>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.improvements||""} onChange={e=>update("improvements",e.target.value)} />
+              <label className="block text-sm font-medium mb-1 mt-4">Notes:</label>
+              <textarea className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={responses.improvements_notes||""} onChange={e=>update("improvements_notes",e.target.value)} />
             </div>
           )}
         </div>
@@ -359,7 +289,7 @@ function MedellinSurvey() {
             <div className="text-6xl mb-2">🎯</div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Ready to Submit?</h3>
             <p className="text-gray-600 mb-2">
-              You may save a backup of your answers or submit directly. Name and Position are required.
+              You may save a backup of your answers or submit directly. Interviewer, Interviewee, and Date are required.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -367,7 +297,7 @@ function MedellinSurvey() {
               className="flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg transition-colors">
               <span className="text-xl">💾</span><span>Save Backup Copy</span>
             </button>
-            <button onClick={submit} disabled={isSubmitting || !responses.name || !responses.position}
+            <button onClick={submit} disabled={isSubmitting || !responses.interviewer || !responses.interviewee || !responses.date}
               className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-lg transition-colors font-medium">
               <span className="text-xl">📧</span><span>{isSubmitting ? 'Submitting...' : 'Submit Survey'}</span>
             </button>
