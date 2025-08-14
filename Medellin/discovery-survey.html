@@ -30,8 +30,10 @@
             const saveStatusTimerRef = React.useRef(null);
 
             const updateResponse = (questionId, value, isMultiple = false) => {
+                let updatedResponses;
+                
                 setResponses(prev => {
-                    const newResponses = isMultiple 
+                    updatedResponses = isMultiple 
                         ? (() => {
                             const currentValues = prev[questionId] || [];
                             if (currentValues.includes(value)) {
@@ -42,27 +44,27 @@
                         })()
                         : { ...prev, [questionId]: value };
                     
-                    localStorage.setItem('medellin_survey_responses', JSON.stringify(newResponses));
-                    
-                    // Debounced save status to prevent excessive re-renders
-                    if (saveStatusTimerRef.current) {
-                        clearTimeout(saveStatusTimerRef.current);
-                    }
-                    saveStatusTimerRef.current = setTimeout(() => {
-                        setSaveStatus('Changes saved automatically');
-                        setTimeout(() => setSaveStatus(''), 2000);
-                    }, 500); // Only show save status after 500ms of no typing
-                    
-                    return newResponses;
+                    return updatedResponses;
                 });
+                
+                // Move side effects outside the state setter
+                localStorage.setItem('medellin_survey_responses', JSON.stringify(updatedResponses));
+                
+                // Debounced save status to prevent excessive re-renders
+                if (saveStatusTimerRef.current) {
+                    clearTimeout(saveStatusTimerRef.current);
+                }
+                saveStatusTimerRef.current = setTimeout(() => {
+                    setSaveStatus('Changes saved automatically');
+                    setTimeout(() => setSaveStatus(''), 2000);
+                }, 500); // Only show save status after 500ms of no typing
             };
 
             useEffect(() => {
                 const savedResponses = localStorage.getItem('medellin_survey_responses');
                 if (savedResponses) {
                     setResponses(JSON.parse(savedResponses));
-                    setSaveStatus('Previous responses loaded');
-                    setTimeout(() => setSaveStatus(''), 3000);
+                    // Remove immediate save status that could interfere with initial render
                 }
             }, []);
 
