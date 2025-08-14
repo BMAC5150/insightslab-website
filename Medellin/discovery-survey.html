@@ -83,8 +83,62 @@
                         },
                         body: JSON.stringify({
                             subject: `Medellin DMO Survey Response from ${responses.name}`,
-                            message: JSON.stringify(submissionData, null, 2),
-                            _replyto: 'survey@dmoinsightslab.com'
+                            _replyto: 'bmac@dmoinsightslab.com',
+                            // Individual fields for easier email parsing
+                            respondent_name: responses.name || '',
+                            respondent_position: responses.position || '',
+                            responsibilities: JSON.stringify(responses.responsibilities || []),
+                            responsibilities_other: responses.responsibilities_other || '',
+                            // Goals and priorities
+                            goal_priority_0: responses.goal_priority_0 || '',
+                            goal_priority_1: responses.goal_priority_1 || '',
+                            goal_priority_2: responses.goal_priority_2 || '',
+                            goal_priority_3: responses.goal_priority_3 || '',
+                            goal_priority_4: responses.goal_priority_4 || '',
+                            goal_priority_5: responses.goal_priority_5 || '',
+                            goal_priority_6: responses.goal_priority_6 || '',
+                            goal_priority_7: responses.goal_priority_7 || '',
+                            goal_priority_other: responses.goal_priority_other || '',
+                            goal_other: responses.goal_other || '',
+                            success_feeling: responses.success_feeling || '',
+                            // Challenges and difficulties
+                            job_difficulties: JSON.stringify(responses.job_difficulties || []),
+                            job_difficulties_other: responses.job_difficulties_other || '',
+                            perfect_info_clients: responses.perfect_info_clients || '',
+                            perfect_info_competition: responses.perfect_info_competition || '',
+                            perfect_info_performance: responses.perfect_info_performance || '',
+                            perfect_info_market: responses.perfect_info_market || '',
+                            // Current systems
+                            systems_used: JSON.stringify(responses.systems_used || []),
+                            systems_used_other: responses.systems_used_other || '',
+                            info_finding_methods: JSON.stringify(responses.info_finding_methods || []),
+                            info_finding_methods_other: responses.info_finding_methods_other || '',
+                            // Future improvements
+                            biggest_impact_problem: responses.biggest_impact_problem || '',
+                            do_differently: responses.do_differently || '',
+                            tech_comfort: responses.tech_comfort || '',
+                            // Success measurement
+                            current_success_measurement: responses.current_success_measurement || '',
+                            manager_metrics: responses.manager_metrics || '',
+                            impact_daily_work: responses.impact_daily_work || '',
+                            impact_medellin_reputation: responses.impact_medellin_reputation || '',
+                            impact_team_success: responses.impact_team_success || '',
+                            // Quick wins
+                            frustrating_problem_1: responses.frustrating_problem_1 || '',
+                            frustrating_problem_2: responses.frustrating_problem_2 || '',
+                            frustrating_problem_3: responses.frustrating_problem_3 || '',
+                            simple_improvement_1: responses.simple_improvement_1 || '',
+                            simple_improvement_2: responses.simple_improvement_2 || '',
+                            simple_improvement_3: responses.simple_improvement_3 || '',
+                            // Final questions
+                            project_concerns: responses.project_concerns || '',
+                            system_excitement: responses.system_excitement || '',
+                            medellin_context: responses.medellin_context || '',
+                            other_thoughts: responses.other_thoughts || '',
+                            // Metadata
+                            submitted_at: submissionData.timestamp,
+                            user_agent: submissionData.metadata.userAgent,
+                            response_count: submissionData.metadata.responseCount
                         })
                     });
 
@@ -104,7 +158,7 @@
                     link.download = `medellin-survey-${responses.name || 'response'}-${Date.now()}.json`;
                     link.click();
                     
-                    alert('There was an issue with online submission. Your responses have been downloaded as a file. Please email this file to survey@dmoinsightslab.com');
+                    alert('There was an issue with online submission. Your responses have been downloaded as a file. Please email this file to bmac@dmoinsightslab.com');
                 } finally {
                     setIsSubmitting(false);
                 }
@@ -127,17 +181,30 @@
                 }));
             };
 
+            // Handle keyboard navigation for sections
+            const handleKeyPress = (e, sectionId) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSection(sectionId);
+                }
+            };
+
             const SectionHeader = ({ id, title, icon, isExpanded, color = "blue" }) => (
                 React.createElement('div', { 
                     className: `bg-${color}-50 border-l-4 border-${color}-500 p-4 cursor-pointer hover:bg-${color}-100 transition-colors section-header`,
-                    onClick: () => toggleSection(id)
+                    onClick: () => toggleSection(id),
+                    onKeyPress: (e) => handleKeyPress(e, id),
+                    role: "button",
+                    tabIndex: 0,
+                    'aria-expanded': isExpanded,
+                    'aria-label': `Toggle ${title} section`
                 },
                     React.createElement('div', { className: "flex items-center justify-between" },
                         React.createElement('div', { className: "flex items-center space-x-3" },
-                            React.createElement('span', { className: "text-2xl" }, icon),
+                            React.createElement('span', { className: "text-2xl", 'aria-hidden': "true" }, icon),
                             React.createElement('h2', { className: "text-xl font-semibold text-gray-800" }, title)
                         ),
-                        React.createElement('span', { className: "text-gray-600" }, isExpanded ? '▼' : '▶')
+                        React.createElement('span', { className: "text-gray-600", 'aria-hidden': "true" }, isExpanded ? '▼' : '▶')
                     )
                 )
             );
@@ -224,7 +291,7 @@
                                     )
                                 ),
                                 React.createElement('p', { className: "text-sm text-gray-500 mt-6" }, 
-                                    `Contact: survey@dmoinsightslab.com\nReference ID: ${Date.now()}`
+                                    `Contact: bmac@dmoinsightslab.com\nReference ID: ${Date.now()}`
                                 )
                             )
                         )
