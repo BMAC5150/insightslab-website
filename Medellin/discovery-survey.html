@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medellin Convention Bureau Survey - InsightsLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         .section-header { cursor: pointer; transition: all 0.3s ease; }
@@ -29,11 +29,19 @@
             // Debounce timer for save status
             const saveStatusTimerRef = React.useRef(null);
 
+            // Debounced localStorage save
+            const saveToLocalStorage = React.useCallback((responses) => {
+                if (saveStatusTimerRef.current) {
+                    clearTimeout(saveStatusTimerRef.current);
+                }
+                saveStatusTimerRef.current = setTimeout(() => {
+                    localStorage.setItem('medellin_survey_responses', JSON.stringify(responses));
+                }, 1000); // Save after 1 second of no changes
+            }, []);
+
             const updateResponse = (questionId, value, isMultiple = false) => {
-                let updatedResponses;
-                
                 setResponses(prev => {
-                    updatedResponses = isMultiple 
+                    const newResponses = isMultiple 
                         ? (() => {
                             const currentValues = prev[questionId] || [];
                             if (currentValues.includes(value)) {
@@ -44,20 +52,11 @@
                         })()
                         : { ...prev, [questionId]: value };
                     
-                    return updatedResponses;
+                    // Debounced save - no immediate side effects
+                    saveToLocalStorage(newResponses);
+                    
+                    return newResponses;
                 });
-                
-                // Move side effects outside the state setter
-                localStorage.setItem('medellin_survey_responses', JSON.stringify(updatedResponses));
-                
-                // Debounced save status to prevent excessive re-renders
-                if (saveStatusTimerRef.current) {
-                    clearTimeout(saveStatusTimerRef.current);
-                }
-                saveStatusTimerRef.current = setTimeout(() => {
-                    setSaveStatus('Changes saved automatically');
-                    setTimeout(() => setSaveStatus(''), 2000);
-                }, 500); // Only show save status after 500ms of no typing
             };
 
             useEffect(() => {
