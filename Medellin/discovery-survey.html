@@ -914,7 +914,7 @@
                                 React.createElement('div', { className: "space-y-2" },
                                     [1, 2, 3].map(num =>
                                         React.createElement('input', {
-                                            key: num,
+                                            key: `frustrating_problem_${num}`,
                                             type: 'text',
                                             className: 'w-full px-3 py-2 border border-gray-300 rounded-md',
                                             placeholder: `${num}. Most frustrating problem...`,
@@ -932,7 +932,7 @@
                                 React.createElement('div', { className: "space-y-2" },
                                     [1, 2, 3].map(num =>
                                         React.createElement('input', {
-                                            key: num,
+                                            key: `simple_improvement_${num}`,
                                             type: 'text',
                                             className: 'w-full px-3 py-2 border border-gray-300 rounded-md',
                                             placeholder: `${num}. Simple improvement...`,
