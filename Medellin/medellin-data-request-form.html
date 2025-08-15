@@ -205,8 +205,8 @@
             };
 
             const handleSubmit = async () => {
-                if (!responses.organization || !responses.contact_name) {
-                    alert("Please provide Organization Name and Primary Contact information.");
+                if (!responses.contact_name) {
+                    alert("Please provide Primary Contact Name.");
                     return;
                 }
                 
@@ -223,9 +223,8 @@
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            subject: `Medellin DMO Technical Systems Request: ${responses.organization}`,
+                            subject: `Medellin DMO Technical Systems Request: ${responses.contact_name}`,
                             _replyto: 'bmac@dmoinsightslab.com',
-                            organization: responses.organization || '',
                             contact_name: responses.contact_name || '',
                             contact_email: responses.contact_email || '',
                             technical_data: JSON.stringify(payload),
@@ -271,42 +270,59 @@
                 React.createElement('div', { className: "max-w-4xl mx-auto px-4" },
                     
                     // Header
-                    React.createElement('div', { className: "bg-white rounded-lg shadow-lg p-8 mb-6 text-center" },
-                        React.createElement('h1', { className: "text-3xl font-bold text-gray-800 mb-2" }, 'Medellín DMO Technical Systems Request'),
-                        React.createElement('h2', { className: "text-xl text-blue-600 mb-4 font-semibold" }, 'Data Infrastructure Assessment - InsightsLab'),
-                        React.createElement('div', { className: "bg-blue-50 border border-blue-200 rounded-lg p-4 mx-auto mb-1 max-w-2xl text-sm" },
-                            React.createElement('p', { className: "mb-2" },
-                                React.createElement('strong', {}, 'Purpose: '),
-                                'Technical system details to complement your team\'s business needs survey'
+                    React.createElement('div', { className: "bg-white rounded-lg shadow-lg p-8 mb-6" },
+                        React.createElement('div', { className: "text-center" },
+                            React.createElement('h1', { className: "text-3xl font-bold text-gray-800 mb-4" }, 'Medellín DMO Technical Systems Request'),
+                            React.createElement('h2', { className: "text-xl text-blue-600 mb-4" }, 'Data Infrastructure Assessment - InsightsLab'),
+                            React.createElement('div', { className: "bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl mx-auto" },
+                                React.createElement('p', { className: "text-gray-700 text-sm mb-2" },
+                                    'Technical system details to complement your team\'s business needs survey.'
+                                ),
+                                React.createElement('p', { className: "text-blue-600 font-medium" },
+                                    'Time needed: Please complete within 5 business days'
+                                )
                             ),
-                            React.createElement('p', { className: "text-blue-600 font-medium" },
-                                'Timeline: Please complete within 5 business days'
+                            saveStatus && React.createElement('div', { className: `text-sm mt-4 ${saveStatus === 'Saved' ? 'text-green-600' : 'text-blue-600'}` },
+                                saveStatus
                             )
+                        )
+                    ),
+
+                    // Submission Instructions
+                    React.createElement('div', { className: "bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6" },
+                        React.createElement('h3', { className: "text-lg font-semibold text-blue-800 mb-4 flex items-center" },
+                            React.createElement('span', { className: "text-xl mr-2" }, '📋'),
+                            'Submission Instructions'
                         ),
-                        saveStatus && React.createElement('div', { className: `text-sm mt-2 ${saveStatus === 'Saved' ? 'text-green-600' : 'text-blue-600'}` },
-                            saveStatus
+                        React.createElement('div', { className: "grid md:grid-cols-2 gap-6 text-sm text-blue-700" },
+                            React.createElement('div', {},
+                                React.createElement('h4', { className: "font-semibold mb-2" }, 'Completion Method:'),
+                                React.createElement('ul', { className: "space-y-1 pl-2" },
+                                    React.createElement('li', {}, '• Complete digitally and submit via this form'),
+                                    React.createElement('li', {}, '• Schedule technical walkthrough call if needed'),
+                                    React.createElement('li', {}, '• Provide system screenshots/documentation if available')
+                                )
+                            ),
+                            React.createElement('div', {},
+                                React.createElement('h4', { className: "font-semibold mb-2" }, 'Additional Documentation (if available):'),
+                                React.createElement('ul', { className: "space-y-1 text-xs pl-2" },
+                                    React.createElement('li', {}, '• System architecture diagrams'),
+                                    React.createElement('li', {}, '• Current data flow maps'),
+                                    React.createElement('li', {}, '• User manuals or technical documentation'),
+                                    React.createElement('li', {}, '• Recent technical assessments or audits'),
+                                    React.createElement('li', {}, '• Vendor contracts and licensing information')
+                                )
+                            )
                         )
                     ),
 
                     // Contact Information
                     React.createElement('div', { className: "bg-white rounded-lg shadow p-6 mb-6" },
                         React.createElement('h3', { className: "text-lg font-semibold text-gray-800 mb-4" }, 'Contact Information'),
-                        React.createElement('div', { className: "grid md:grid-cols-3 gap-4" },
+                        React.createElement('div', { className: "grid md:grid-cols-2 gap-4" },
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium mb-1" }, 
-                                    'Organization Name ',
-                                    React.createElement('span', { className: "text-red-500" }, '*')
-                                ),
-                                React.createElement('input', {
-                                    className: "w-full px-3 py-2 border border-gray-300 rounded-md",
-                                    value: responses.organization || "",
-                                    onChange: (e) => updateResponse("organization", e.target.value),
-                                    required: true
-                                })
-                            ),
-                            React.createElement('div', {},
-                                React.createElement('label', { className: "block text-sm font-medium mb-1" }, 
-                                    'Primary Contact ',
+                                    'Primary Contact Name ',
                                     React.createElement('span', { className: "text-red-500" }, '*')
                                 ),
                                 React.createElement('input', {
@@ -317,7 +333,7 @@
                                 })
                             ),
                             React.createElement('div', {},
-                                React.createElement('label', { className: "block text-sm font-medium mb-1" }, 'Email'),
+                                React.createElement('label', { className: "block text-sm font-medium mb-1" }, 'Email Address'),
                                 React.createElement('input', {
                                     type: "email",
                                     className: "w-full px-3 py-2 border border-gray-300 rounded-md",
@@ -460,7 +476,7 @@
                             title: 'Business-Critical Systems Inventory', 
                             icon: '💾', 
                             isExpanded: expandedSections.section2,
-                            color: 'green',
+                            color: 'blue',
                             toggleSection: toggleSection,
                             handleKeyPress: handleKeyPress
                         }),
@@ -581,7 +597,7 @@
                             title: 'Data Sources & Technical Specifications', 
                             icon: '📊', 
                             isExpanded: expandedSections.section3,
-                            color: 'purple',
+                            color: 'green',
                             toggleSection: toggleSection,
                             handleKeyPress: handleKeyPress
                         }),
@@ -677,7 +693,7 @@
                             title: 'Technical Capabilities & Constraints', 
                             icon: '⚙️', 
                             isExpanded: expandedSections.section4,
-                            color: 'yellow',
+                            color: 'purple',
                             toggleSection: toggleSection,
                             handleKeyPress: handleKeyPress
                         }),
@@ -782,7 +798,7 @@
                             title: 'Data Governance & Quality Standards', 
                             icon: '🔒', 
                             isExpanded: expandedSections.section5,
-                            color: 'indigo',
+                            color: 'blue',
                             toggleSection: toggleSection,
                             handleKeyPress: handleKeyPress
                         }),
@@ -869,7 +885,7 @@
                             title: 'Technical Constraints & Preferences', 
                             icon: '⚡', 
                             isExpanded: expandedSections.section6,
-                            color: 'red',
+                            color: 'green',
                             toggleSection: toggleSection,
                             handleKeyPress: handleKeyPress
                         }),
@@ -954,12 +970,12 @@
                     ),
 
                     // Submit Section
-                    React.createElement('div', { className: "bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-6 mt-8" },
+                    React.createElement('div', { className: "bg-blue-50 border border-blue-200 rounded-lg p-6 mt-8" },
                         React.createElement('div', { className: "text-center mb-6" },
-                            React.createElement('div', { className: "text-6xl mb-2" }, '📋'),
+                            React.createElement('div', { className: "text-5xl mb-4" }, '📋'),
                             React.createElement('h3', { className: "text-xl font-semibold text-gray-800 mb-2" }, 'Ready to Submit?'),
-                            React.createElement('p', { className: "text-gray-600 mb-2" },
-                                'Organization Name and Primary Contact are required. Additional sections are available above.'
+                            React.createElement('p', { className: "text-gray-600 text-sm" },
+                                'Primary Contact Name is required. Please review all sections above before submitting.'
                             )
                         ),
                         React.createElement('div', { className: "flex flex-col sm:flex-row gap-4 justify-center" },
@@ -967,19 +983,19 @@
                                 onClick: handleBackup,
                                 className: "flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg transition-colors"
                             },
-                                React.createElement('span', { className: "text-xl" }, '💾'),
+                                React.createElement('span', { className: "text-lg" }, '💾'),
                                 React.createElement('span', {}, 'Save Backup Copy')
                             ),
                             React.createElement('button', {
                                 onClick: handleSubmit,
-                                disabled: isSubmitting || !responses.organization || !responses.contact_name,
+                                disabled: isSubmitting || !responses.contact_name,
                                 className: "flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-lg transition-colors font-medium"
                             },
-                                React.createElement('span', { className: "text-xl" }, '📧'),
+                                React.createElement('span', { className: "text-lg" }, '📧'),
                                 React.createElement('span', {}, isSubmitting ? 'Submitting...' : 'Submit Technical Request')
                             )
                         ),
-                        React.createElement('p', { className: "text-xs text-gray-500 mt-4 text-center" },
+                        React.createElement('p', { className: "text-xs text-gray-500 mt-6 text-center" },
                             'Your responses are automatically saved as you type. This assessment is confidential and will only be used to improve Medellín\'s technical capabilities.'
                         )
                     )
