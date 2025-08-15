@@ -19,6 +19,88 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
+        // Component definitions outside main function to prevent re-creation on every render
+        const SectionHeader = ({ id, title, icon, isExpanded, color = "blue", toggleSection, handleKeyPress }) => (
+            React.createElement('div', { 
+                className: `bg-${color}-50 border-l-4 border-${color}-500 p-4 cursor-pointer hover:bg-${color}-100 transition-colors section-header`,
+                onClick: () => toggleSection(id),
+                onKeyPress: (e) => handleKeyPress(e, id),
+                role: "button",
+                tabIndex: 0,
+                'aria-expanded': isExpanded,
+                'aria-label': `Toggle ${title} section`
+            },
+                React.createElement('div', { className: "flex items-center justify-between" },
+                    React.createElement('div', { className: "flex items-center space-x-3" },
+                        React.createElement('span', { className: "text-2xl", 'aria-hidden': "true" }, icon),
+                        React.createElement('h2', { className: "text-xl font-semibold text-gray-800" }, title)
+                    ),
+                    React.createElement('span', { className: "text-gray-600", 'aria-hidden': "true" }, isExpanded ? '▼' : '▶')
+                )
+            )
+        );
+
+        const CheckboxGroup = ({ questionId, options, allowOther = false, otherLabel = "Other", responses, updateResponse }) => (
+            React.createElement('div', { className: "space-y-2" },
+                options.map((option, index) =>
+                    React.createElement('label', { key: index, className: "flex items-start space-x-3 p-2 hover:bg-gray-50 rounded" },
+                        React.createElement('input', {
+                            type: 'checkbox',
+                            className: 'mt-1 h-4 w-4 text-blue-600 rounded border-gray-300',
+                            checked: (responses[questionId] || []).includes(option),
+                            onChange: () => updateResponse(questionId, option, true)
+                        }),
+                        React.createElement('span', { className: "text-gray-700" }, option)
+                    )
+                ),
+                allowOther && React.createElement('div', { className: "flex items-center space-x-3 p-2" },
+                    React.createElement('input', {
+                        type: 'checkbox',
+                        className: 'mt-1 h-4 w-4 text-blue-600 rounded border-gray-300',
+                        checked: responses[`${questionId}_other_checked`] || false,
+                        onChange: () => updateResponse(`${questionId}_other_checked`, !responses[`${questionId}_other_checked`])
+                    }),
+                    React.createElement('div', { className: "flex-1 flex items-center space-x-2" },
+                        React.createElement('span', { className: "text-gray-700" }, `${otherLabel}:`),
+                        React.createElement('input', {
+                            type: 'text',
+                            className: 'flex-1 px-3 py-1 border border-gray-300 rounded-md text-sm',
+                            placeholder: 'Please specify...',
+                            value: responses[`${questionId}_other`] || '',
+                            onChange: (e) => updateResponse(`${questionId}_other`, e.target.value)
+                        })
+                    )
+                )
+            )
+        );
+
+        const TextArea = ({ questionId, placeholder = "Please share your thoughts...", rows = 3, responses, updateResponse }) => (
+            React.createElement('textarea', {
+                className: 'w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+                rows: rows,
+                placeholder: placeholder,
+                value: responses[questionId] || '',
+                onChange: (e) => updateResponse(questionId, e.target.value)
+            })
+        );
+
+        const RadioGroup = ({ questionId, options, responses, updateResponse }) => (
+            React.createElement('div', { className: "space-y-2" },
+                options.map((option, index) =>
+                    React.createElement('label', { key: index, className: "flex items-center space-x-3 p-2 hover:bg-gray-50 rounded" },
+                        React.createElement('input', {
+                            type: 'radio',
+                            name: questionId,
+                            className: 'h-4 w-4 text-blue-600 border-gray-300',
+                            checked: responses[questionId] === option,
+                            onChange: () => updateResponse(questionId, option)
+                        }),
+                        React.createElement('span', { className: "text-gray-700" }, option)
+                    )
+                )
+            )
+        );
+
         function MedellinSurvey() {
             const [responses, setResponses] = useState({});
             const [expandedSections, setExpandedSections] = useState({ section0: true });
@@ -200,86 +282,6 @@
                 }
             };
 
-            const SectionHeader = ({ id, title, icon, isExpanded, color = "blue" }) => (
-                React.createElement('div', { 
-                    className: `bg-${color}-50 border-l-4 border-${color}-500 p-4 cursor-pointer hover:bg-${color}-100 transition-colors section-header`,
-                    onClick: () => toggleSection(id),
-                    onKeyPress: (e) => handleKeyPress(e, id),
-                    role: "button",
-                    tabIndex: 0,
-                    'aria-expanded': isExpanded,
-                    'aria-label': `Toggle ${title} section`
-                },
-                    React.createElement('div', { className: "flex items-center justify-between" },
-                        React.createElement('div', { className: "flex items-center space-x-3" },
-                            React.createElement('span', { className: "text-2xl", 'aria-hidden': "true" }, icon),
-                            React.createElement('h2', { className: "text-xl font-semibold text-gray-800" }, title)
-                        ),
-                        React.createElement('span', { className: "text-gray-600", 'aria-hidden': "true" }, isExpanded ? '▼' : '▶')
-                    )
-                )
-            );
-
-            const CheckboxGroup = ({ questionId, options, allowOther = false, otherLabel = "Other" }) => (
-                React.createElement('div', { className: "space-y-2" },
-                    options.map((option, index) =>
-                        React.createElement('label', { key: index, className: "flex items-start space-x-3 p-2 hover:bg-gray-50 rounded" },
-                            React.createElement('input', {
-                                type: 'checkbox',
-                                className: 'mt-1 h-4 w-4 text-blue-600 rounded border-gray-300',
-                                checked: (responses[questionId] || []).includes(option),
-                                onChange: () => updateResponse(questionId, option, true)
-                            }),
-                            React.createElement('span', { className: "text-gray-700" }, option)
-                        )
-                    ),
-                    allowOther && React.createElement('div', { className: "flex items-center space-x-3 p-2" },
-                        React.createElement('input', {
-                            type: 'checkbox',
-                            className: 'mt-1 h-4 w-4 text-blue-600 rounded border-gray-300',
-                            checked: responses[`${questionId}_other_checked`] || false,
-                            onChange: () => updateResponse(`${questionId}_other_checked`, !responses[`${questionId}_other_checked`])
-                        }),
-                        React.createElement('div', { className: "flex-1 flex items-center space-x-2" },
-                            React.createElement('span', { className: "text-gray-700" }, `${otherLabel}:`),
-                            React.createElement('input', {
-                                type: 'text',
-                                className: 'flex-1 px-3 py-1 border border-gray-300 rounded-md text-sm',
-                                placeholder: 'Please specify...',
-                                value: responses[`${questionId}_other`] || '',
-                                onChange: (e) => updateResponse(`${questionId}_other`, e.target.value)
-                            })
-                        )
-                    )
-                )
-            );
-
-            const TextArea = ({ questionId, placeholder = "Please share your thoughts...", rows = 3 }) => (
-                React.createElement('textarea', {
-                    className: 'w-full px-3 py-2 border border-gray-300 rounded-md resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
-                    rows: rows,
-                    placeholder: placeholder,
-                    value: responses[questionId] || '',
-                    onChange: (e) => updateResponse(questionId, e.target.value)
-                })
-            );
-
-            const RadioGroup = ({ questionId, options }) => (
-                React.createElement('div', { className: "space-y-2" },
-                    options.map((option, index) =>
-                        React.createElement('label', { key: index, className: "flex items-center space-x-3 p-2 hover:bg-gray-50 rounded" },
-                            React.createElement('input', {
-                                type: 'radio',
-                                name: questionId,
-                                className: 'h-4 w-4 text-blue-600 border-gray-300',
-                                checked: responses[questionId] === option,
-                                onChange: () => updateResponse(questionId, option)
-                            }),
-                            React.createElement('span', { className: "text-gray-700" }, option)
-                        )
-                    )
-                )
-            );
 
             if (isSubmitted) {
                 return React.createElement('div', {
@@ -333,7 +335,9 @@
                             title: 'Your Role & Responsibilities', 
                             icon: '👤', 
                             isExpanded: expandedSections.section0,
-                            color: 'green'
+                            color: 'green',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section0 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
@@ -370,7 +374,9 @@
                                         "Financial planning and budgets",
                                         "Operations and logistics"
                                     ],
-                                    allowOther: true
+                                    allowOther: true,
+                                    responses: responses,
+                                    updateResponse: updateResponse
                                 })
                             )
                         )
@@ -383,7 +389,9 @@
                             title: 'Part 1: What Success Looks Like', 
                             icon: '🎯', 
                             isExpanded: expandedSections.section1,
-                            color: 'purple'
+                            color: 'purple',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section1 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
@@ -441,7 +449,12 @@
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What would make you feel most successful this year?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'success_feeling', placeholder: 'Describe what success looks like for you...' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'success_feeling', 
+                                    placeholder: 'Describe what success looks like for you...',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             )
                         )
                     ),
@@ -453,7 +466,9 @@
                             title: 'Part 2: Daily Challenges & Information Needs', 
                             icon: '⚠️', 
                             isExpanded: expandedSections.section2,
-                            color: 'red'
+                            color: 'red',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section2 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
@@ -474,7 +489,9 @@
                                         "Don't have enough information about our competition",
                                         "Systems don't talk to each other"
                                     ],
-                                    allowOther: true
+                                    allowOther: true,
+                                    responses: responses,
+                                    updateResponse: updateResponse
                                 })
                             ),
                             React.createElement('div', { className: "space-y-4" },
@@ -484,19 +501,39 @@
                                 React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, 'About potential clients:'),
-                                        React.createElement(TextArea, { questionId: 'perfect_info_clients', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'perfect_info_clients', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     ),
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, 'About our competition:'),
-                                        React.createElement(TextArea, { questionId: 'perfect_info_competition', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'perfect_info_competition', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     ),
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, 'About our performance:'),
-                                        React.createElement(TextArea, { questionId: 'perfect_info_performance', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'perfect_info_performance', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     ),
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, 'About market opportunities:'),
-                                        React.createElement(TextArea, { questionId: 'perfect_info_market', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'perfect_info_market', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     )
                                 )
                             )
@@ -510,7 +547,9 @@
                             title: 'Part 3: Current Information & Systems', 
                             icon: '💾', 
                             isExpanded: expandedSections.section3,
-                            color: 'indigo'
+                            color: 'indigo',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section3 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
@@ -531,7 +570,9 @@
                                         "Presentation software (PowerPoint, etc.)",
                                         "File sharing (Dropbox, Google Drive, etc.)"
                                     ],
-                                    allowOther: true
+                                    allowOther: true,
+                                    responses: responses,
+                                    updateResponse: updateResponse
                                 })
                             ),
                             React.createElement('div', {},
@@ -550,7 +591,9 @@
                                         "Look through printed files or folders",
                                         "Try to remember from past experience"
                                     ],
-                                    allowOther: true
+                                    allowOther: true,
+                                    responses: responses,
+                                    updateResponse: updateResponse
                                 })
                             ),
                             React.createElement('div', {},
@@ -631,7 +674,9 @@
                                                     "30 minutes - 2 hours",
                                                     "More than 2 hours",
                                                     "I can't easily find this information"
-                                                ]
+                                                ],
+                                                responses: responses,
+                                                updateResponse: updateResponse
                                             })
                                         )
                                     )
@@ -708,7 +753,9 @@
                             title: 'Part 5: Future Improvements', 
                             icon: '📈', 
                             isExpanded: expandedSections.section5,
-                            color: 'green'
+                            color: 'green',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section5 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
@@ -838,13 +885,21 @@
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'If we could solve ONE information problem for you, what would have the biggest impact on your success?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'biggest_impact_problem' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'biggest_impact_problem',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What would you do differently if you had better information?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'do_differently' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'do_differently',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-3" },
@@ -857,7 +912,9 @@
                                         "Somewhat comfortable - I can learn with training",
                                         "Not very comfortable - I prefer simple solutions",
                                         "Not comfortable - I avoid new technology"
-                                    ]
+                                    ],
+                                    responses: responses,
+                                    updateResponse: updateResponse
                                 })
                             )
                         )
@@ -870,20 +927,30 @@
                             title: 'Part 6: Success Measurement', 
                             icon: '📊', 
                             isExpanded: expandedSections.section6,
-                            color: 'blue'
+                            color: 'blue',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section6 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'How do you currently measure if you\'re doing a good job?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'current_success_measurement' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'current_success_measurement',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What numbers/metrics matter most to your manager?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'manager_metrics' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'manager_metrics',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-3" },
@@ -892,15 +959,30 @@
                                 React.createElement('div', { className: "space-y-4" },
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, 'Your daily work:'),
-                                        React.createElement(TextArea, { questionId: 'impact_daily_work', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'impact_daily_work', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     ),
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, "Medellin's reputation:"),
-                                        React.createElement(TextArea, { questionId: 'impact_medellin_reputation', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'impact_medellin_reputation', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     ),
                                     React.createElement('div', {},
                                         React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, "Your team's success:"),
-                                        React.createElement(TextArea, { questionId: 'impact_team_success', rows: 2 })
+                                        React.createElement(TextArea, { 
+                                            questionId: 'impact_team_success', 
+                                            rows: 2,
+                                            responses: responses,
+                                            updateResponse: updateResponse
+                                        })
                                     )
                                 )
                             )
@@ -914,7 +996,9 @@
                             title: 'Part 7: Quick Wins', 
                             icon: '⚡', 
                             isExpanded: expandedSections.section7,
-                            color: 'orange'
+                            color: 'orange',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section7 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
@@ -963,32 +1047,50 @@
                             title: 'Final Questions', 
                             icon: '💭', 
                             isExpanded: expandedSections.section8,
-                            color: 'gray'
+                            color: 'gray',
+                            toggleSection: toggleSection,
+                            handleKeyPress: handleKeyPress
                         }),
                         expandedSections.section8 && React.createElement('div', { className: "p-6 space-y-6" },
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What concerns you about this project?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'project_concerns' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'project_concerns',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What excites you most about better information systems?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'system_excitement' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'system_excitement',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'What should we know about working in Medellin that might be different from other places?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'medellin_context' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'medellin_context',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             ),
                             React.createElement('div', {},
                                 React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" },
                                     'Any other thoughts or suggestions?'
                                 ),
-                                React.createElement(TextArea, { questionId: 'other_thoughts' })
+                                React.createElement(TextArea, { 
+                                    questionId: 'other_thoughts',
+                                    responses: responses,
+                                    updateResponse: updateResponse
+                                })
                             )
                         )
                     ),
