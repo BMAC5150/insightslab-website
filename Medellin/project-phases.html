@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medellin DMO Project Phases - InsightsLab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 8px;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-orange {
+            background: #ffedd5;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+        }
+
+        /* Phase Grid */
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .phase-tile {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .phase-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: height 0.3s ease;
+        }
+
+        .phase-tile:hover::before {
+            height: 8px;
+        }
+
+        /* Phase-specific colors */
+        .phase-0::before { background-color: #FF4444; }
+        .phase-1::before { background-color: #ea580c; }
+        .phase-2::before { background-color: #2563eb; }
+        .phase-3::before { background-color: #9333ea; }
+        .phase-4::before { background-color: #16a34a; }
+        .phase-5::before { background-color: #dc2626; }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .phase-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .phase-0 .phase-number { background-color: #FF4444; }
+        .phase-1 .phase-number { background-color: #ea580c; }
+        .phase-2 .phase-number { background-color: #2563eb; }
+        .phase-3 .phase-number { background-color: #9333ea; }
+        .phase-4 .phase-number { background-color: #16a34a; }
+        .phase-5 .phase-number { background-color: #dc2626; }
+
+        .phase-title-section {
+            flex: 1;
+        }
+
+        .phase-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .phase-duration {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .phase-description {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .phase-activities {
+            margin-bottom: 16px;
+        }
+
+        .activities-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: start;
+            gap: 8px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .activity-bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .phase-0 .activity-bullet { background-color: #FF4444; }
+        .phase-1 .activity-bullet { background-color: #ea580c; }
+        .phase-2 .activity-bullet { background-color: #2563eb; }
+        .phase-3 .activity-bullet { background-color: #9333ea; }
+        .phase-4 .activity-bullet { background-color: #16a34a; }
+        .phase-5 .activity-bullet { background-color: #dc2626; }
+
+        .phase-deliverables {
+            background-color: #f9fafb;
+            border-radius: 6px;
+            padding: 12px;
+        }
+
+        .deliverables-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .deliverable-item {
+            font-size: 12px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .deliverable-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .phase-0 .check-icon { color: #FF4444; }
+        .phase-1 .check-icon { color: #ea580c; }
+        .phase-2 .check-icon { color: #2563eb; }
+        .phase-3 .check-icon { color: #9333ea; }
+        .phase-4 .check-icon { color: #16a34a; }
+        .phase-5 .check-icon { color: #dc2626; }
+
+        /* Icons */
+        .clock-icon, .calendar-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .phase-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2em;
+            }
+        }
+
+        /* Summary Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #16a34a;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-card">
+            <div class="brand-tag">by InsightsLab</div>
+            <h1 class="main-title">Medellin DMO Data Ecosystem Project Phases</h1>
+            <p class="subtitle">Data Audit & Mapping with AI Strategy Foundation</p>
+            <div class="badge-container">
+                <div class="badge badge-red">
+                    <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                    80 Total Hours
+                </div>
+                <div class="badge badge-orange">
+                    <svg class="calendar-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                    8 Weeks Duration
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Project Phases</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">80h</div>
+                <div class="stat-label">Total Hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Dashboard Views</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Week Duration</div>
+            </div>
+        </div>
+
+        <!-- Phase Grid -->
+        <div class="phase-grid">
+            <!-- Phase 0 -->
+            <a href="#" class="phase-tile phase-0">
+                <div class="phase-header">
+                    <div class="phase-number">0</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">Planning & Discovery</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            10 hours | Week 1-2
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Interview key executives and deploy stakeholder surveys to understand current challenges and priorities.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Interview key executives</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Deploy and analyze stakeholder survey</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Understand current challenges and priorities</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Executive interview and survey summary
+                    </div>
+                </div>
+            </a>
+
+            <!-- Phase 1 -->
+            <a href="#" class="phase-tile phase-1">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">Current State Assessment</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            20 hours | Week 2-3
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Inventory all data systems, map stakeholder relationships, assess team capabilities and evaluate data quality.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Inventory all data systems</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Map stakeholder relationships</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Assess team capabilities</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Evaluate data quality</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Data ecosystem assessment
+                    </div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Team skills gap analysis
+                    </div>
+                </div>
+            </a>
+
+            <!-- Phase 2 -->
+            <a href="#" class="phase-tile phase-2">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">Data Flow Analysis</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            15 hours | Week 4
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Document how information moves through the organization and identify inefficient processes and improvement opportunities.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Document information movement</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Identify inefficient processes</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Find improvement opportunities</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Track data origins and destinations</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Visual data flow maps
+                    </div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Process optimization recommendations
+                    </div>
+                </div>
+            </a>
+
+            <!-- Phase 3 -->
+            <a href="#" class="phase-tile phase-3">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">Future State Design</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            20 hours | Week 5-6
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Design new business intelligence workflows, create performance indicators, and develop optimization strategy.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Design new business intelligence workflows</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Create performance indicators</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Plan system improvements</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Develop optimization strategy</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Data methodology roadmap
+                    </div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Standardized performance metrics
+                    </div>
+                </div>
+            </a>
+
+            <!-- Phase 4 -->
+            <a href="#" class="phase-tile phase-4">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">BI Dashboard Blueprint</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            10 hours | Week 7
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Design executive dashboard layout, specify data connections, and create implementation framework.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Design executive dashboard layout</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Specify data connections</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Create implementation framework</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Dashboard design with mockups
+                    </div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Implementation framework
+                    </div>
+                </div>
+            </a>
+
+            <!-- Phase 5 -->
+            <a href="#" class="phase-tile phase-5">
+                <div class="phase-header">
+                    <div class="phase-number">5</div>
+                    <div class="phase-title-section">
+                        <h3 class="phase-title">Training & Implementation</h3>
+                        <div class="phase-duration">
+                            <svg class="clock-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                            5 hours | Week 8
+                        </div>
+                    </div>
+                </div>
+                <p class="phase-description">
+                    Develop team training materials, create detailed action plan, and provide upskilling recommendations.
+                </p>
+                <div class="phase-activities">
+                    <div class="activities-label">Key Activities</div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Develop team training materials</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Create detailed action plan</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Provide upskilling recommendations</span>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-bullet"></div>
+                            <span>Finalize implementation roadmap</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="phase-deliverables">
+                    <div class="deliverables-label">Deliverables</div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Training workshop materials
+                    </div>
+                    <div class="deliverable-item">
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        12-18 month action plan
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
