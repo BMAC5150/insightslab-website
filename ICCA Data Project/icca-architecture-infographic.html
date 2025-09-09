@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICCA AI-Enhanced Database System Architecture</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .infographic-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: slideInLeft 1s ease-out 0.2s both;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+        
+        .header:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: slideInRight 1s ease-out 0.4s both;
+        }
+        
+        .principle-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .principle-card:hover::before {
+            left: 100%;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .principle-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .principle-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .principle-desc {
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+        
+        .architecture-diagram {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .system-layer {
+            background: #f8f9fa;
+            border: 2px dashed #3498db;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .system-layer:hover {
+            background: #e8f4f8;
+            border-color: #e74c3c;
+            transform: scale(1.02);
+        }
+        
+        .system-layer h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .layer-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .component-box {
+            background: white;
+            border: 1px solid #3498db;
+            border-radius: 10px;
+            padding: 15px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .component-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #e74c3c);
+            transition: width 0.3s ease;
+        }
+        
+        .component-box:hover::after {
+            width: 100%;
+        }
+        
+        .component-box:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .tech-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .phase-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at 50% 50%, transparent, rgba(52, 152, 219, 0.1), transparent);
+            transform: rotate(0deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+        
+        .phase-card:hover::before {
+            opacity: 1;
+            transform: rotate(360deg);
+        }
+        
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .phase-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db, #e74c3c);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .phase-card:hover .phase-number {
+            transform: rotate(360deg) scale(1.1);
+        }
+        
+        .phase-title {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .phase-investment {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .code-preview {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .metric-box:hover {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .expandable-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        
+        .section-header:hover {
+            color: #3498db;
+        }
+        
+        .expand-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .expand-icon.expanded {
+            transform: rotate(180deg);
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+        
+        .section-content.expanded {
+            max-height: 2000px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #e74c3c);
+            transition: all 0.5s ease;
+            transform: translateX(-50%);
+        }
+        
+        .section-title:hover::after {
+            width: 100px;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: bounceIn 0.5s ease-out;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: #e74c3c;
+        }
+        
+        .cost-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .cost-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .cost-card:hover {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border-color: #e74c3c;
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        .cost-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .cost-period {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .interactive-counter {
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tech-phases {
+                grid-template-columns: 1fr;
+            }
+            
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        
+        const Header = () => (
+            <div className="header">
+                <h1>ICCA AI-Enhanced Database System Architecture</h1>
+                <div className="subtitle">Simplified Implementation for Small Team Execution</div>
+            </div>
+        );
+        
+        const DesignPrinciples = () => {
+            const [selectedPrinciple, setSelectedPrinciple] = useState(null);
+            
+            const principles = [
+                {
+                    icon: "🎯",
+                    title: "Simplicity First",
+                    description: "Use managed APIs instead of custom development",
+                    details: {
+                        title: "Simplicity-First Architecture",
+                        content: "Our approach prioritizes proven, managed services over complex custom development. This means faster implementation, reduced maintenance overhead, and higher reliability through battle-tested infrastructure.",
+                        benefits: [
+                            "Firecrawl API handles complex web scraping challenges",
+                            "Claude API provides enterprise-grade AI processing",
+                            "Perplexity API delivers real-time market intelligence",
+                            "PostgreSQL for reliable, familiar data storage"
+                        ]
+                    }
+                },
+                {
+                    icon: "🔌",
+                    title: "Minimal Integration", 
+                    description: "Work independently of complex SimpleView CRM",
+                    details: {
+                        title: "Independent Operation Strategy",
+                        content: "The system operates independently from SimpleView CRM complexity, avoiding integration pitfalls while still enhancing the core database. This approach eliminates dependency risks and simplifies deployment.",
+                        benefits: [
+                            "No complex CRM integration required",
+                            "Direct database access for maximum control", 
+                            "Reduced deployment complexity",
+                            "Lower risk of system conflicts"
+                        ]
+                    }
+                },
+                {
+                    icon: "👥",
+                    title: "Small Team Friendly",
+                    description: "Leverage AI-assisted development tools",
+                    details: {
+                        title: "AI-Powered Development Acceleration",
+                        content: "Claude Code integration enables a 2-person team to achieve what traditionally requires a larger development team. AI assistance accelerates coding, debugging, and optimization.",
+                        benefits: [
+                            "Claude Code for AI-assisted development",
+                            "Automated code review and optimization",
+                            "Rapid prototyping and iteration",
+                            "Reduced learning curve for new technologies"
+                        ]
+                    }
+                },
+                {
+                    icon: "🚫",
+                    title: "Zero Member Interface",
+                    description: "Backend improvements only, no workflow changes",
+                    details: {
+                        title: "Transparent Enhancement Model",
+                        content: "Members continue their existing workflows while benefiting from dramatically improved data quality and coverage. No training required, no adoption barriers.",
+                        benefits: [
+                            "No member training required",
+                            "Zero workflow disruption",
+                            "Immediate quality improvements",
+                            "Reduced change management complexity"
+                        ]
+                    }
+                },
+                {
+                    icon: "☁️",
+                    title: "Managed Infrastructure",
+                    description: "Cloud-based services requiring minimal server management",
+                    details: {
+                        title: "Cloud-Native Operations",
+                        content: "Leverage cloud infrastructure for scalability, reliability, and minimal operational overhead. Focus development effort on business value rather than infrastructure management.",
+                        benefits: [
+                            "Auto-scaling cloud infrastructure",
+                            "Built-in backup and disaster recovery",
+                            "Global CDN for optimal performance",
+                            "Minimal operational maintenance required"
+                        ]
+                    }
+                }
+            ];
+            
+            return (
+                <>
+                    <h2 className="section-title">Design Principles</h2>
+                    <div className="principles-grid">
+                        {principles.map((principle, index) => (
+                            <div 
+                                key={index}
+                                className="principle-card"
+                                onClick={() => setSelectedPrinciple(principle)}
+                            >
+                                <div className="principle-icon" style={{animationDelay: `${index * 0.2}s`}}>
+                                    {principle.icon}
+                                </div>
+                                <div className="principle-title">{principle.title}</div>
+                                <div className="principle-desc">{principle.description}</div>
+                            </div>
+                        ))}
+                    </div>
+                    {selectedPrinciple && (
+                        <Modal onClose={() => setSelectedPrinciple(null)}>
+                            <h2 style={{color: '#2c3e50', marginBottom: '20px'}}>
+                                {selectedPrinciple.icon} {selectedPrinciple.details.title}
+                            </h2>
+                            <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedPrinciple.details.content}
+                            </p>
+                            <h3 style={{color: '#3498db', marginBottom: '15px'}}>Key Benefits:</h3>
+                            <ul style={{lineHeight: '1.6'}}>
+                                {selectedPrinciple.details.benefits.map((benefit, index) => (
+                                    <li key={index} style={{margin: '8px 0'}}>{benefit}</li>
+                                ))}
+                            </ul>
+                        </Modal>
+                    )}
+                </>
+            );
+        };
+        
+        const SystemArchitecture = () => {
+            const [selectedLayer, setSelectedLayer] = useState(null);
+            const [selectedComponent, setSelectedComponent] = useState(null);
+            
+            // Individual component details
+            const componentDetails = {
+                "SimpleView CRM": {
+                    title: "SimpleView CRM Platform",
+                    content: "Enterprise-grade customer relationship management system that serves as the backbone for ICCA's member interactions and business operations.",
+                    features: [
+                        "Member relationship management and communications",
+                        "Event planning and coordination workflows", 
+                        "Revenue tracking and financial reporting",
+                        "Integration APIs for data synchronization"
+                    ]
+                },
+                "ICCA Business Intelligence": {
+                    title: "ICCA Business Intelligence Platform", 
+                    content: "Current data analytics and reporting system providing business insights and member intelligence based on existing database records.",
+                    features: [
+                        "Member activity analytics and reporting",
+                        "Event performance metrics and trends",
+                        "Revenue analysis and forecasting",
+                        "Custom dashboard creation for stakeholders"
+                    ]
+                },
+                "Member Portal": {
+                    title: "Member Portal System",
+                    content: "Web-based interface where ICCA members access services, submit data, and manage their association activities and benefits.",
+                    features: [
+                        "Member self-service capabilities",
+                        "Event data submission and management",
+                        "Directory access and networking tools", 
+                        "Resource downloads and member benefits"
+                    ]
+                },
+                "PostgreSQL Database (220K+ records)": {
+                    title: "PostgreSQL Database Core",
+                    content: "Primary data repository containing over 220,000 meeting and event records, serving as the foundation for all ICCA intelligence and member services.",
+                    features: [
+                        "220,000+ verified meeting and event records",
+                        "Relational data structure for complex queries",
+                        "ACID compliance for data integrity",
+                        "Scalable architecture supporting growth"
+                    ]
+                },
+                "Firecrawl Web Scraping": {
+                    title: "Firecrawl Web Scraping Engine",
+                    content: "Advanced web scraping service that automatically discovers and extracts event data from association websites, conference organizers, and venue platforms worldwide.",
+                    features: [
+                        "Automated discovery of 500+ event websites daily",
+                        "Anti-bot detection bypass and rate limiting",
+                        "Structured data extraction with AI assistance", 
+                        "Real-time monitoring for event updates"
+                    ]
+                },
+                "Claude AI Processing": {
+                    title: "Claude AI Processing Engine",
+                    content: "Advanced language model that validates, enhances, and structures raw event data into high-quality database records with confidence scoring.",
+                    features: [
+                        "Natural language processing for event details",
+                        "Data validation and quality scoring",
+                        "Duplicate detection and record merging",
+                        "Multi-language content processing"
+                    ]
+                },
+                "Perplexity Market Intel": {
+                    title: "Perplexity Market Intelligence",
+                    content: "Real-time market research and competitive intelligence platform that provides insights into industry trends and emerging opportunities.",
+                    features: [
+                        "Real-time industry trend monitoring",
+                        "Competitive landscape analysis",
+                        "Emerging market opportunity detection", 
+                        "Automated intelligence report generation"
+                    ]
+                },
+                "Data Extraction": {
+                    title: "Data Extraction Pipeline",
+                    content: "Automated system that processes scraped content and transforms unstructured web data into structured, usable information for database integration.",
+                    features: [
+                        "Multi-format content processing (HTML, PDF, images)",
+                        "Entity extraction (dates, locations, contacts)",
+                        "Data normalization and standardization",
+                        "Quality assurance and validation workflows"
+                    ]
+                },
+                "Validation Engine": {
+                    title: "AI Validation Engine", 
+                    content: "Core quality assurance system that cross-references multiple sources to verify event information accuracy and assign confidence scores.",
+                    features: [
+                        "Multi-source cross-validation protocols",
+                        "Confidence scoring algorithms",
+                        "Automated fact-checking workflows",
+                        "Historical data consistency verification"
+                    ]
+                },
+                "Intelligence Reports": {
+                    title: "Intelligence Reports Generator",
+                    content: "Automated reporting system that creates actionable business intelligence summaries from validated data and market research.",
+                    features: [
+                        "Weekly market intelligence summaries",
+                        "Competitive opportunity alerts",
+                        "Trend analysis and forecasting",
+                        "Custom report generation on demand"
+                    ]
+                },
+                "Quality Reports": {
+                    title: "Quality Reports Dashboard",
+                    content: "Real-time monitoring and reporting interface that tracks data quality metrics, validation progress, and system performance indicators.",
+                    features: [
+                        "Real-time data quality metrics",
+                        "Validation progress tracking",
+                        "Source reliability scoring",
+                        "Performance analytics and trends"
+                    ]
+                },
+                "Market Intelligence": {
+                    title: "Market Intelligence Interface",
+                    content: "Interactive dashboard providing access to market research, competitive insights, and industry trend analysis for strategic decision making.",
+                    features: [
+                        "Interactive market trend visualizations",
+                        "Competitive landscape mapping",
+                        "Opportunity identification and alerts",
+                        "Custom research query interface"
+                    ]
+                },
+                "Data Export for Members": {
+                    title: "Member Data Export Tools",
+                    content: "Flexible export and API system that allows members to access enhanced data in various formats for integration with their own systems.",
+                    features: [
+                        "Multiple export formats (CSV, JSON, XML)",
+                        "Custom data filtering and selection", 
+                        "API access for real-time integration",
+                        "Scheduled automated exports"
+                    ]
+                }
+            };
+            
+            const layers = [
+                {
+                    title: "ICCA MEMBERS",
+                    subtitle: "(No Interface Changes)",
+                    description: "Members continue existing data entry processes unchanged",
+                    components: [],
+                    details: {
+                        title: "Member Layer - Zero Disruption",
+                        content: "ICCA members experience no workflow changes while benefiting from dramatically improved data quality and expanded coverage. The enhancement layer works transparently in the background.",
+                        features: [
+                            "Existing data entry workflows preserved",
+                            "No new training requirements",
+                            "Immediate quality improvements visible",
+                            "Enhanced search and discovery capabilities"
+                        ]
+                    }
+                },
+                {
+                    title: "ICCA EXISTING SYSTEMS", 
+                    subtitle: "Current Infrastructure",
+                    description: "SimpleView CRM, Business Intelligence, Member Portal",
+                    components: ["SimpleView CRM", "ICCA Business Intelligence", "Member Portal", "PostgreSQL Database (220K+ records)"],
+                    details: {
+                        title: "Existing Infrastructure Integration",
+                        content: "The AI enhancement layer integrates with existing systems through direct database access, avoiding complex API integrations while maintaining full compatibility.",
+                        features: [
+                            "Direct PostgreSQL database connection",
+                            "Read/write access for quality improvements",
+                            "Compatible with SimpleView architecture",
+                            "Maintains existing business logic"
+                        ]
+                    }
+                },
+                {
+                    title: "AI ENHANCEMENT LAYER",
+                    subtitle: "InsightsLab Development",
+                    description: "Firecrawl, Claude API, Perplexity API processing",
+                    components: ["Firecrawl Web Scraping", "Claude AI Processing", "Perplexity Market Intel", "Data Extraction", "Validation Engine", "Intelligence Reports"],
+                    details: {
+                        title: "AI-Powered Enhancement Engine",
+                        content: "The core intelligence layer that transforms raw data into validated, enhanced business intelligence using cutting-edge AI APIs and processing algorithms.",
+                        features: [
+                            "Real-time web scraping with Firecrawl",
+                            "AI validation using Claude API",
+                            "Market intelligence via Perplexity",
+                            "Automated quality scoring and confidence metrics",
+                            "Multi-source data validation and cross-referencing"
+                        ]
+                    }
+                },
+                {
+                    title: "FINAL USER UI",
+                    subtitle: "InsightsLab Development",
+                    description: "Simple interface requiring no technical training",
+                    components: ["Quality Reports", "Market Intelligence", "Data Export for Members"],
+                    details: {
+                        title: "User Interface - Intuitive and Powerful",
+                        content: "A clean, simple interface designed for users to access enhanced data quality reports, market intelligence, and export capabilities without technical complexity.",
+                        features: [
+                            "Natural language query interface",
+                            "One-click report generation",
+                            "Real-time quality metrics dashboard",
+                            "Automated export tools for member data",
+                            "Mobile-responsive design"
+                        ]
+                    }
+                }
+            ];
+            
+            return (
+                <>
+                    <div className="architecture-diagram">
+                        <h2 className="section-title">System Components Architecture</h2>
+                        {layers.map((layer, index) => (
+                            <div 
+                                key={index}
+                                className="system-layer"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedLayer(layer);
+                                }}
+                            >
+                                <h3>{layer.title}</h3>
+                                <div style={{fontSize: '0.9rem', color: '#7f8c8d', marginBottom: '10px'}}>
+                                    {layer.subtitle}
+                                </div>
+                                <div>{layer.description}</div>
+                                {layer.components.length > 0 && (
+                                    <div className="layer-components">
+                                        {layer.components.map((component, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                className="component-box"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setSelectedComponent(componentDetails[component]);
+                                                }}
+                                            >
+                                                {component}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                {index < layers.length - 1 && (
+                                    <div style={{textAlign: 'center', margin: '10px 0', fontSize: '1.5rem', color: '#3498db'}}>
+                                        ↓
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    {selectedLayer && (
+                        <Modal onClose={() => setSelectedLayer(null)}>
+                            <h2 style={{color: '#2c3e50', marginBottom: '20px'}}>
+                                {selectedLayer.details.title}
+                            </h2>
+                            <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedLayer.details.content}
+                            </p>
+                            <h3 style={{color: '#3498db', marginBottom: '15px'}}>Key Features:</h3>
+                            <ul style={{lineHeight: '1.6'}}>
+                                {selectedLayer.details.features.map((feature, index) => (
+                                    <li key={index} style={{margin: '8px 0'}}>{feature}</li>
+                                ))}
+                            </ul>
+                        </Modal>
+                    )}
+                    {selectedComponent && (
+                        <Modal onClose={() => setSelectedComponent(null)}>
+                            <h2 style={{color: '#2c3e50', marginBottom: '20px'}}>
+                                {selectedComponent.title}
+                            </h2>
+                            <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedComponent.content}
+                            </p>
+                            <h3 style={{color: '#3498db', marginBottom: '15px'}}>Key Features:</h3>
+                            <ul style={{lineHeight: '1.6'}}>
+                                {selectedComponent.features.map((feature, index) => (
+                                    <li key={index} style={{margin: '8px 0'}}>{feature}</li>
+                                ))}
+                            </ul>
+                        </Modal>
+                    )}
+                </>
+            );
+        };
+        
+        const TechnologyPhases = () => {
+            const [selectedPhase, setSelectedPhase] = useState(null);
+            
+            const phases = [
+                {
+                    number: "0",
+                    title: "Discovery & Architecture",
+                    investment: "$15,000",
+                    duration: "Month 1",
+                    technologies: ["PostgreSQL Analysis", "Documentation Tools", "Project Management"],
+                    codePreview: `// Database Analysis Example
+const analyzeDataQuality = async () => {
+  const results = await db.query(\`
+    SELECT 
+      table_name,
+      column_name,
+      (COUNT(*) - COUNT(column_name)) as nulls,
+      COUNT(*) as total_rows
+    FROM information_schema.columns c
+    JOIN events e ON true
+    GROUP BY table_name, column_name
+  \`);
+  return calculateQualityScore(results);
+};`,
+                    details: {
+                        title: "Foundation Phase - Critical Discovery",
+                        description: "Comprehensive assessment of current systems to ensure successful implementation without surprises.",
+                        deliverables: [
+                            "Technical architecture documentation with integration pathways",
+                            "Data quality baseline report with quantified metrics", 
+                            "Source catalog of scrapeable websites and validation requirements",
+                            "Risk assessment with detailed mitigation strategies",
+                            "Simplified development roadmap with clear milestones"
+                        ],
+                        timeline: "4 weeks of intensive analysis and planning",
+                        keyActivities: [
+                            "Weeks 1-2: Database architecture audit and access permissions",
+                            "Weeks 3-4: Data quality sampling and source identification"
+                        ]
+                    }
+                },
+                {
+                    number: "1", 
+                    title: "Data Validation System",
+                    investment: "$40,000",
+                    duration: "Months 2-4",
+                    technologies: ["Firecrawl API", "Claude API", "PostgreSQL", "Node.js"],
+                    codePreview: `// AI Validation Workflow
+const validateEventData = async (eventData, existing) => {
+  const validation = await anthropic.messages.create({
+    model: "claude-3-sonnet-20240229",
+    messages: [{
+      role: "user", 
+      content: \`Validate event data:
+        Scraped: \${JSON.stringify(eventData)}
+        Existing: \${JSON.stringify(existing)}
+        Return enhanced data with confidence scores.\`
+    }]
+  });
+  
+  return processValidationResult(validation);
+};`,
+                    details: {
+                        title: "Core Intelligence Engine - Data Quality Revolution",
+                        description: "Deploy AI-powered validation system that transforms data quality from 60% to 90%+ accuracy through automated processing.",
+                        deliverables: [
+                            "Firecrawl integration scraping 50+ association websites daily",
+                            "Claude API validation processing 500+ records per day",
+                            "Automated confidence scoring and quality metrics",
+                            "Database schema enhancements for tracking validation",
+                            "Monitoring dashboard for quality improvements"
+                        ],
+                        timeline: "3 months of development and deployment",
+                        keyActivities: [
+                            "Month 2: Basic web scraper setup and API integration",
+                            "Month 3: Data validation rules and testing with subset",
+                            "Month 4: Full deployment, documentation, and optimization"
+                        ]
+                    }
+                },
+                {
+                    number: "2",
+                    title: "Intelligence Enhancement", 
+                    investment: "$45,000",
+                    duration: "Months 5-7",
+                    technologies: ["Perplexity API", "React Interface", "Report Engine", "Export Tools"],
+                    codePreview: `// Market Intelligence Search
+const getMarketIntelligence = async (query) => {
+  const response = await fetch('https://api.perplexity.ai/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': \`Bearer \${PERPLEXITY_KEY}\`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'llama-3.1-sonar-large-128k-online',
+      messages: [{ role: 'user', content: query }]
+    })
+  });
+  
+  return processIntelligenceResult(await response.json());
+};`,
+                    details: {
+                        title: "Intelligence Layer - Market Leadership Through AI",
+                        description: "Transform enhanced database into actionable business intelligence with natural language queries and automated reporting.",
+                        deliverables: [
+                            "Natural language query interface for complex searches",
+                            "Automated weekly market intelligence reports", 
+                            "Real-time competitive opportunity alerts",
+                            "Simple web interface for ICCA staff access",
+                            "Export tools for enhanced member data distribution"
+                        ],
+                        timeline: "3 months of interface development and intelligence features",
+                        keyActivities: [
+                            "Month 5: Basic query interface development",
+                            "Month 6: Report template creation and testing",
+                            "Month 7: User training and deployment with optimization"
+                        ]
+                    }
+                }
+            ];
+            
+            return (
+                <>
+                    <ExpandableSection title="Technology Stack by Phase" defaultExpanded={true}>
+                        <div className="tech-phases">
+                            {phases.map((phase, index) => (
+                                <div 
+                                    key={index}
+                                    className="phase-card"
+                                    onClick={() => setSelectedPhase(phase)}
+                                >
+                                    <div className="phase-header">
+                                        <div className="phase-number">{phase.number}</div>
+                                        <div>
+                                            <div className="phase-title">{phase.title}</div>
+                                            <div style={{color: '#7f8c8d', marginTop: '5px'}}>{phase.duration}</div>
+                                        </div>
+                                    </div>
+                                    <div className="phase-investment">{phase.investment}</div>
+                                    <div style={{marginBottom: '15px', color: '#7f8c8d'}}>
+                                        <strong>Technologies:</strong> {phase.technologies.join(', ')}
+                                    </div>
+                                    <div className="code-preview">
+                                        <pre style={{margin: 0, fontSize: '0.8rem', whiteSpace: 'pre-wrap'}}>
+                                            {phase.codePreview}
+                                        </pre>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </ExpandableSection>
+                    {selectedPhase && (
+                        <Modal onClose={() => setSelectedPhase(null)}>
+                            <h2 style={{color: '#2c3e50', marginBottom: '20px'}}>
+                                Phase {selectedPhase.number}: {selectedPhase.details.title}
+                            </h2>
+                            <div style={{background: '#3498db', color: 'white', padding: '10px 15px', borderRadius: '25px', display: 'inline-block', marginBottom: '20px'}}>
+                                {selectedPhase.investment} | {selectedPhase.duration}
+                            </div>
+                            <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedPhase.details.description}
+                            </p>
+                            <h3 style={{color: '#27ae60', marginBottom: '15px'}}>Key Deliverables:</h3>
+                            <ul style={{lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedPhase.details.deliverables.map((item, index) => (
+                                    <li key={index} style={{margin: '8px 0'}}>{item}</li>
+                                ))}
+                            </ul>
+                            <h3 style={{color: '#e74c3c', marginBottom: '15px'}}>Implementation Timeline:</h3>
+                            <p style={{lineHeight: '1.6', marginBottom: '15px'}}>{selectedPhase.details.timeline}</p>
+                            <ul style={{lineHeight: '1.6'}}>
+                                {selectedPhase.details.keyActivities.map((activity, index) => (
+                                    <li key={index} style={{margin: '8px 0'}}>{activity}</li>
+                                ))}
+                            </ul>
+                        </Modal>
+                    )}
+                </>
+            );
+        };
+        
+        const SuccessMetrics = () => (
+            <ExpandableSection title="Success Metrics & KPIs" defaultExpanded={true}>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px'}}>
+                    <div>
+                        <h3 style={{color: '#e74c3c', marginBottom: '20px'}}>Phase 1 Metrics (Data Validation)</h3>
+                        <div className="metrics-grid">
+                            <div className="metric-box">
+                                <div className="metric-value">90%+</div>
+                                <div className="metric-label">Data Accuracy Target<br/>(from current 60%)</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">65%+</div>
+                                <div className="metric-label">Data Completeness Target<br/>(from current 40%)</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">500+</div>
+                                <div className="metric-label">Daily Record Validations</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">99%+</div>
+                                <div className="metric-label">API Reliability Uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style={{color: '#3498db', marginBottom: '20px'}}>Phase 2 Metrics (Intelligence Enhancement)</h3>
+                        <div className="metrics-grid">
+                            <div className="metric-box">
+                                <div className="metric-value">Weekly</div>
+                                <div className="metric-label">Automated Report Generation</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">10+</div>
+                                <div className="metric-label">Market Insights Per Week</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">&lt;5sec</div>
+                                <div className="metric-label">Search Response Time</div>
+                            </div>
+                            <div className="metric-box">
+                                <div className="metric-value">Positive</div>
+                                <div className="metric-label">Staff Usability Feedback</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ExpandableSection>
+        );
+        
+        const CostBreakdown = () => {
+            const [selectedCost, setSelectedCost] = useState(null);
+            
+            const costs = [
+                {
+                    title: "Development Investment",
+                    amount: "$100,000",
+                    period: "7 Months Total",
+                    breakdown: [
+                        "Phase 0 (Discovery): $15,000",
+                        "Phase 1 (Validation): $40,000", 
+                        "Phase 2 (Intelligence): $45,000"
+                    ],
+                    description: "One-time development investment covering all phases, from discovery through full implementation with market intelligence capabilities."
+                },
+                {
+                    title: "Operational Costs",
+                    amount: "$1,550-2,100",
+                    period: "Per Month",
+                    breakdown: [
+                        "API Costs: $1,000-1,500/month",
+                        "Cloud Infrastructure: $50-100/month",
+                        "Maintenance: $500/month (as needed)"
+                    ],
+                    description: "Ongoing monthly operational costs for APIs, hosting, and maintenance support to keep the system running optimally."
+                },
+                {
+                    title: "Annual Budget",
+                    amount: "$23,000-35,000",
+                    period: "Post-Implementation",
+                    breakdown: [
+                        "API & Infrastructure: $18,000-25,000",
+                        "Minor Enhancements: $5,000-10,000",
+                        "Support & Updates: Included"
+                    ],
+                    description: "Total annual operational budget after implementation, providing predictable costs for long-term planning and budgeting."
+                }
+            ];
+            
+            return (
+                <>
+                    <ExpandableSection title="Cost Analysis" defaultExpanded={true}>
+                        <div className="cost-breakdown">
+                            {costs.map((cost, index) => (
+                                <div 
+                                    key={index}
+                                    className="cost-card"
+                                    onClick={() => setSelectedCost(cost)}
+                                >
+                                    <div className="cost-amount">{cost.amount}</div>
+                                    <div style={{fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '10px'}}>{cost.title}</div>
+                                    <div className="cost-period">{cost.period}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </ExpandableSection>
+                    {selectedCost && (
+                        <Modal onClose={() => setSelectedCost(null)}>
+                            <h2 style={{color: '#2c3e50', marginBottom: '20px'}}>
+                                {selectedCost.title}
+                            </h2>
+                            <div style={{background: '#27ae60', color: 'white', padding: '15px 20px', borderRadius: '10px', textAlign: 'center', marginBottom: '20px'}}>
+                                <div style={{fontSize: '2rem', fontWeight: 'bold'}}>{selectedCost.amount}</div>
+                                <div style={{fontSize: '1.1rem', opacity: '0.9'}}>{selectedCost.period}</div>
+                            </div>
+                            <p style={{fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '20px'}}>
+                                {selectedCost.description}
+                            </p>
+                            <h3 style={{color: '#3498db', marginBottom: '15px'}}>Cost Breakdown:</h3>
+                            <ul style={{lineHeight: '1.6'}}>
+                                {selectedCost.breakdown.map((item, index) => (
+                                    <li key={index} style={{margin: '8px 0', fontSize: '1rem'}}>{item}</li>
+                                ))}
+                            </ul>
+                        </Modal>
+                    )}
+                </>
+            );
+        };
+        
+        const ExpandableSection = ({ title, children, defaultExpanded = false }) => {
+            const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+            
+            return (
+                <div className="expandable-section">
+                    <div 
+                        className="section-header" 
+                        onClick={() => setIsExpanded(!isExpanded)}
+                    >
+                        <h2 className="section-title" style={{marginBottom: 0, textAlign: 'left'}}>
+                            {title}
+                        </h2>
+                        <span className={`expand-icon ${isExpanded ? 'expanded' : ''}`}>
+                            ▼
+                        </span>
+                    </div>
+                    <div className={`section-content ${isExpanded ? 'expanded' : ''}`}>
+                        {children}
+                    </div>
+                </div>
+            );
+        };
+        
+        const Modal = ({ children, onClose }) => (
+            <div className="modal-overlay" onClick={onClose}>
+                <div className="modal-content" onClick={e => e.stopPropagation()}>
+                    <span className="modal-close" onClick={onClose}>✕</span>
+                    {children}
+                </div>
+            </div>
+        );
+        
+        const App = () => (
+            <div className="infographic-container">
+                <Header />
+                <DesignPrinciples />
+                <SystemArchitecture />
+                <TechnologyPhases />
+                <SuccessMetrics />
+                <CostBreakdown />
+            </div>
+        );
+        
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
