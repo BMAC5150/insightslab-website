@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medellin DMO Technical Systems & Data Infrastructure Request - InsightsLab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 8px;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #93c5fd;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-box-text {
+            color: #1e40af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .section-header {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-left: 4px solid var(--section-color);
+        }
+
+        .section-header:hover {
+            background-color: #f9fafb;
+        }
+
+        .section-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            flex: 1;
+        }
+
+        .section-toggle {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .section-content {
+            padding: 24px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Table Styling */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .data-table thead {
+            background: #f9fafb;
+        }
+
+        .data-table th {
+            padding: 12px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 13px;
+            min-width: 120px;
+        }
+
+        .table-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Checkbox and Radio Groups */
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .option-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .option-input {
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .option-text {
+            flex: 1;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #f0fdf4 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .submit-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .submit-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .submit-description {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #2563eb;
+        }
+
+        .btn-primary:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Success Message */
+        .success-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* Section Colors */
+        .section-0 { --section-color: #3b82f6; }
+        .section-1 { --section-color: #3b82f6; }
+        .section-2 { --section-color: #16a34a; }
+        .section-3 { --section-color: #9333ea; }
+        .section-4 { --section-color: #3b82f6; }
+        .section-5 { --section-color: #16a34a; }
+
+        /* Subsection Headers */
+        .subsection-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        /* Instructions Box */
+        .instructions-box {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .instructions-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .instruction-section {
+            font-size: 13px;
+            color: #1e40af;
+        }
+
+        .instruction-section h4 {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .instruction-section ul {
+            list-style: none;
+            padding-left: 8px;
+        }
+
+        .instruction-section li {
+            margin-bottom: 4px;
+        }
+
+        /* Contact Fields */
+        .contact-fields-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .contact-fields-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .section-header {
+                padding: 16px;
+            }
+
+            .section-content {
+                padding: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .data-table {
+                font-size: 12px;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback } = React;
+
+        const CheckboxGroup = ({ questionId, options, allowOther = false, otherLabel = "Other", responses, updateResponse }) => (
+            <div className="option-group">
+                {options.map((option, index) => (
+                    <label key={index} className="option-item">
+                        <input
+                            type="checkbox"
+                            className="option-input"
+                            checked={(responses[questionId] || []).includes(option)}
+                            onChange={() => updateResponse(questionId, option, true)}
+                        />
+                        <span className="option-text">{option}</span>
+                    </label>
+                ))}
+                {allowOther && (
+                    <div className="option-item">
+                        <input
+                            type="checkbox"
+                            className="option-input"
+                            checked={responses[`${questionId}_other_checked`] || false}
+                            onChange={() => updateResponse(`${questionId}_other_checked`, !responses[`${questionId}_other_checked`])}
+                        />
+                        <div style={{flex: 1, display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <span className="option-text">{otherLabel}:</span>
+                            <input
+                                type="text"
+                                className="form-input"
+                                style={{flex: 1}}
+                                placeholder="Please specify..."
+                                value={responses[`${questionId}_other`] || ''}
+                                onChange={(e) => updateResponse(`${questionId}_other`, e.target.value)}
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+
+        const RadioGroup = ({ questionId, options, responses, updateResponse }) => (
+            <div className="option-group">
+                {options.map((option, index) => (
+                    <label key={index} className="option-item">
+                        <input
+                            type="radio"
+                            name={questionId}
+                            className="option-input"
+                            checked={responses[questionId] === option}
+                            onChange={() => updateResponse(questionId, option)}
+                        />
+                        <span className="option-text">{option}</span>
+                    </label>
+                ))}
+            </div>
+        );
+
+        function MedellinDataRequestForm() {
+            const [responses, setResponses] = useState({});
+            const [expandedSections, setExpandedSections] = useState({
+                section1: true,
+                section2: false,
+                section3: false,
+                section4: false,
+                section5: false,
+                section6: false
+            });
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isSubmitted, setIsSubmitted] = useState(false);
+            const [saveStatus, setSaveStatus] = useState('');
+
+            // Load saved responses
+            useEffect(() => {
+                const saved = localStorage.getItem('medellin_data_request');
+                if (saved) {
+                    setResponses(JSON.parse(saved));
+                }
+            }, []);
+
+            // Save responses
+            useEffect(() => {
+                if (Object.keys(responses).length > 0) {
+                    localStorage.setItem('medellin_data_request', JSON.stringify(responses));
+                    setSaveStatus('Saved automatically');
+                    const timer = setTimeout(() => setSaveStatus(''), 2000);
+                    return () => clearTimeout(timer);
+                }
+            }, [responses]);
+
+            const updateResponse = (questionId, value, isMultiple = false) => {
+                setResponses(prev => {
+                    const newResponses = isMultiple
+                        ? (() => {
+                            const currentValues = prev[questionId] || [];
+                            if (currentValues.includes(value)) {
+                                return { ...prev, [questionId]: currentValues.filter(v => v !== value) };
+                            } else {
+                                return { ...prev, [questionId]: [...currentValues, value] };
+                            }
+                        })()
+                        : { ...prev, [questionId]: value };
+
+                    return newResponses;
+                });
+            };
+
+            const toggleSection = (sectionId) => {
+                setExpandedSections(prev => ({
+                    ...prev,
+                    [sectionId]: !prev[sectionId]
+                }));
+            };
+
+            const handleKeyPress = (e, sectionId) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSection(sectionId);
+                }
+            };
+
+            const exportResponses = () => {
+                const dataStr = JSON.stringify(responses, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `medellin-data-request-backup-${Date.now()}.json`;
+                link.click();
+            };
+
+            const submitForm = async () => {
+                if (!responses.contact_name) {
+                    alert('Please provide Primary Contact Name before submitting.');
+                    return;
+                }
+
+                setIsSubmitting(true);
+
+                const submissionData = {
+                    timestamp: new Date().toISOString(),
+                    responses: responses,
+                    metadata: {
+                        userAgent: navigator.userAgent,
+                        submittedAt: new Date().toLocaleString(),
+                        responseCount: Object.keys(responses).length
+                    }
+                };
+
+                try {
+                    const response = await fetch('https://formspree.io/f/mdkzbddk', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            subject: `Medellin DMO Technical Systems Request: ${responses.contact_name}`,
+                            _replyto: 'bmac@dmoinsightslab.com',
+                            contact_name: responses.contact_name || '',
+                            contact_email: responses.contact_email || '',
+                            technical_data: JSON.stringify(submissionData, null, 2),
+                            submitted_at: submissionData.timestamp
+                        })
+                    });
+
+                    if (response.ok) {
+                        setIsSubmitted(true);
+                        localStorage.removeItem('medellin_data_request');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (error) {
+                    const dataStr = JSON.stringify(submissionData, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `medellin-data-request-${responses.contact_name || 'response'}-${Date.now()}.json`;
+                    link.click();
+
+                    alert('There was an issue with online submission. Your responses have been downloaded as a file. Please email this file to bmac@dmoinsightslab.com');
+                } finally {
+                    setIsSubmitting(false);
+                }
+            };
+
+            if (isSubmitted) {
+                return (
+                    <div className="container" style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div className="success-card">
+                            <div className="success-icon">✅</div>
+                            <h1 className="success-title">Thank You!</h1>
+                            <div className="success-message">
+                                <p>Your technical systems information has been submitted successfully.</p>
+                            </div>
+                            <p style={{fontSize: '14px', color: '#6b7280', marginTop: '24px'}}>
+                                Contact: bmac@dmoinsightslab.com<br/>
+                                Reference ID: {Date.now()}
+                            </p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="container">
+                    {/* Header */}
+                    <div className="header-card">
+                        <div className="brand-tag">by InsightsLab</div>
+                        <h1 className="main-title">Medellín DMO Technical Systems Request</h1>
+                        <p className="subtitle">Data Infrastructure Assessment</p>
+                        <div className="badge-container">
+                            <div className="badge badge-red">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                                </svg>
+                                5 business days
+                            </div>
+                            <div className="badge badge-blue">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Confidential
+                            </div>
+                        </div>
+                        <div className="info-box">
+                            <p className="info-box-text">
+                                Technical system details to complement your team's business needs survey.<br/>
+                                Please complete within 5 business days.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Save Status */}
+                    {saveStatus && (
+                        <div style={{textAlign: 'center', color: '#16a34a', marginBottom: '16px', fontWeight: '600'}}>
+                            ✓ {saveStatus}
+                        </div>
+                    )}
+
+                    {/* Submission Instructions */}
+                    <div className="instructions-box">
+                        <h3 className="instructions-title">
+                            <span>📋</span>
+                            Submission Instructions
+                        </h3>
+                        <div className="instructions-grid">
+                            <div className="instruction-section">
+                                <h4>Completion Method:</h4>
+                                <ul>
+                                    <li>• Complete digitally and submit via this form</li>
+                                    <li>• Schedule technical walkthrough call if needed</li>
+                                    <li>• Provide system screenshots/documentation if available</li>
+                                </ul>
+                            </div>
+                            <div className="instruction-section">
+                                <h4>Additional Documentation (if available):</h4>
+                                <ul>
+                                    <li>• System architecture diagrams</li>
+                                    <li>• Current data flow maps</li>
+                                    <li>• User manuals or technical documentation</li>
+                                    <li>• Recent technical assessments or audits</li>
+                                    <li>• Vendor contracts and licensing information</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Contact Information */}
+                    <div className="contact-fields-card">
+                        <h3 className="contact-fields-title">Contact Information</h3>
+                        <div className="input-grid">
+                            <div className="form-group">
+                                <label className="form-label required">Primary Contact Name</label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={responses.contact_name || ''}
+                                    required
+                                    onChange={(e) => updateResponse('contact_name', e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">Email Address</label>
+                                <input
+                                    type="email"
+                                    className="form-input"
+                                    value={responses.contact_email || ''}
+                                    onChange={(e) => updateResponse('contact_email', e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Section 1: System Architecture */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-0"
+                            onClick={() => toggleSection('section1')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section1')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section1}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">🏗️</span>
+                                <h2 className="section-title">System Architecture & Technical Infrastructure</h2>
+                                <span className="section-toggle">{expandedSections.section1 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section1 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <h4 className="subsection-header">Core Technology Platform</h4>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Primary Operating Systems:</label>
+                                        <RadioGroup
+                                            questionId="operating_systems"
+                                            options={['Windows', 'Mac', 'Linux', 'Mixed']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Office Suite:</label>
+                                        <RadioGroup
+                                            questionId="office_suite"
+                                            options={['Microsoft 365', 'Google Workspace', 'Other']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                        {responses.office_suite === 'Other' && (
+                                            <input
+                                                type="text"
+                                                className="form-input"
+                                                style={{marginTop: '12px'}}
+                                                placeholder="Please specify..."
+                                                value={responses.office_suite_other || ''}
+                                                onChange={(e) => updateResponse('office_suite_other', e.target.value)}
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Internet Connectivity:</label>
+                                        <RadioGroup
+                                            questionId="internet_connectivity"
+                                            options={['Dedicated business line', 'Standard broadband', 'Shared/Limited']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Cloud Services Usage:</label>
+                                        <RadioGroup
+                                            questionId="cloud_usage"
+                                            options={['Heavy', 'Moderate', 'Minimal', 'None']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">IT Support Structure:</label>
+                                        <RadioGroup
+                                            questionId="it_support"
+                                            options={['In-house IT', 'External vendor', 'Hybrid', 'Ad-hoc']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <h4 className="subsection-header">Key Personnel for Technical Discussions</h4>
+                                    <div style={{overflowX: 'auto'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Role</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Technical Expertise Level</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {['IT Manager/Lead', 'System Administrator', 'Database Manager', 'Web/Digital Manager'].map((role, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{role}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Name"
+                                                                value={responses[`personnel_name_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`personnel_name_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Email"
+                                                                value={responses[`personnel_email_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`personnel_email_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Expertise Level"
+                                                                value={responses[`personnel_level_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`personnel_level_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 2: Business-Critical Systems */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-1"
+                            onClick={() => toggleSection('section2')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section2')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section2}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">💾</span>
+                                <h2 className="section-title">Business-Critical Systems Inventory</h2>
+                                <span className="section-toggle">{expandedSections.section2 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section2 && (
+                            <div className="section-content">
+                                {/* Event Management Systems */}
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Event Management Systems</h4>
+                                    <div style={{overflowX: 'auto', marginBottom: '16px'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>System Component</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {[
+                                                    { label: 'Event Management Platform', field: 'event_platform', placeholder: 'Name, Vendor, Version' },
+                                                    { label: 'User Count', field: 'event_users', placeholder: 'Total licensed users, Active users' },
+                                                    { label: 'Last Update/Upgrade', field: 'event_update', placeholder: 'Date, Version' },
+                                                    { label: 'Data Retention', field: 'event_retention', placeholder: 'Historical data available from' }
+                                                ].map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{item.label}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder={item.placeholder}
+                                                                value={responses[item.field] || ''}
+                                                                onChange={(e) => updateResponse(item.field, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Core Functions:</label>
+                                        <CheckboxGroup
+                                            questionId="event_functions"
+                                            options={['Event registration', 'Lead tracking', 'Venue management', 'Proposal generation']}
+                                            allowOther={true}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Data Export Capabilities:</label>
+                                        <CheckboxGroup
+                                            questionId="event_export"
+                                            options={['Excel/CSV', 'PDF reports', 'API access', 'Database direct access', 'None']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* CRM & Client Management */}
+                                <div>
+                                    <h4 className="subsection-header">CRM & Client Management</h4>
+                                    <div style={{overflowX: 'auto', marginBottom: '16px'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>System Component</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {[
+                                                    { label: 'CRM Platform', field: 'crm_platform', placeholder: 'Name, Vendor, Cloud/On-premise' },
+                                                    { label: 'Database Size', field: 'crm_size', placeholder: 'Approximate records, Annual growth' },
+                                                    { label: 'Access Controls', field: 'crm_access', placeholder: 'Role-based access: Yes/No, Admin users' }
+                                                ].map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{item.label}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder={item.placeholder}
+                                                                value={responses[item.field] || ''}
+                                                                onChange={(e) => updateResponse(item.field, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Data Categories:</label>
+                                        <CheckboxGroup
+                                            questionId="crm_categories"
+                                            options={['Contact info', 'Event history', 'Communications log', 'Preferences', 'Financial history']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Data Quality Issues:</label>
+                                        <CheckboxGroup
+                                            questionId="crm_quality_issues"
+                                            options={['Duplicates', 'Incomplete records', 'Outdated info']}
+                                            allowOther={true}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 3: Data Sources */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-2"
+                            onClick={() => toggleSection('section3')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section3')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section3}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">📊</span>
+                                <h2 className="section-title">Data Sources & Technical Specifications</h2>
+                                <span className="section-toggle">{expandedSections.section3 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section3 && (
+                            <div className="section-content">
+                                {/* Internal Data Volume */}
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Internal Data Volume & Storage</h4>
+                                    <div style={{overflowX: 'auto'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data Category</th>
+                                                    <th>Volume/Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {[
+                                                    { label: 'Event Records', field: 'data_events', placeholder: 'Total events, Years of history' },
+                                                    { label: 'Client Database', field: 'data_clients', placeholder: 'Total contacts, Organizations, Active prospects' },
+                                                    { label: 'Marketing Data', field: 'data_marketing', placeholder: 'Website sessions/month, Email subscribers, Social followers' },
+                                                    { label: 'Financial Records', field: 'data_financial', placeholder: 'Years of digital records, Budget categories tracked' },
+                                                    { label: 'Digital Assets', field: 'data_assets', placeholder: 'Photos/videos GB, Documents GB, Total storage used GB' }
+                                                ].map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{item.label}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder={item.placeholder}
+                                                                value={responses[item.field] || ''}
+                                                                onChange={(e) => updateResponse(item.field, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                {/* Data Formats */}
+                                <div>
+                                    <h4 className="subsection-header">Data Formats & Accessibility</h4>
+                                    <div style={{overflowX: 'auto'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Data Type</th>
+                                                    <th>Format</th>
+                                                    <th>Export Method</th>
+                                                    <th>Update Frequency</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {['Event data', 'Client contacts', 'Financial reports', 'Marketing metrics', 'Website analytics'].map((dataType, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{dataType}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Format"
+                                                                value={responses[`format_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`format_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Export Method"
+                                                                value={responses[`export_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`export_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder="Update Frequency"
+                                                                value={responses[`frequency_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`frequency_${index}`, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 4: Technical Capabilities */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-3"
+                            onClick={() => toggleSection('section4')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section4')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section4}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">⚙️</span>
+                                <h2 className="section-title">Technical Capabilities & Constraints</h2>
+                                <span className="section-toggle">{expandedSections.section4 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section4 && (
+                            <div className="section-content">
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Database & Analytics Infrastructure</h4>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Database Systems:</label>
+                                        <RadioGroup
+                                            questionId="database_systems"
+                                            options={['None', 'Access', 'SQL Server', 'MySQL', 'PostgreSQL', 'Other']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Analytics Tools:</label>
+                                        <CheckboxGroup
+                                            questionId="analytics_tools"
+                                            options={['Excel only', 'Power BI', 'Tableau', 'Google Analytics']}
+                                            allowOther={true}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Reporting Automation:</label>
+                                        <RadioGroup
+                                            questionId="reporting_automation"
+                                            options={['Manual', 'Semi-automated', 'Fully automated']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Real-time Dashboards:</label>
+                                        <RadioGroup
+                                            questionId="realtime_dashboards"
+                                            options={['None', 'Basic', 'Advanced']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="subsection-header">Integration & API Capabilities</h4>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Current Integrations:</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="List all system connections..."
+                                            value={responses.current_integrations || ''}
+                                            onChange={(e) => updateResponse('current_integrations', e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">API Access Available For:</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="List systems with API access..."
+                                            value={responses.api_access || ''}
+                                            onChange={(e) => updateResponse('api_access', e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Data Import/Export:</label>
+                                        <RadioGroup
+                                            questionId="data_import_export"
+                                            options={['Automated', 'Manual', 'Mixed']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Third-party Connectors:</label>
+                                        <CheckboxGroup
+                                            questionId="third_party_connectors"
+                                            options={['Zapier', 'Microsoft Flow', 'Custom', 'None']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 5: Data Governance */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-4"
+                            onClick={() => toggleSection('section5')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section5')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section5}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">🔒</span>
+                                <h2 className="section-title">Data Governance & Quality Standards</h2>
+                                <span className="section-toggle">{expandedSections.section5 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section5 && (
+                            <div className="section-content">
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Current Data Governance</h4>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Written Data Policies:</label>
+                                        <RadioGroup
+                                            questionId="written_policies"
+                                            options={['Yes', 'No']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Naming Conventions:</label>
+                                        <RadioGroup
+                                            questionId="naming_conventions"
+                                            options={['Yes', 'No']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Who manages data quality?</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="Person/role responsible for data quality..."
+                                            value={responses.data_quality_manager || ''}
+                                            onChange={(e) => updateResponse('data_quality_manager', e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="subsection-header">Security & Backup</h4>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Data Backup Frequency:</label>
+                                        <RadioGroup
+                                            questionId="backup_frequency"
+                                            options={['Daily', 'Weekly', 'Monthly', 'None']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Backup Location:</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="Where are backups stored..."
+                                            value={responses.backup_location || ''}
+                                            onChange={(e) => updateResponse('backup_location', e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">User Authentication Method:</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="How do users authenticate..."
+                                            value={responses.authentication_method || ''}
+                                            onChange={(e) => updateResponse('authentication_method', e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 6: Technical Constraints */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-5"
+                            onClick={() => toggleSection('section6')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section6')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section6}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">⚡</span>
+                                <h2 className="section-title">Technical Constraints & Preferences</h2>
+                                <span className="section-toggle">{expandedSections.section6 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section6 && (
+                            <div className="section-content">
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Key Limitations</h4>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Annual IT Improvement Budget:</label>
+                                        <input
+                                            type="text"
+                                            className="form-input"
+                                            placeholder="Budget amount..."
+                                            value={responses.it_budget || ''}
+                                            onChange={(e) => updateResponse('it_budget', e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Legacy Systems (Must Maintain):</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="Systems that must be maintained..."
+                                            value={responses.legacy_systems_maintain || ''}
+                                            onChange={(e) => updateResponse('legacy_systems_maintain', e.target.value)}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Systems That Can Be Replaced:</label>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={2}
+                                            placeholder="Systems open for replacement..."
+                                            value={responses.systems_can_replace || ''}
+                                            onChange={(e) => updateResponse('systems_can_replace', e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div style={{marginBottom: '32px'}}>
+                                    <h4 className="subsection-header">Technical Preferences</h4>
+
+                                    <div style={{marginBottom: '20px'}}>
+                                        <label className="form-label">Preferred Deployment:</label>
+                                        <RadioGroup
+                                            questionId="deployment_preference"
+                                            options={['Cloud-based', 'On-premise', 'No preference']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">Solution Complexity:</label>
+                                        <RadioGroup
+                                            questionId="complexity_preference"
+                                            options={['Simple solutions', 'Feature-rich', 'No preference']}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 className="subsection-header">Additional Comments</h4>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={4}
+                                        placeholder="Any additional information about your technical infrastructure, challenges, or requirements..."
+                                        value={responses.additional_comments || ''}
+                                        onChange={(e) => updateResponse('additional_comments', e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Submit Section */}
+                    <div className="submit-section">
+                        <div className="submit-icon">🎯</div>
+                        <h3 className="submit-title">Ready to Submit?</h3>
+                        <p className="submit-description">
+                            Primary Contact Name is required. Please review all sections above before submitting.
+                        </p>
+                        <div className="button-group">
+                            <button
+                                onClick={exportResponses}
+                                className="btn btn-secondary"
+                            >
+                                <span>💾</span>
+                                Save Backup Copy
+                            </button>
+                            <button
+                                onClick={submitForm}
+                                disabled={isSubmitting || !responses.contact_name}
+                                className="btn btn-primary"
+                            >
+                                <span>📧</span>
+                                {isSubmitting ? 'Submitting...' : 'Submit Technical Request'}
+                            </button>
+                        </div>
+                        <p style={{fontSize: '12px', color: '#6b7280', marginTop: '16px'}}>
+                            Your responses are automatically saved as you type. This assessment is confidential and will only be used to improve Medellín's technical capabilities.
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(React.createElement(MedellinDataRequestForm), document.getElementById('root'));
+    </script>
+</body>
+</html>
