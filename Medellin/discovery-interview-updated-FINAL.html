@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medellin DMO Phase 0 Discovery Interview Questionnaire - InsightsLab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 8px;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #93c5fd;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 24px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-box-text {
+            color: #1e40af;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-box-highlight {
+            color: #1d4ed8;
+            font-weight: 600;
+        }
+
+        /* Required Fields Section */
+        .required-fields-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .section-header {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 20px;
+            border-left: 4px solid var(--section-color);
+        }
+
+        .section-header:hover {
+            background-color: #f9fafb;
+        }
+
+        .section-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            flex: 1;
+        }
+
+        .section-toggle {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .section-content {
+            padding: 24px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input.required:invalid {
+            border-color: #dc2626;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .consideration-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .consideration-title {
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .consideration-item {
+            margin-left: 8px;
+            margin-bottom: 2px;
+        }
+
+        .consideration-role {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #f0fdf4 100%);
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .submit-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .submit-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .submit-description {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #2563eb;
+        }
+
+        .btn-primary:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Success Message */
+        .success-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        /* Section Colors */
+        .section-0 { --section-color: #16a34a; }
+        .section-1 { --section-color: #3b82f6; }
+        .section-2 { --section-color: #f59e0b; }
+        .section-3 { --section-color: #06b6d4; }
+        .section-4 { --section-color: #d946ef; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .section-header {
+                padding: 16px;
+            }
+
+            .section-content {
+                padding: 16px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Grid Layout for Inputs */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        function MedellinInterviewQuestionnaire() {
+            const [responses, setResponses] = useState({});
+            const [expandedSections, setExpandedSections] = useState({ section0: true, section1: true });
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isSubmitted, setIsSubmitted] = useState(false);
+            const [saveStatus, setSaveStatus] = useState('');
+
+            // Load saved responses
+            useEffect(() => {
+                const saved = localStorage.getItem('medellin_phase0_survey');
+                if (saved) {
+                    setResponses(JSON.parse(saved));
+                }
+            }, []);
+
+            // Save responses
+            useEffect(() => {
+                if (Object.keys(responses).length > 0) {
+                    localStorage.setItem('medellin_phase0_survey', JSON.stringify(responses));
+                    setSaveStatus('Saved automatically');
+                    const timer = setTimeout(() => setSaveStatus(''), 2000);
+                    return () => clearTimeout(timer);
+                }
+            }, [responses]);
+
+            const updateResponse = (id, value) => {
+                setResponses(prev => ({ ...prev, [id]: value }));
+            };
+
+            const toggleSection = (sectionId) => {
+                setExpandedSections(prev => ({
+                    ...prev,
+                    [sectionId]: !prev[sectionId]
+                }));
+            };
+
+            const handleKeyPress = (e, sectionId) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSection(sectionId);
+                }
+            };
+
+            const exportResponses = () => {
+                const dataStr = JSON.stringify(responses, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `medellin-phase0-backup-${Date.now()}.json`;
+                link.click();
+            };
+
+            const submitSurvey = async () => {
+                if (!responses.interviewee || !responses.date) {
+                    alert('Please provide Executive Leader and Title (Name/Title) and Date before submitting.');
+                    return;
+                }
+
+                setIsSubmitting(true);
+
+                const submissionData = {
+                    timestamp: new Date().toISOString(),
+                    responses: responses,
+                    metadata: {
+                        userAgent: navigator.userAgent,
+                        submittedAt: new Date().toLocaleString(),
+                        responseCount: Object.keys(responses).length
+                    }
+                };
+
+                try {
+                    const response = await fetch('https://formspree.io/f/mdkzbddk', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            subject: `Medellin Phase 0 Interview Questionnaire: ${responses.interviewee}`,
+                            _replyto: 'bmac@dmoinsightslab.com',
+                            executive_leader: responses.interviewee || '',
+                            interview_date: responses.date || '',
+                            critical_data_sources: responses.data_sources || '',
+                            data_sources_notes: responses.data_sources_notes || '',
+                            data_collection_storage: responses.data_collection || '',
+                            data_collection_notes: responses.data_collection_notes || '',
+                            data_challenges: responses.data_challenges || '',
+                            data_challenges_notes: responses.data_challenges_notes || '',
+                            collaboration_sharing: responses.collaboration || '',
+                            collaboration_notes: responses.collaboration_notes || '',
+                            priority_improvements: responses.improvements || '',
+                            improvements_notes: responses.improvements_notes || '',
+                            submitted_at: submissionData.timestamp,
+                            user_agent: submissionData.metadata.userAgent
+                        })
+                    });
+
+                    if (response.ok) {
+                        setIsSubmitted(true);
+                        localStorage.removeItem('medellin_phase0_survey');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (error) {
+                    const dataStr = JSON.stringify(submissionData, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `medellin-phase0-${responses.interviewee || 'response'}-${Date.now()}.json`;
+                    link.click();
+
+                    alert('There was an issue with online submission. Your responses have been downloaded as a file. Please email this file to bmac@dmoinsightslab.com');
+                } finally {
+                    setIsSubmitting(false);
+                }
+            };
+
+            if (isSubmitted) {
+                return (
+                    <div className="container" style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <div className="success-card">
+                            <div className="success-icon">✅</div>
+                            <h1 className="success-title">Thank You!</h1>
+                            <div className="success-message">
+                                <p>Your questionnaire response has been submitted successfully.</p>
+                            </div>
+                            <p style={{fontSize: '14px', color: '#6b7280', marginTop: '24px'}}>
+                                Contact: bmac@dmoinsightslab.com<br/>
+                                Reference ID: {Date.now()}
+                            </p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="container">
+                    {/* Header */}
+                    <div className="header-card">
+                        <div className="brand-tag">by InsightsLab</div>
+                        <h1 className="main-title">Medellín DMO</h1>
+                        <p className="subtitle">Phase 0 Discovery Interview Questionnaire</p>
+                        <div className="badge-container">
+                            <div className="badge badge-red">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                                </svg>
+                                15-20 minutes
+                            </div>
+                            <div className="badge badge-blue">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                Confidential
+                            </div>
+                        </div>
+                        <div className="info-box">
+                            <p className="info-box-text">
+                                Please complete this form before your interview.<br/>
+                                <span className="info-box-highlight">Executive Leader and Title (Name/Title) and Date are required.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Save Status */}
+                    {saveStatus && (
+                        <div style={{textAlign: 'center', color: '#16a34a', marginBottom: '16px', fontWeight: '600'}}>
+                            ✓ {saveStatus}
+                        </div>
+                    )}
+
+                    {/* Required Information */}
+                    <div className="required-fields-card">
+                        <div className="input-grid">
+                            <div className="form-group">
+                                <label className="form-label required">Executive Leader and Title (Name/Title)</label>
+                                <input
+                                    type="text"
+                                    className="form-input required"
+                                    value={responses.interviewee || ''}
+                                    required
+                                    onChange={(e) => updateResponse('interviewee', e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label required">Date</label>
+                                <input
+                                    type="date"
+                                    className="form-input required"
+                                    value={responses.date || ''}
+                                    required
+                                    onChange={(e) => updateResponse('date', e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Section 1: Critical Data Sources */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-0"
+                            onClick={() => toggleSection('section1')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section1')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section1}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">📊</span>
+                                <h2 className="section-title">Critical Data Sources & Reports</h2>
+                                <span className="section-toggle">{expandedSections.section1 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section1 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        What are the most critical data sources and reports you rely on for your day-to-day decisions?
+                                    </label>
+                                    <div className="consideration-box">
+                                        <div className="consideration-title">FOR YOUR CONSIDERATION:</div>
+                                        <div className="consideration-item"><span className="consideration-role">DMO Leader:</span> Strategic KPIs, board/municipal reports</div>
+                                        <div className="consideration-item"><span className="consideration-role">IT Leader:</span> Core systems, data repositories, integrations</div>
+                                        <div className="consideration-item"><span className="consideration-role">Sales and Marketing Leader:</span> Campaign data, visitor stats, attribution models</div>
+                                        <div className="consideration-item"><span className="consideration-role">Operations Leader:</span> Operational metrics, workflow/process data</div>
+                                    </div>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        value={responses.data_sources || ''}
+                                        onChange={(e) => updateResponse('data_sources', e.target.value)}
+                                        placeholder="Please share your thoughts..."
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Notes:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={3}
+                                        value={responses.data_sources_notes || ''}
+                                        onChange={(e) => updateResponse('data_sources_notes', e.target.value)}
+                                        placeholder="Additional notes or context..."
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 2: Data Collection, Storage & Sharing */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-1"
+                            onClick={() => toggleSection('section2')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section2')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section2}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">💾</span>
+                                <h2 className="section-title">Data Collection, Storage & Sharing</h2>
+                                <span className="section-toggle">{expandedSections.section2 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section2 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        How is data currently collected, stored, accessed, and shared within your team and across the organization?
+                                    </label>
+                                    <div className="consideration-box">
+                                        <div className="consideration-title">FOR YOUR CONSIDERATION:</div>
+                                        <div className="consideration-item"><span className="consideration-role">DMO Leader:</span> Inter-department and stakeholder data sharing</div>
+                                        <div className="consideration-item"><span className="consideration-role">IT Leader:</span> Technical platforms, security, silo issues</div>
+                                        <div className="consideration-item"><span className="consideration-role">Sales and Marketing Leader:</span> Data for marketing/reporting, integration with other teams</div>
+                                        <div className="consideration-item"><span className="consideration-role">Operations Leader:</span> Data sharing across operations, front-line teams</div>
+                                    </div>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        value={responses.data_collection || ''}
+                                        onChange={(e) => updateResponse('data_collection', e.target.value)}
+                                        placeholder="Please share your thoughts..."
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Notes:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={3}
+                                        value={responses.data_collection_notes || ''}
+                                        onChange={(e) => updateResponse('data_collection_notes', e.target.value)}
+                                        placeholder="Additional notes or context..."
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 3: Data Challenges & Pain Points */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-2"
+                            onClick={() => toggleSection('section3')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section3')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section3}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">⚠️</span>
+                                <h2 className="section-title">Data Challenges & Pain Points</h2>
+                                <span className="section-toggle">{expandedSections.section3 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section3 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        What are your main challenges or pain points with the current data ecosystem (e.g., quality, availability, timeliness, relevance)?
+                                    </label>
+                                    <div className="consideration-box">
+                                        <div className="consideration-title">Consider frustrations, workarounds, missing tools or insights</div>
+                                    </div>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        value={responses.data_challenges || ''}
+                                        onChange={(e) => updateResponse('data_challenges', e.target.value)}
+                                        placeholder="Please share your thoughts..."
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Notes:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={3}
+                                        value={responses.data_challenges_notes || ''}
+                                        onChange={(e) => updateResponse('data_challenges_notes', e.target.value)}
+                                        placeholder="Additional notes or context..."
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 4: Collaboration & Data Sharing */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-3"
+                            onClick={() => toggleSection('section4')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section4')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section4}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">🔗</span>
+                                <h2 className="section-title">Collaboration & Data Sharing</h2>
+                                <span className="section-toggle">{expandedSections.section4 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section4 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        How do you currently collaborate or share data with other departments or external stakeholders (e.g., government, private sector, partners)?
+                                    </label>
+                                    <div className="consideration-box">
+                                        <div className="consideration-title">FOR YOUR CONSIDERATION:</div>
+                                        <div className="consideration-item"><span className="consideration-role">DMO Leader:</span> Transparency, compliance, stakeholder alignment</div>
+                                        <div className="consideration-item"><span className="consideration-role">IT Leader:</span> Technical integrations, APIs, agreements</div>
+                                        <div className="consideration-item"><span className="consideration-role">Sales and Marketing Leader:</span> Campaign and external data partnerships</div>
+                                        <div className="consideration-item"><span className="consideration-role">Operations Leader:</span> Data flow between operations and other entities</div>
+                                    </div>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        value={responses.collaboration || ''}
+                                        onChange={(e) => updateResponse('collaboration', e.target.value)}
+                                        placeholder="Please share your thoughts..."
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Notes:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={3}
+                                        value={responses.collaboration_notes || ''}
+                                        onChange={(e) => updateResponse('collaboration_notes', e.target.value)}
+                                        placeholder="Additional notes or context..."
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Section 5: Priority Data Improvements */}
+                    <div className="section-card">
+                        <div
+                            className="section-header section-4"
+                            onClick={() => toggleSection('section5')}
+                            onKeyPress={(e) => handleKeyPress(e, 'section5')}
+                            role="button"
+                            tabIndex={0}
+                            aria-expanded={expandedSections.section5}
+                        >
+                            <div className="section-header-content">
+                                <span className="section-icon">🚀</span>
+                                <h2 className="section-title">Priority Data Improvements</h2>
+                                <span className="section-toggle">{expandedSections.section5 ? '▼' : '▶'}</span>
+                            </div>
+                        </div>
+                        {expandedSections.section5 && (
+                            <div className="section-content">
+                                <div className="form-group">
+                                    <label className="form-label">
+                                        If you could improve or automate any single aspect of your data management or reporting in the next year, what would it be—and why?
+                                    </label>
+                                    <div className="consideration-box">
+                                        <div className="consideration-title">What would be a "quick win" or high-impact wishlist for your area</div>
+                                    </div>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        value={responses.improvements || ''}
+                                        onChange={(e) => updateResponse('improvements', e.target.value)}
+                                        placeholder="Please share your thoughts..."
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Notes:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={3}
+                                        value={responses.improvements_notes || ''}
+                                        onChange={(e) => updateResponse('improvements_notes', e.target.value)}
+                                        placeholder="Additional notes or context..."
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Submit Section */}
+                    <div className="submit-section">
+                        <div className="submit-icon">🎯</div>
+                        <h3 className="submit-title">Ready to Submit?</h3>
+                        <p className="submit-description">
+                            You may save a backup of your answers or submit directly. Executive Leader and Title (Name/Title) and Date are required.
+                        </p>
+                        <div className="button-group">
+                            <button
+                                onClick={exportResponses}
+                                className="btn btn-secondary"
+                            >
+                                <span>💾</span>
+                                Save Backup Copy
+                            </button>
+                            <button
+                                onClick={submitSurvey}
+                                disabled={isSubmitting || !responses.interviewee || !responses.date}
+                                className="btn btn-primary"
+                            >
+                                <span>📧</span>
+                                {isSubmitting ? 'Submitting...' : 'Submit Survey'}
+                            </button>
+                        </div>
+                        <p style={{fontSize: '12px', color: '#6b7280', marginTop: '16px'}}>
+                            Your responses are automatically saved as you type. This survey is confidential and will only be used to improve Medellín's data capabilities.
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(React.createElement(MedellinInterviewQuestionnaire), document.getElementById('root'));
+    </script>
+</body>
+</html>
