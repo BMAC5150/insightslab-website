@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medellin DMO Technical Systems & Data Infrastructure Request - InsightsLab</title>
+    <title>Medellin DMO Technical Systems Request - InsightsLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -91,6 +91,32 @@
             background: #dbeafe;
             color: #1d4ed8;
             border: 1px solid #93c5fd;
+        }
+
+        /* Friendly Intro Box */
+        .friendly-intro {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 8px;
+            padding: 24px;
+            margin-top: 24px;
+            margin-bottom: 32px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .friendly-intro-title {
+            color: #16a34a;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .friendly-intro-text {
+            color: #15803d;
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         /* Info Box */
@@ -386,7 +412,7 @@
         .section-1 { --section-color: #3b82f6; }
         .section-2 { --section-color: #16a34a; }
         .section-3 { --section-color: #9333ea; }
-        .section-4 { --section-color: #3b82f6; }
+        .section-4 { --section-color: #f59e0b; }
         .section-5 { --section-color: #16a34a; }
 
         /* Subsection Headers */
@@ -509,7 +535,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect, useCallback } = React;
+        const { useState, useEffect } = React;
 
         const CheckboxGroup = ({ questionId, options, allowOther = false, otherLabel = "Other", responses, updateResponse }) => (
             <div className="option-group">
@@ -717,7 +743,7 @@
                     {/* Header */}
                     <div className="header-card">
                         <div className="brand-tag">by InsightsLab</div>
-                        <h1 className="main-title">Medellín DMO Technical Systems Request</h1>
+                        <h1 className="main-title">Medellin DMO Technical Systems Request</h1>
                         <p className="subtitle">Data Infrastructure Assessment</p>
                         <div className="badge-container">
                             <div className="badge badge-red">
@@ -725,7 +751,7 @@
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                                     <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
                                 </svg>
-                                5 business days
+                                20-30 minutes
                             </div>
                             <div className="badge badge-blue">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -734,10 +760,10 @@
                                 Confidential
                             </div>
                         </div>
-                        <div className="info-box">
-                            <p className="info-box-text">
-                                Technical system details to complement your team's business needs survey.<br/>
-                                Please complete within 5 business days.
+                        <div className="friendly-intro">
+                            <h3 className="friendly-intro-title">About This Assessment</h3>
+                            <p className="friendly-intro-text">
+                                This form helps us understand how your organization currently collects, stores, and uses data related to business events and tourism. We're learning about your current reality—not evaluating your systems. If you're unsure about any technical detail, that's completely normal. We'll explore details together during our assessment calls.
                             </p>
                         </div>
                     </div>
@@ -814,7 +840,7 @@
                             aria-expanded={expandedSections.section1}
                         >
                             <div className="section-header-content">
-                                <span className="section-icon">🏗️</span>
+                                <span className="section-icon">🗂️</span>
                                 <h2 className="section-title">System Architecture & Technical Infrastructure</h2>
                                 <span className="section-toggle">{expandedSections.section1 ? '▼' : '▶'}</span>
                             </div>
@@ -884,56 +910,6 @@
                                         />
                                     </div>
                                 </div>
-
-                                <div className="form-group">
-                                    <h4 className="subsection-header">Key Personnel for Technical Discussions</h4>
-                                    <div style={{overflowX: 'auto'}}>
-                                        <table className="data-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Role</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Technical Expertise Level</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {['IT Manager/Lead', 'System Administrator', 'Database Manager', 'Web/Digital Manager'].map((role, index) => (
-                                                    <tr key={index}>
-                                                        <td style={{fontWeight: '500'}}>{role}</td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="table-input"
-                                                                placeholder="Name"
-                                                                value={responses[`personnel_name_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`personnel_name_${index}`, e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="table-input"
-                                                                placeholder="Email"
-                                                                value={responses[`personnel_email_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`personnel_email_${index}`, e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="table-input"
-                                                                placeholder="Expertise Level"
-                                                                value={responses[`personnel_level_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`personnel_level_${index}`, e.target.value)}
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
                             </div>
                         )}
                     </div>
@@ -970,9 +946,7 @@
                                             <tbody>
                                                 {[
                                                     { label: 'Event Management Platform', field: 'event_platform', placeholder: 'Name, Vendor, Version' },
-                                                    { label: 'User Count', field: 'event_users', placeholder: 'Total licensed users, Active users' },
-                                                    { label: 'Last Update/Upgrade', field: 'event_update', placeholder: 'Date, Version' },
-                                                    { label: 'Data Retention', field: 'event_retention', placeholder: 'Historical data available from' }
+                                                    { label: 'User Count', field: 'event_users', placeholder: 'Total licensed users, Active users' }
                                                 ].map((item, index) => (
                                                     <tr key={index}>
                                                         <td style={{fontWeight: '500'}}>{item.label}</td>
@@ -1014,7 +988,7 @@
                                 </div>
 
                                 {/* CRM & Client Management */}
-                                <div>
+                                <div style={{marginBottom: '32px'}}>
                                     <h4 className="subsection-header">CRM & Client Management</h4>
                                     <div style={{overflowX: 'auto', marginBottom: '16px'}}>
                                         <table className="data-table">
@@ -1065,6 +1039,74 @@
                                             allowOther={true}
                                             responses={responses}
                                             updateResponse={updateResponse}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Marketing Automation */}
+                                <div>
+                                    <h4 className="subsection-header">Marketing Automation & Communication Systems</h4>
+                                    <div style={{overflowX: 'auto', marginBottom: '16px'}}>
+                                        <table className="data-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>System Component</th>
+                                                    <th>Details</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {[
+                                                    { label: 'Marketing Automation Platform', field: 'marketing_platform', placeholder: 'Name, Vendor, or N/A if not used' },
+                                                    { label: 'Email Marketing Tool', field: 'email_tool', placeholder: 'Name, Vendor, or N/A if not used' },
+                                                    { label: 'Social Media Management', field: 'social_media', placeholder: 'Tools used, Manual or automated' }
+                                                ].map((item, index) => (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight: '500'}}>{item.label}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text"
+                                                                className="table-input"
+                                                                placeholder={item.placeholder}
+                                                                value={responses[item.field] || ''}
+                                                                onChange={(e) => updateResponse(item.field, e.target.value)}
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div style={{marginBottom: '16px'}}>
+                                        <label className="form-label">Data Sources & External Data:</label>
+                                        <CheckboxGroup
+                                            questionId="data_sources"
+                                            options={[
+                                                'Government tourism/visitor data (ministry sources)',
+                                                'Hotel/accommodation data from partners',
+                                                'Airport/transportation data',
+                                                'Event attendance data from venues',
+                                                'Website analytics',
+                                                'Email engagement metrics',
+                                                'Social media metrics'
+                                            ]}
+                                            allowOther={true}
+                                            responses={responses}
+                                            updateResponse={updateResponse}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="form-label">External Data Integration:</label>
+                                        <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '8px'}}>
+                                            How do you currently receive or access external data from government agencies, tourism boards, hotels, or other partners?
+                                        </p>
+                                        <textarea
+                                            className="form-input form-textarea"
+                                            rows={3}
+                                            placeholder="Describe how external data is received and integrated..."
+                                            value={responses.external_data_integration || ''}
+                                            onChange={(e) => updateResponse('external_data_integration', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -1129,15 +1171,16 @@
 
                                 {/* Data Formats */}
                                 <div>
-                                    <h4 className="subsection-header">Data Formats & Accessibility</h4>
+                                    <h4 className="subsection-header">How is this data stored and shared?</h4>
+                                    <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '16px'}}>
+                                        Examples: Excel files, built-in system reports, we export manually, we're not sure
+                                    </p>
                                     <div style={{overflowX: 'auto'}}>
                                         <table className="data-table">
                                             <thead>
                                                 <tr>
                                                     <th>Data Type</th>
-                                                    <th>Format</th>
-                                                    <th>Export Method</th>
-                                                    <th>Update Frequency</th>
+                                                    <th>How It's Stored & Shared</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1148,27 +1191,9 @@
                                                             <input
                                                                 type="text"
                                                                 className="table-input"
-                                                                placeholder="Format"
-                                                                value={responses[`format_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`format_${index}`, e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="table-input"
-                                                                placeholder="Export Method"
-                                                                value={responses[`export_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`export_${index}`, e.target.value)}
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="table-input"
-                                                                placeholder="Update Frequency"
-                                                                value={responses[`frequency_${index}`] || ''}
-                                                                onChange={(e) => updateResponse(`frequency_${index}`, e.target.value)}
+                                                                placeholder="How it's stored & shared..."
+                                                                value={responses[`storage_${index}`] || ''}
+                                                                onChange={(e) => updateResponse(`storage_${index}`, e.target.value)}
                                                             />
                                                         </td>
                                                     </tr>
@@ -1181,7 +1206,7 @@
                         )}
                     </div>
 
-                    {/* Section 4: Technical Capabilities */}
+                    {/* Section 4: Integration */}
                     <div className="section-card">
                         <div
                             className="section-header section-3"
@@ -1193,101 +1218,52 @@
                         >
                             <div className="section-header-content">
                                 <span className="section-icon">⚙️</span>
-                                <h2 className="section-title">Technical Capabilities & Constraints</h2>
+                                <h2 className="section-title">Integration & API Capabilities</h2>
                                 <span className="section-toggle">{expandedSections.section4 ? '▼' : '▶'}</span>
                             </div>
                         </div>
                         {expandedSections.section4 && (
                             <div className="section-content">
-                                <div style={{marginBottom: '32px'}}>
-                                    <h4 className="subsection-header">Database & Analytics Infrastructure</h4>
+                                <div style={{marginBottom: '16px'}}>
+                                    <label className="form-label">Current Integrations:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={2}
+                                        placeholder="List all system connections..."
+                                        value={responses.current_integrations || ''}
+                                        onChange={(e) => updateResponse('current_integrations', e.target.value)}
+                                    />
+                                </div>
 
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Database Systems:</label>
-                                        <RadioGroup
-                                            questionId="database_systems"
-                                            options={['None', 'Access', 'SQL Server', 'MySQL', 'PostgreSQL', 'Other']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
+                                <div style={{marginBottom: '16px'}}>
+                                    <label className="form-label">API Access Available For:</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={2}
+                                        placeholder="List systems with API access..."
+                                        value={responses.api_access || ''}
+                                        onChange={(e) => updateResponse('api_access', e.target.value)}
+                                    />
+                                </div>
 
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Analytics Tools:</label>
-                                        <CheckboxGroup
-                                            questionId="analytics_tools"
-                                            options={['Excel only', 'Power BI', 'Tableau', 'Google Analytics']}
-                                            allowOther={true}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Reporting Automation:</label>
-                                        <RadioGroup
-                                            questionId="reporting_automation"
-                                            options={['Manual', 'Semi-automated', 'Fully automated']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="form-label">Real-time Dashboards:</label>
-                                        <RadioGroup
-                                            questionId="realtime_dashboards"
-                                            options={['None', 'Basic', 'Advanced']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
+                                <div style={{marginBottom: '20px'}}>
+                                    <label className="form-label">Data Import/Export:</label>
+                                    <RadioGroup
+                                        questionId="data_import_export"
+                                        options={['Automated', 'Manual', 'Mixed']}
+                                        responses={responses}
+                                        updateResponse={updateResponse}
+                                    />
                                 </div>
 
                                 <div>
-                                    <h4 className="subsection-header">Integration & API Capabilities</h4>
-
-                                    <div style={{marginBottom: '16px'}}>
-                                        <label className="form-label">Current Integrations:</label>
-                                        <textarea
-                                            className="form-input form-textarea"
-                                            rows={2}
-                                            placeholder="List all system connections..."
-                                            value={responses.current_integrations || ''}
-                                            onChange={(e) => updateResponse('current_integrations', e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div style={{marginBottom: '16px'}}>
-                                        <label className="form-label">API Access Available For:</label>
-                                        <textarea
-                                            className="form-input form-textarea"
-                                            rows={2}
-                                            placeholder="List systems with API access..."
-                                            value={responses.api_access || ''}
-                                            onChange={(e) => updateResponse('api_access', e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Data Import/Export:</label>
-                                        <RadioGroup
-                                            questionId="data_import_export"
-                                            options={['Automated', 'Manual', 'Mixed']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="form-label">Third-party Connectors:</label>
-                                        <CheckboxGroup
-                                            questionId="third_party_connectors"
-                                            options={['Zapier', 'Microsoft Flow', 'Custom', 'None']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
+                                    <label className="form-label">Third-party Connectors:</label>
+                                    <CheckboxGroup
+                                        questionId="third_party_connectors"
+                                        options={['Zapier', 'Microsoft Flow', 'Custom', 'None']}
+                                        responses={responses}
+                                        updateResponse={updateResponse}
+                                    />
                                 </div>
                             </div>
                         )}
@@ -1304,82 +1280,42 @@
                             aria-expanded={expandedSections.section5}
                         >
                             <div className="section-header-content">
-                                <span className="section-icon">🔒</span>
+                                <span className="section-icon">🔐</span>
                                 <h2 className="section-title">Data Governance & Quality Standards</h2>
                                 <span className="section-toggle">{expandedSections.section5 ? '▼' : '▶'}</span>
                             </div>
                         </div>
                         {expandedSections.section5 && (
                             <div className="section-content">
-                                <div style={{marginBottom: '32px'}}>
-                                    <h4 className="subsection-header">Current Data Governance</h4>
+                                <div style={{marginBottom: '20px'}}>
+                                    <label className="form-label">Written Data Policies:</label>
+                                    <RadioGroup
+                                        questionId="written_policies"
+                                        options={['Yes', 'No']}
+                                        responses={responses}
+                                        updateResponse={updateResponse}
+                                    />
+                                </div>
 
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Written Data Policies:</label>
-                                        <RadioGroup
-                                            questionId="written_policies"
-                                            options={['Yes', 'No']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Naming Conventions:</label>
-                                        <RadioGroup
-                                            questionId="naming_conventions"
-                                            options={['Yes', 'No']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="form-label">Who manages data quality?</label>
-                                        <textarea
-                                            className="form-input form-textarea"
-                                            rows={2}
-                                            placeholder="Person/role responsible for data quality..."
-                                            value={responses.data_quality_manager || ''}
-                                            onChange={(e) => updateResponse('data_quality_manager', e.target.value)}
-                                        />
-                                    </div>
+                                <div style={{marginBottom: '20px'}}>
+                                    <label className="form-label">Naming Conventions:</label>
+                                    <RadioGroup
+                                        questionId="naming_conventions"
+                                        options={['Yes', 'No']}
+                                        responses={responses}
+                                        updateResponse={updateResponse}
+                                    />
                                 </div>
 
                                 <div>
-                                    <h4 className="subsection-header">Security & Backup</h4>
-
-                                    <div style={{marginBottom: '20px'}}>
-                                        <label className="form-label">Data Backup Frequency:</label>
-                                        <RadioGroup
-                                            questionId="backup_frequency"
-                                            options={['Daily', 'Weekly', 'Monthly', 'None']}
-                                            responses={responses}
-                                            updateResponse={updateResponse}
-                                        />
-                                    </div>
-
-                                    <div style={{marginBottom: '16px'}}>
-                                        <label className="form-label">Backup Location:</label>
-                                        <textarea
-                                            className="form-input form-textarea"
-                                            rows={2}
-                                            placeholder="Where are backups stored..."
-                                            value={responses.backup_location || ''}
-                                            onChange={(e) => updateResponse('backup_location', e.target.value)}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label className="form-label">User Authentication Method:</label>
-                                        <textarea
-                                            className="form-input form-textarea"
-                                            rows={2}
-                                            placeholder="How do users authenticate..."
-                                            value={responses.authentication_method || ''}
-                                            onChange={(e) => updateResponse('authentication_method', e.target.value)}
-                                        />
-                                    </div>
+                                    <label className="form-label">Who manages data quality?</label>
+                                    <textarea
+                                        className="form-input form-textarea"
+                                        rows={2}
+                                        placeholder="Person/role responsible for data quality..."
+                                        value={responses.data_quality_manager || ''}
+                                        onChange={(e) => updateResponse('data_quality_manager', e.target.value)}
+                                    />
                                 </div>
                             </div>
                         )}
@@ -1503,7 +1439,7 @@
                             </button>
                         </div>
                         <p style={{fontSize: '12px', color: '#6b7280', marginTop: '16px'}}>
-                            Your responses are automatically saved as you type. This assessment is confidential and will only be used to improve Medellín's technical capabilities.
+                            Your responses are automatically saved as you type. This assessment is confidential and will only be used to improve Medellin's technical capabilities.
                         </p>
                     </div>
                 </div>
