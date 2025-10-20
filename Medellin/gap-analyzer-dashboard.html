@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medellin DMO Gap Analysis Dashboard</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .upload-box {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+            cursor: pointer;
+        }
+
+        .upload-box:hover {
+            border-color: #FF4444;
+            background: white;
+        }
+
+        .upload-box.uploaded {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .upload-box.uploaded .upload-icon {
+            color: #10b981;
+        }
+
+        .upload-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .upload-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .upload-button {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 24px;
+            background: #FF4444;
+            color: white;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .upload-button:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+        }
+
+        .upload-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Results Tiles Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .result-tile {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid var(--tile-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .result-tile:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+        }
+
+        .tile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .tile-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .tile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--tile-bg);
+            color: var(--tile-color);
+            font-weight: 700;
+        }
+
+        .tile-metric {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--tile-color);
+            margin-bottom: 8px;
+        }
+
+        .tile-description {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .tile-footer {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 32px 32px 24px;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .modal-close {
+            background: #f3f4f6;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+            color: #1a202c;
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .gap-item {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--gap-color);
+        }
+
+        .gap-item:nth-child(1) { --gap-color: #dc2626; }
+        .gap-item:nth-child(2) { --gap-color: #ea580c; }
+        .gap-item:nth-child(3) { --gap-color: #f59e0b; }
+        .gap-item:nth-child(4) { --gap-color: #10b981; }
+        .gap-item:nth-child(5) { --gap-color: #3b82f6; }
+        .gap-item:nth-child(6) { --gap-color: #8b5cf6; }
+
+        .gap-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .gap-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .severity-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .severity-high {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .severity-medium {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .severity-low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .gap-description {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .gap-impact {
+            font-size: 13px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .opportunity-item {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .opportunity-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .opportunity-number {
+            min-width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .opportunity-title {
+            flex: 1;
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .phase-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .phase-quick-win {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .phase-strategic {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .phase-ai-ready {
+            background: #e9d5ff;
+            color: #6b21a8;
+        }
+
+        .opportunity-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .detail-item {
+            font-size: 13px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            color: #374151;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 24px 0;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #9ca3af;
+        }
+
+        .no-data-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .upload-grid, .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Main App Component
+        function GapAnalyzerDashboard() {
+            const [surveyFile, setSurveyFile] = useState(null);
+            const [technicalFile, setTechnicalFile] = useState(null);
+            const [analysisResults, setAnalysisResults] = useState(null);
+            const [activeModal, setActiveModal] = useState(null);
+
+            const handleFileUpload = (fileType, file) => {
+                if (fileType === 'survey') {
+                    setSurveyFile(file);
+                } else {
+                    setTechnicalFile(file);
+                }
+            };
+
+            const runAnalysis = () => {
+                if (!surveyFile || !technicalFile) return;
+
+                // Parse CSV files
+                Papa.parse(surveyFile, {
+                    header: true,
+                    complete: (surveyResults) => {
+                        Papa.parse(technicalFile, {
+                            header: true,
+                            complete: (technicalResults) => {
+                                // Run gap analysis
+                                const results = performGapAnalysis(
+                                    surveyResults.data,
+                                    technicalResults.data
+                                );
+                                setAnalysisResults(results);
+                            }
+                        });
+                    }
+                });
+            };
+
+            useEffect(() => {
+                if (surveyFile && technicalFile) {
+                    runAnalysis();
+                }
+            }, [surveyFile, technicalFile]);
+
+            return (
+                <div className="container">
+                    <Header />
+                    <UploadSection
+                        surveyFile={surveyFile}
+                        technicalFile={technicalFile}
+                        onFileUpload={handleFileUpload}
+                    />
+                    {analysisResults && (
+                        <ResultsSection
+                            results={analysisResults}
+                            onTileClick={setActiveModal}
+                        />
+                    )}
+                    {activeModal && (
+                        <Modal
+                            type={activeModal}
+                            data={analysisResults}
+                            onClose={() => setActiveModal(null)}
+                        />
+                    )}
+                </div>
+            );
+        }
+
+        // Header Component
+        function Header() {
+            return (
+                <div className="header-card">
+                    <div className="brand-tag">by InsightsLab</div>
+                    <h1 className="main-title">Medellin DMO Gap Analysis Dashboard</h1>
+                    <p className="subtitle">
+                        Upload survey and technical data to generate comprehensive gap analysis and prioritized opportunities report
+                    </p>
+                </div>
+            );
+        }
+
+        // Upload Section Component
+        function UploadSection({ surveyFile, technicalFile, onFileUpload }) {
+            return (
+                <div className="upload-section">
+                    <div className="upload-grid">
+                        <UploadBox
+                            title="Survey Responses"
+                            subtitle="Upload staff discovery survey CSV"
+                            file={surveyFile}
+                            onUpload={(file) => onFileUpload('survey', file)}
+                        />
+                        <UploadBox
+                            title="Technical Systems"
+                            subtitle="Upload technical assessment CSV"
+                            file={technicalFile}
+                            onUpload={(file) => onFileUpload('technical', file)}
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        // Upload Box Component
+        function UploadBox({ title, subtitle, file, onUpload }) {
+            const fileInputRef = React.useRef();
+
+            const handleClick = () => {
+                fileInputRef.current.click();
+            };
+
+            const handleChange = (e) => {
+                const selectedFile = e.target.files[0];
+                if (selectedFile) {
+                    onUpload(selectedFile);
+                }
+            };
+
+            return (
+                <div
+                    className={`upload-box ${file ? 'uploaded' : ''}`}
+                    onClick={handleClick}
+                >
+                    <div className="upload-icon">
+                        {file ? '✓' : '📤'}
+                    </div>
+                    <div className="upload-title">{title}</div>
+                    <div className="upload-subtitle">
+                        {file ? `Uploaded: ${file.name}` : subtitle}
+                    </div>
+                    <button className="upload-button">
+                        {file ? 'Change File' : 'Select File'}
+                    </button>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".csv"
+                        onChange={handleChange}
+                    />
+                </div>
+            );
+        }
+
+        // Results Section Component
+        function ResultsSection({ results, onTileClick }) {
+            return (
+                <>
+                    <div className="results-grid">
+                        <ResultTile
+                            title="Executive Summary"
+                            metric={results.gaps.length}
+                            description={`${results.gapsBySeverity.high} HIGH, ${results.gapsBySeverity.medium} MEDIUM, ${results.gapsBySeverity.low} LOW severity`}
+                            color="#FF4444"
+                            onClick={() => onTileClick('summary')}
+                        />
+                        <ResultTile
+                            title="Gaps by Category"
+                            metric="6"
+                            description="Data categories assessed"
+                            color="#f59e0b"
+                            onClick={() => onTileClick('gaps')}
+                        />
+                        <ResultTile
+                            title="Opportunities"
+                            metric={results.opportunities.length}
+                            description={`${results.opportunitiesByPhase.quickWin} Quick-Win, ${results.opportunitiesByPhase.strategic} Strategic, ${results.opportunitiesByPhase.aiReady} AI-Ready`}
+                            color="#10b981"
+                            onClick={() => onTileClick('opportunities')}
+                        />
+                        <ResultTile
+                            title="Impact Analysis"
+                            metric={`${Math.round((results.gapsBySeverity.high / results.gaps.length) * 100)}%`}
+                            description="High-severity gaps requiring immediate action"
+                            color="#3b82f6"
+                            onClick={() => onTileClick('impact')}
+                        />
+                        <ResultTile
+                            title="Implementation Timeline"
+                            metric="12"
+                            description="Month roadmap across 3 phases"
+                            color="#8b5cf6"
+                            onClick={() => onTileClick('timeline')}
+                        />
+                        <ResultTile
+                            title="Success Metrics"
+                            metric="7"
+                            description="Key performance indicators defined"
+                            color="#ec4899"
+                            onClick={() => onTileClick('metrics')}
+                        />
+                    </div>
+                </>
+            );
+        }
+
+        // Result Tile Component
+        function ResultTile({ title, metric, description, color, onClick }) {
+            return (
+                <div
+                    className="result-tile"
+                    style={{
+                        '--tile-color': color,
+                        '--tile-bg': `${color}20`
+                    }}
+                    onClick={onClick}
+                >
+                    <div className="tile-header">
+                        <div className="tile-title">{title}</div>
+                        <div className="tile-icon">📊</div>
+                    </div>
+                    <div className="tile-metric">{metric}</div>
+                    <div className="tile-description">{description}</div>
+                    <div className="tile-footer">Click for details</div>
+                </div>
+            );
+        }
+
+        // Modal Component
+        function Modal({ type, data, onClose }) {
+            return (
+                <div className="modal-overlay" onClick={onClose}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2 className="modal-title">{getModalTitle(type)}</h2>
+                            <button className="modal-close" onClick={onClose}>×</button>
+                        </div>
+                        <div className="modal-body">
+                            {renderModalContent(type, data)}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function getModalTitle(type) {
+            const titles = {
+                summary: 'Executive Summary',
+                gaps: 'Gaps by Category',
+                opportunities: 'Prioritized Opportunities',
+                impact: 'Impact Analysis',
+                timeline: 'Implementation Timeline',
+                metrics: 'Success Metrics'
+            };
+            return titles[type] || 'Details';
+        }
+
+        function renderModalContent(type, data) {
+            switch(type) {
+                case 'summary':
+                    return <SummaryContent data={data} />;
+                case 'gaps':
+                    return <GapsContent gaps={data.gaps} />;
+                case 'opportunities':
+                    return <OpportunitiesContent opportunities={data.opportunities} />;
+                case 'impact':
+                    return <ImpactContent data={data} />;
+                case 'timeline':
+                    return <TimelineContent opportunities={data.opportunities} />;
+                case 'metrics':
+                    return <MetricsContent />;
+                default:
+                    return <div>No content available</div>;
+            }
+        }
+
+        function SummaryContent({ data }) {
+            return (
+                <div>
+                    <h3 style={{marginBottom: '16px', color: '#1a202c'}}>Analysis Overview</h3>
+                    <div className="gap-item" style={{'--gap-color': '#FF4444'}}>
+                        <div className="gap-title">Key Findings</div>
+                        <div className="gap-description">
+                            {data.gaps.length} critical gaps identified across 6 data categories, with {data.opportunities.length} prioritized opportunities mapped to a clear 12-month transformation roadmap.
+                        </div>
+                    </div>
+                    <div className="gap-item" style={{'--gap-color': '#f59e0b'}}>
+                        <div className="gap-title">Severity Breakdown</div>
+                        <ul style={{paddingLeft: '20px', marginTop: '8px'}}>
+                            <li>{data.gapsBySeverity.high} HIGH-severity gaps requiring immediate attention</li>
+                            <li>{data.gapsBySeverity.medium} MEDIUM-severity gaps for strategic improvement</li>
+                            <li>{data.gapsBySeverity.low} LOW-severity gaps for long-term enhancement</li>
+                        </ul>
+                    </div>
+                    <div className="gap-item" style={{'--gap-color': '#10b981'}}>
+                        <div className="gap-title">Bottom Line</div>
+                        <div className="gap-description">
+                            Medellin can systematically close these gaps over 12 months, positioning the destination as a data-driven LATAM leader through focused, achievable initiatives.
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function GapsContent({ gaps }) {
+            return (
+                <div>
+                    {gaps.map((gap, index) => (
+                        <div key={index} className="gap-item">
+                            <div className="gap-header">
+                                <div className="gap-title">{gap.category}</div>
+                                <span className={`severity-badge severity-${gap.severity.toLowerCase()}`}>
+                                    {gap.severity}
+                                </span>
+                            </div>
+                            <div className="gap-description"><strong>Gap:</strong> {gap.gap}</div>
+                            <div className="gap-description">{gap.description}</div>
+                            <div className="gap-impact"><strong>Impact:</strong> {gap.impact}</div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function OpportunitiesContent({ opportunities }) {
+            return (
+                <div>
+                    {opportunities.map((opp, index) => (
+                        <div key={index} className="opportunity-item">
+                            <div className="opportunity-header">
+                                <div className="opportunity-number">{index + 1}</div>
+                                <div className="opportunity-title">{opp.title}</div>
+                                <span className={`phase-badge phase-${opp.phase.toLowerCase().replace(/\s+/g, '-').replace('-win', '-win')}`}>
+                                    {opp.phase}
+                                </span>
+                            </div>
+                            <div className="gap-description">{opp.description}</div>
+                            <div className="opportunity-details">
+                                <div className="detail-item">
+                                    <div className="detail-label">Timeline</div>
+                                    <div className="detail-value">{opp.timeline}</div>
+                                </div>
+                                <div className="detail-item">
+                                    <div className="detail-label">Effort Level</div>
+                                    <div className="detail-value">{opp.effort_level}</div>
+                                </div>
+                                <div className="detail-item">
+                                    <div className="detail-label">Expected Impact</div>
+                                    <div className="detail-value">{opp.expected_impact}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function ImpactContent({ data }) {
+            React.useEffect(() => {
+                const ctx = document.getElementById('impactChart');
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['HIGH', 'MEDIUM', 'LOW'],
+                            datasets: [{
+                                data: [
+                                    data.gapsBySeverity.high,
+                                    data.gapsBySeverity.medium,
+                                    data.gapsBySeverity.low
+                                ],
+                                backgroundColor: ['#dc2626', '#f59e0b', '#10b981'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    });
+                }
+            }, []);
+
+            return (
+                <div>
+                    <div className="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                    <div style={{marginTop: '24px'}}>
+                        <h4>Priority Distribution</h4>
+                        <p style={{color: '#6b7280', marginTop: '8px'}}>
+                            {Math.round((data.gapsBySeverity.high / data.gaps.length) * 100)}% of gaps are high-severity, requiring immediate attention and resource allocation.
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        function TimelineContent({ opportunities }) {
+            const quickWin = opportunities.filter(o => o.phase === 'Quick Win');
+            const strategic = opportunities.filter(o => o.phase === 'Strategic');
+            const aiReady = opportunities.filter(o => o.phase === 'AI-Readiness');
+
+            return (
+                <div>
+                    <div className="gap-item" style={{'--gap-color': '#10b981'}}>
+                        <div className="gap-title">Phase 1: ORGANIZE (Months 1-4)</div>
+                        <div className="gap-description">Build foundation with quick wins and data organization</div>
+                        <ul style={{paddingLeft: '20px', marginTop: '8px'}}>
+                            {quickWin.map((opp, i) => <li key={i}>{opp.title}</li>)}
+                        </ul>
+                    </div>
+                    <div className="gap-item" style={{'--gap-color': '#3b82f6'}}>
+                        <div className="gap-title">Phase 2: INTEGRATE (Months 5-8)</div>
+                        <div className="gap-description">Connect systems and establish strategic data capabilities</div>
+                        <ul style={{paddingLeft: '20px', marginTop: '8px'}}>
+                            {strategic.map((opp, i) => <li key={i}>{opp.title}</li>)}
+                        </ul>
+                    </div>
+                    <div className="gap-item" style={{'--gap-color': '#8b5cf6'}}>
+                        <div className="gap-title">Phase 3: ACTIVATE (Months 9-12)</div>
+                        <div className="gap-description">Enable AI-powered insights and LATAM leadership positioning</div>
+                        <ul style={{paddingLeft: '20px', marginTop: '8px'}}>
+                            {aiReady.map((opp, i) => <li key={i}>{opp.title}</li>)}
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        function MetricsContent() {
+            const metrics = [
+                "Staff can answer 'Which clients are most valuable?' in under 5 minutes",
+                "Monthly reports generated automatically, not manually",
+                "Marketing team can demonstrate ROI by campaign channel",
+                "Leadership receives real-time economic impact metrics",
+                "80% staff satisfaction with data accessibility",
+                "Data quality issues reduced by 50%",
+                "Time spent on manual information gathering reduced by 60%"
+            ];
+
+            return (
+                <div>
+                    {metrics.map((metric, index) => (
+                        <div key={index} className="gap-item" style={{'--gap-color': '#10b981'}}>
+                            <div className="gap-description">✓ {metric}</div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        // Gap Analysis Logic
+        function performGapAnalysis(surveyData, technicalData) {
+            // Mock analysis - replace with actual logic from Python script
+            const gaps = [
+                {
+                    category: 'Economic Impact & ROI',
+                    gap: 'No real-time economic impact calculation system',
+                    description: 'Event economic impact calculations are manual, use outdated multiplier assumptions',
+                    severity: 'HIGH',
+                    impact: 'Cannot demonstrate event ROI to government stakeholders'
+                },
+                {
+                    category: 'Customer Journey',
+                    gap: 'No unified customer view across touchpoints',
+                    description: 'Client data fragmented across event platform, CRM, and spreadsheets',
+                    severity: 'HIGH',
+                    impact: 'Cannot answer "Which clients are most valuable?"'
+                },
+                {
+                    category: 'Customer Journey',
+                    gap: 'No systematic post-event data capture',
+                    description: 'Event results not systematically captured or centralized',
+                    severity: 'HIGH',
+                    impact: 'Difficult to access historical event performance'
+                },
+                {
+                    category: 'Competitive Intelligence',
+                    gap: 'No competitive intelligence tracking system',
+                    description: 'Competitor events, pricing, and win/loss data not tracked',
+                    severity: 'MEDIUM',
+                    impact: 'Cannot answer competitive positioning questions'
+                },
+                {
+                    category: 'Marketing Attribution',
+                    gap: 'No cross-channel marketing attribution',
+                    description: 'Website analytics and social not connected to CRM',
+                    severity: 'HIGH',
+                    impact: 'Cannot prove marketing value'
+                },
+                {
+                    category: 'Stakeholder Ecosystem',
+                    gap: 'Systems do not integrate',
+                    description: 'Manual data transfers required weekly',
+                    severity: 'HIGH',
+                    impact: 'Staff spends 10+ hours/week on manual data gathering'
+                },
+                {
+                    category: 'Stakeholder Ecosystem',
+                    gap: 'No formal data governance',
+                    description: 'No written data policies or naming conventions',
+                    severity: 'MEDIUM',
+                    impact: 'Data quality issues persist'
+                },
+                {
+                    category: 'Sustainability',
+                    gap: 'No visitor volume monitoring',
+                    description: 'No systematic capacity tracking',
+                    severity: 'LOW',
+                    impact: 'Cannot manage overtourism risks'
+                },
+                {
+                    category: 'Economic Impact & ROI',
+                    gap: 'Financial data not integrated',
+                    description: 'Financial system and event platform do not connect',
+                    severity: 'HIGH',
+                    impact: 'Hours spent on manual data compilation'
+                }
+            ];
+
+            const opportunities = [
+                {
+                    title: 'Event Results Repository',
+                    phase: 'Quick Win',
+                    description: 'Create centralized repository for post-event data',
+                    timeline: '1-2 months',
+                    effort_level: 'Minimal',
+                    expected_impact: 'Staff can access historical event performance in under 5 minutes'
+                },
+                {
+                    title: 'Unified Client Dashboard',
+                    phase: 'Quick Win',
+                    description: 'Create single-view client dashboard',
+                    timeline: '1-2 months',
+                    effort_level: 'Minimal',
+                    expected_impact: 'Answer "Which clients are most valuable?" in real-time'
+                },
+                {
+                    title: 'Automated Monthly Reporting',
+                    phase: 'Quick Win',
+                    description: 'Automate generation of monthly performance reports',
+                    timeline: '1-2 months',
+                    effort_level: 'Minimal',
+                    expected_impact: 'Save 10+ hours/month on manual report creation'
+                },
+                {
+                    title: 'Unified Event Database Integration',
+                    phase: 'Strategic',
+                    description: 'Integrate event platform, CRM, and financial systems',
+                    timeline: '3-6 months',
+                    effort_level: 'Moderate',
+                    expected_impact: 'Eliminate manual data transfers; real-time data across systems'
+                },
+                {
+                    title: 'ICCA-Aligned KPI Dashboard',
+                    phase: 'Strategic',
+                    description: 'Implement dashboard tracking ICCA global indicators',
+                    timeline: '3-6 months',
+                    effort_level: 'Moderate',
+                    expected_impact: 'Demonstrate performance using global standards'
+                },
+                {
+                    title: 'Cross-Channel Marketing Attribution',
+                    phase: 'Strategic',
+                    description: 'Connect website analytics, email, social, and CRM',
+                    timeline: '4-6 months',
+                    effort_level: 'Moderate',
+                    expected_impact: 'Prove marketing ROI; optimize budget allocation'
+                },
+                {
+                    title: 'Data Governance Framework',
+                    phase: 'Strategic',
+                    description: 'Establish formal data policies and quality standards',
+                    timeline: '3-4 months',
+                    effort_level: 'Moderate',
+                    expected_impact: 'Reduce data quality issues by 50%'
+                },
+                {
+                    title: 'Predictive Event Pursuit Analytics',
+                    phase: 'AI-Readiness',
+                    description: 'Use ML models to score event opportunities',
+                    timeline: '9-12 months',
+                    effort_level: 'Significant',
+                    expected_impact: 'Increase win rate by 15-20%'
+                },
+                {
+                    title: 'AI-Powered Lead Nurturing Automation',
+                    phase: 'AI-Readiness',
+                    description: 'Automated, personalized client engagement',
+                    timeline: '9-12 months',
+                    effort_level: 'Significant',
+                    expected_impact: 'Increase conversion rates through timely outreach'
+                },
+                {
+                    title: 'Real-Time Economic Impact Calculator',
+                    phase: 'AI-Readiness',
+                    description: 'Automated economic multiplier calculations',
+                    timeline: '9-12 months',
+                    effort_level: 'Significant',
+                    expected_impact: 'Real-time ROI demonstration to government'
+                }
+            ];
+
+            const gapsBySeverity = {
+                high: gaps.filter(g => g.severity === 'HIGH').length,
+                medium: gaps.filter(g => g.severity === 'MEDIUM').length,
+                low: gaps.filter(g => g.severity === 'LOW').length
+            };
+
+            const opportunitiesByPhase = {
+                quickWin: opportunities.filter(o => o.phase === 'Quick Win').length,
+                strategic: opportunities.filter(o => o.phase === 'Strategic').length,
+                aiReady: opportunities.filter(o => o.phase === 'AI-Readiness').length
+            };
+
+            return {
+                gaps,
+                opportunities,
+                gapsBySeverity,
+                opportunitiesByPhase
+            };
+        }
+
+        // Render App
+        ReactDOM.render(<GapAnalyzerDashboard />, document.getElementById('root'));
+    </script>
+</body>
+</html>
