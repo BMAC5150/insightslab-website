@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 2: Gap & Opportunities Analysis - Medellin DMO Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: white;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-top: 4px solid #FF4444;
+            text-align: center;
+        }
+
+        .brand-tag {
+            color: #FF4444;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            color: #1a202c;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #4a5568;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            gap: 8px;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-orange {
+            background: #ffedd5;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        /* Analysis Steps Grid */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid var(--step-color);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:nth-child(1) { --step-color: #3b82f6; }
+        .step-card:nth-child(2) { --step-color: #f59e0b; }
+        .step-card:nth-child(3) { --step-color: #10b981; }
+        .step-card:nth-child(4) { --step-color: #8b5cf6; }
+
+        .step-card.animated {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--step-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .step-info {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .step-hours {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step-item {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .step-arrow {
+            color: var(--step-color);
+            margin-top: 2px;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+        }
+
+        .step-text {
+            flex: 1;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        /* Gap Categories Section */
+        .gap-categories-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            color: #FF4444;
+            width: 24px;
+            height: 24px;
+        }
+
+        .gap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .gap-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--gap-color);
+        }
+
+        .gap-item:nth-child(1) { --gap-color: #dc2626; }
+        .gap-item:nth-child(2) { --gap-color: #ea580c; }
+        .gap-item:nth-child(3) { --gap-color: #f59e0b; }
+        .gap-item:nth-child(4) { --gap-color: #10b981; }
+        .gap-item:nth-child(5) { --gap-color: #3b82f6; }
+        .gap-item:nth-child(6) { --gap-color: #8b5cf6; }
+
+        .gap-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .gap-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .gap-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a202c;
+        }
+
+        .severity-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .severity-high {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .severity-medium {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .severity-low {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .gap-question {
+            font-size: 14px;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Opportunities Grid */
+        .opportunities-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .phase-group {
+            margin-bottom: 32px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .phase-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .phase-icon.quick-win { background: #10b981; }
+        .phase-icon.strategic { background: #3b82f6; }
+        .phase-icon.ai-ready { background: #8b5cf6; }
+
+        .phase-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .phase-timeline {
+            font-size: 14px;
+            color: #6b7280;
+            margin-left: auto;
+        }
+
+        .opportunities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .opportunity-card {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .opportunity-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .opportunity-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .opportunity-detail {
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #6b7280;
+            min-width: 80px;
+        }
+
+        .detail-value {
+            color: #374151;
+        }
+
+        /* Deliverable Card */
+        .deliverable-section {
+            background: white;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+            border-top: 4px solid #f59e0b;
+        }
+
+        .deliverable-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .deliverable-icon {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            color: #f59e0b;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .deliverable-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .deliverable-info p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .deliverable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .deliverable-item {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .deliverable-item-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .deliverable-item-desc {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* Bottom Grid */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .criteria-section, .value-section {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .criteria-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .criteria-item.critical { border-color: #fecaca; }
+        .criteria-item.target { border-color: #bfdbfe; }
+
+        .criteria-metric {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .criteria-metric.critical { color: #dc2626; }
+        .criteria-metric.target { color: #2563eb; }
+
+        .criteria-description {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .value-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .value-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .value-icon {
+            color: #16a34a;
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .value-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1f2937;
+        }
+
+        .value-description {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Timeline */
+        .timeline-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .timeline-container {
+            position: relative;
+            margin-top: 24px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 4px;
+            background: linear-gradient(to right, #f87171, #dc2626);
+            transform: translateY(-50%);
+        }
+
+        .timeline-points {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 120px;
+        }
+
+        .timeline-point {
+            background: white;
+            padding: 0 8px;
+            text-align: center;
+        }
+
+        .timeline-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 4px;
+            background: #dc2626;
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* Icons */
+        .icon {
+            width: 1em;
+            height: 1em;
+            fill: currentColor;
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .main-title {
+                font-size: 2em;
+            }
+
+            .steps-grid, .gap-grid, .opportunities-list, .deliverable-grid, .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .criteria-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-points {
+                gap: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header-card">
+            <div class="brand-tag">by InsightsLab</div>
+            <h1 class="main-title">Phase 2: Gap & Opportunities Analysis</h1>
+            <p class="subtitle">Focused gap analysis comparing Medellin's actual current state against the Pre-Discovery baseline to identify critical data gaps and surface 8-10 prioritized opportunities for the roadmap phase.</p>
+            <div class="badge-container">
+                <div class="badge badge-red">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                    12 hours
+                </div>
+                <div class="badge badge-orange">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                    Week 4
+                </div>
+                <div class="badge badge-blue">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    18.5% of project hours
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Process Steps -->
+        <div class="steps-grid" id="steps-container">
+            <!-- Steps will be populated by JavaScript -->
+        </div>
+
+        <!-- Gap Categories -->
+        <div class="gap-categories-section">
+            <h2 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                Critical Gap Identification (6 Data Categories)
+            </h2>
+            <div class="gap-grid">
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Economic Impact & ROI</div>
+                        <span class="severity-badge severity-high">High</span>
+                    </div>
+                    <div class="gap-question">Can they calculate event ROI in real-time?</div>
+                </div>
+
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Customer Journey</div>
+                        <span class="severity-badge severity-high">High</span>
+                    </div>
+                    <div class="gap-question">Do they have unified view of client from inquiry to post-event?</div>
+                </div>
+
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Competitive Intelligence</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                    <div class="gap-question">Can sales team access competitive positioning data?</div>
+                </div>
+
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Sustainability</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                    <div class="gap-question">Is visitor volume/capacity monitored systematically?</div>
+                </div>
+
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Marketing Attribution</div>
+                        <span class="severity-badge severity-high">High</span>
+                    </div>
+                    <div class="gap-question">Can they measure campaign ROI by channel?</div>
+                </div>
+
+                <div class="gap-item">
+                    <div class="gap-header">
+                        <div class="gap-title">Stakeholder Ecosystem</div>
+                        <span class="severity-badge severity-medium">Medium</span>
+                    </div>
+                    <div class="gap-question">Is partner performance tracked systematically?</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prioritized Opportunities -->
+        <div class="opportunities-section">
+            <h2 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                8-10 Prioritized Opportunities
+            </h2>
+
+            <!-- Quick-Win Opportunities -->
+            <div class="phase-group">
+                <div class="phase-header">
+                    <div class="phase-icon quick-win">QW</div>
+                    <div class="phase-title">Quick-Win Opportunities</div>
+                    <div class="phase-timeline">1-2 months | Minimal resources</div>
+                </div>
+                <div class="opportunities-list">
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">1. Unified Event Results Dashboard</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Economic Impact & Customer Journey</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Single view of event performance</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Minimal - existing data consolidation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">2. Automated Monthly Reporting</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Marketing Attribution</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Eliminate manual report compilation</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Minimal - automation setup</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">3. Client Performance Scorecard</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Customer Journey & Stakeholder</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Single view of client value & history</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Minimal - dashboard creation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Opportunities -->
+            <div class="phase-group">
+                <div class="phase-header">
+                    <div class="phase-icon strategic">ST</div>
+                    <div class="phase-title">Strategic Opportunities</div>
+                    <div class="phase-timeline">3-6 months | Moderate investment</div>
+                </div>
+                <div class="opportunities-list">
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">4. Unified Event Database</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">All categories - integration foundation</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Integrated data across systems</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Moderate - system integration</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">5. ICCA KPI Dashboard</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Competitive Intelligence</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Align with global standards</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Moderate - KPI mapping & tracking</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">6. Marketing Attribution Model</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Marketing Attribution</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Track campaign ROI by channel</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Moderate - analytics implementation</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">7. Data Governance Framework</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Foundation for all categories</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Establish ownership & standards</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Moderate - policy development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI-Readiness Opportunities -->
+            <div class="phase-group">
+                <div class="phase-header">
+                    <div class="phase-icon ai-ready">AI</div>
+                    <div class="phase-title">AI-Readiness Opportunities</div>
+                    <div class="phase-timeline">6-12 months | Strategic foundation</div>
+                </div>
+                <div class="opportunities-list">
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">8. Predictive Event Analytics</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Customer Journey & Economic Impact</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">ML models for opportunity scoring</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Significant - AI/ML development</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">9. Intelligent Nurturing Automation</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Customer Journey</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">Personalized client engagement</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Significant - automation platform</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="opportunity-card">
+                        <div class="opportunity-title">10. Dynamic Pricing Optimization</div>
+                        <div class="opportunity-details">
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Gap Closed:</span>
+                                <span class="detail-value">Economic Impact</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Impact:</span>
+                                <span class="detail-value">AI-powered revenue optimization</span>
+                            </div>
+                            <div class="opportunity-detail">
+                                <span class="detail-label">Effort:</span>
+                                <span class="detail-value">Significant - AI pricing engine</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deliverable -->
+        <div class="deliverable-section">
+            <div class="deliverable-header">
+                <div class="deliverable-icon">
+                    <svg class="icon" viewBox="0 0 24 24" style="width: 32px; height: 32px;">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <div class="deliverable-info">
+                    <h3>Gap & Opportunities Report</h3>
+                    <p>Single integrated 8-10 page strategic document combining gap findings and prioritized opportunities</p>
+                </div>
+            </div>
+            <div class="deliverable-grid">
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">Executive Summary</div>
+                    <div class="deliverable-item-desc">Current state gaps vs. best practices with strategic opportunity overview</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">Gaps by Category</div>
+                    <div class="deliverable-item-desc">1-2 key gaps per category with severity ratings (HIGH/MEDIUM/LOW)</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">8-10 Prioritized Opportunities</div>
+                    <div class="deliverable-item-desc">Quick wins + strategic initiatives organized by implementation phase</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">Implementation Timeline</div>
+                    <div class="deliverable-item-desc">Timeline framework showing Phase 1, 2, 3 opportunities sequencing</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">Prioritization Matrix</div>
+                    <div class="deliverable-item-desc">Visual impact vs. effort matrix positioning all opportunities</div>
+                </div>
+                <div class="deliverable-item">
+                    <div class="deliverable-item-title">Success Metrics</div>
+                    <div class="deliverable-item-desc">Measurable outcomes to track progress and demonstrate value</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Criteria & Business Value -->
+        <div class="bottom-grid">
+            <div class="criteria-section">
+                <h3 class="section-title">
+                    <svg class="section-icon" viewBox="0 0 24 24" style="color: #f59e0b;">
+                        <path d="M12,2A7,7 0 0,1 19,9C19,11.38 17.81,13.47 16,14.74V17A1,1 0 0,1 15,18H9A1,1 0 0,1 8,17V14.74C6.19,13.47 5,11.38 5,9A7,7 0 0,1 12,2M9,21V20H15V21A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21M12,4A5,5 0 0,0 7,9C7,10.68 7.84,12.16 9.15,13L9.85,13.39C10.03,13.5 10.16,13.7 10.16,13.91V16H13.84V13.91C13.84,13.7 13.97,13.5 14.15,13.39L14.85,13C16.16,12.16 17,10.68 17,9A5,5 0 0,0 12,4Z"/>
+                    </svg>
+                    Success Criteria
+                </h3>
+                <div class="criteria-grid">
+                    <div class="criteria-item critical">
+                        <div class="criteria-metric critical">6</div>
+                        <div class="criteria-description">Data categories assessed with critical gaps</div>
+                    </div>
+                    <div class="criteria-item target">
+                        <div class="criteria-metric target">8-10</div>
+                        <div class="criteria-description">Opportunities prioritized by phase</div>
+                    </div>
+                    <div class="criteria-item target">
+                        <div class="criteria-metric target">Clear</div>
+                        <div class="criteria-description">Path to transformation visible</div>
+                    </div>
+                    <div class="criteria-item target">
+                        <div class="criteria-metric target">Ready</div>
+                        <div class="criteria-description">Phase 3 roadmap is obvious & credible</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="value-section">
+                <h3 class="section-title">
+                    <svg class="section-icon" viewBox="0 0 24 24" style="color: #16a34a;">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Business Value Created
+                </h3>
+                <div class="value-list">
+                    <div class="value-item">
+                        <svg class="value-icon" viewBox="0 0 24 24">
+                            <path d="M12,2A7,7 0 0,1 19,9C19,11.38 17.81,13.47 16,14.74V17A1,1 0 0,1 15,18H9A1,1 0 0,1 8,17V14.74C6.19,13.47 5,11.38 5,9A7,7 0 0,1 12,2M9,21V20H15V21A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21M12,4A5,5 0 0,0 7,9C7,10.68 7.84,12.16 9.15,13L9.85,13.39C10.03,13.5 10.16,13.7 10.16,13.91V16H13.84V13.91C13.84,13.7 13.97,13.5 14.15,13.39L14.85,13C16.16,12.16 17,10.68 17,9A5,5 0 0,0 12,4Z"/>
+                        </svg>
+                        <div>
+                            <div class="value-title">Strategic Clarity</div>
+                            <div class="value-description">Clear understanding of gaps and systematic path to close them over 12 months</div>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <svg class="value-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div>
+                            <div class="value-title">Actionable Roadmap Foundation</div>
+                            <div class="value-description">Prioritized opportunities drive roadmap initiatives and inform sequencing</div>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <svg class="value-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div>
+                            <div class="value-title">Quick-Win Momentum</div>
+                            <div class="value-description">Early wins build stakeholder confidence for larger transformation</div>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <svg class="value-icon" viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        <div>
+                            <div class="value-title">LATAM Leadership Positioning</div>
+                            <div class="value-description">Structured approach supports goal to become data-driven destination leader</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline-section">
+            <h3 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                Phase Timeline
+            </h3>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-points">
+                    <div class="timeline-point">
+                        <div class="timeline-circle">4</div>
+                        <div class="timeline-date">Week 4</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Analysis process steps data
+        const stepsData = [
+            {
+                number: 1,
+                title: "Data Review & Synthesis",
+                hours: 2,
+                items: [
+                    "Review Phase 0/1 discovery responses (survey + technical form)",
+                    "Map current systems and capabilities",
+                    "Identify 1-2 critical gaps per data category",
+                    "Flag consistency issues",
+                    "Output: Discovery findings summary (1 page)"
+                ]
+            },
+            {
+                number: 2,
+                title: "Gap Identification",
+                hours: 4,
+                items: [
+                    "Compare Medellin's state vs Pre-Discovery baseline",
+                    "Assess 6 critical data categories",
+                    "Rate gaps as HIGH / MEDIUM / LOW severity",
+                    "Evaluate impact on strategic decision-making",
+                    "Output: Gap summary (1-2 pages, 1-2 gaps per category)"
+                ]
+            },
+            {
+                number: 3,
+                title: "Opportunities Prioritization",
+                hours: 4,
+                items: [
+                    "Identify 8-10 opportunities across 3 phases",
+                    "Quick-Win: 1-2 months, minimal resources",
+                    "Strategic: 3-6 months, moderate investment",
+                    "AI-Readiness: 6-12 months, strategic foundation",
+                    "Output: Prioritized opportunities with timeline & impact (2-3 pages)"
+                ]
+            },
+            {
+                number: 4,
+                title: "Synthesis & Documentation",
+                hours: 2,
+                items: [
+                    "Write executive summary positioning gaps as opportunities",
+                    "Create one-page prioritization matrix (impact vs. effort)",
+                    "Develop implementation timeline for Phase 3",
+                    "Prepare transition to roadmap development",
+                    "Output: Executive narrative and visual prioritization"
+                ]
+            }
+        ];
+
+        let animationInterval;
+
+        function renderSteps() {
+            const container = document.getElementById('steps-container');
+
+            container.innerHTML = stepsData.map((step, index) => `
+                <div class="step-card" data-index="${index}">
+                    <div class="step-header">
+                        <div class="step-number">${step.number}</div>
+                        <div class="step-info">
+                            <div class="step-title">${step.title}</div>
+                            <div class="step-hours">${step.hours} hours allocated</div>
+                        </div>
+                    </div>
+                    <div class="step-content">
+                        ${step.items.map(item => `
+                            <div class="step-item">
+                                <svg class="step-arrow" viewBox="0 0 24 24">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                                <div class="step-text">${item}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            startStepAnimation();
+        }
+
+        function startStepAnimation() {
+            if (animationInterval) clearInterval(animationInterval);
+
+            let currentIndex = 0;
+            animationInterval = setInterval(() => {
+                // Remove animation from all cards
+                document.querySelectorAll('.step-card').forEach(card => {
+                    card.classList.remove('animated');
+                });
+
+                // Add animation to current card
+                const cards = document.querySelectorAll('.step-card');
+                if (cards[currentIndex]) {
+                    cards[currentIndex].classList.add('animated');
+                }
+
+                currentIndex = (currentIndex + 1) % cards.length;
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSteps();
+        });
+    </script>
+</body>
+</html>
