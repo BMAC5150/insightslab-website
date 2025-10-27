@@ -64,6 +64,133 @@
             margin-bottom: 20px;
         }
 
+        /* LLM Enhancement Styles */
+        .llm-status-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.05em;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .llm-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .llm-enhancement {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            border-radius: 6px;
+        }
+
+        .enhancement-badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .evidence-section {
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e0e7ff;
+        }
+
+        .evidence-section ul {
+            margin: 10px 0 0 20px;
+        }
+
+        .evidence-section li {
+            font-style: italic;
+            color: #4b5563;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .root-cause-box, .strategic-impact-box {
+            margin-top: 12px;
+            padding: 10px;
+            background: #fefce8;
+            border-left: 3px solid #eab308;
+            border-radius: 4px;
+        }
+
+        .strategic-impact-box {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+
+        .themes-box {
+            background: #faf5ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #e9d5ff;
+        }
+
+        .themes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .themes-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9d5ff;
+        }
+
+        .themes-list li:last-child {
+            border-bottom: none;
+        }
+
+        .sentiment-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .sentiment-frustrated {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .sentiment-concerned {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .sentiment-neutral {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .sentiment-optimistic {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
         /* Upload Section */
         .upload-section {
             background: white;
@@ -487,26 +614,99 @@
                 }
             };
 
-            const runAnalysis = () => {
+            const loadJSONResults = async () => {
+                try {
+                    // Load the LLM-enhanced JSON files
+                    const [gapsResponse, oppsResponse] = await Promise.all([
+                        fetch('medellin_gaps.json'),
+                        fetch('medellin_opportunities.json')
+                    ]);
+
+                    const gaps = await gapsResponse.json();
+                    const opportunities = await oppsResponse.json();
+
+                    // Calculate stats
+                    const gapsBySeverity = {
+                        high: gaps.filter(g => g.severity === 'HIGH').length,
+                        medium: gaps.filter(g => g.severity === 'MEDIUM').length,
+                        low: gaps.filter(g => g.severity === 'LOW').length
+                    };
+
+                    const opportunitiesByPhase = {
+                        'Quick Win': opportunities.filter(o => o.phase === 'Quick Win').length,
+                        'Strategic': opportunities.filter(o => o.phase === 'Strategic').length,
+                        'AI-Readiness': opportunities.filter(o => o.phase === 'AI-Readiness').length
+                    };
+
+                    setAnalysisResults({
+                        gaps,
+                        opportunities,
+                        gapsBySeverity,
+                        opportunitiesByPhase
+                    });
+
+                    alert('✅ LLM-enhanced results loaded successfully!');
+                } catch (error) {
+                    alert('❌ Error loading JSON files. Make sure medellin_gaps.json and medellin_opportunities.json are in the same directory.\n\nRun: python3 medellin_gap_analysis_script.py');
+                    console.error('Error loading JSON:', error);
+                }
+            };
+
+            const runAnalysis = async () => {
                 if (!surveyFile || !technicalFile) return;
 
-                // Parse CSV files
-                Papa.parse(surveyFile, {
-                    header: true,
-                    complete: (surveyResults) => {
-                        Papa.parse(technicalFile, {
-                            header: true,
-                            complete: (technicalResults) => {
-                                // Run gap analysis
-                                const results = performGapAnalysis(
-                                    surveyResults.data,
-                                    technicalResults.data
-                                );
-                                setAnalysisResults(results);
-                            }
-                        });
+                try {
+                    // Show loading state
+                    setAnalysisResults(null);
+
+                    // Create form data with CSV files
+                    const formData = new FormData();
+                    formData.append('survey', surveyFile);
+                    formData.append('technical', technicalFile);
+
+                    console.log('🚀 Uploading CSVs to backend API...');
+
+                    // Call backend API to run Python analysis script
+                    const response = await fetch('http://localhost:5001/api/analyze', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Analysis failed');
                     }
-                });
+
+                    const data = await response.json();
+
+                    console.log('✅ Analysis complete:', data.metadata);
+
+                    // Calculate stats
+                    const gapsBySeverity = {
+                        high: data.gaps.filter(g => g.severity === 'HIGH').length,
+                        medium: data.gaps.filter(g => g.severity === 'MEDIUM').length,
+                        low: data.gaps.filter(g => g.severity === 'LOW').length
+                    };
+
+                    const opportunitiesByPhase = {
+                        'Quick Win': data.opportunities.filter(o => o.phase === 'Quick Win').length,
+                        'Strategic': data.opportunities.filter(o => o.phase === 'Strategic').length,
+                        'AI-Readiness': data.opportunities.filter(o => o.phase === 'AI-Readiness').length
+                    };
+
+                    setAnalysisResults({
+                        gaps: data.gaps,
+                        opportunities: data.opportunities,
+                        gapsBySeverity,
+                        opportunitiesByPhase
+                    });
+
+                    alert(`✅ Analysis complete!\n\n${data.metadata.total_gaps} gaps (${data.metadata.llm_gaps} AI-discovered)\n${data.metadata.total_opportunities} opportunities (${data.metadata.llm_opportunities} AI-generated)`);
+
+                } catch (error) {
+                    console.error('❌ Analysis error:', error);
+                    alert(`❌ Analysis failed: ${error.message}\n\nMake sure the backend server is running:\npython3 backend_api.py`);
+                }
             };
 
             useEffect(() => {
@@ -517,11 +717,12 @@
 
             return (
                 <div className="container">
-                    <Header />
+                    <Header results={analysisResults} />
                     <UploadSection
                         surveyFile={surveyFile}
                         technicalFile={technicalFile}
                         onFileUpload={handleFileUpload}
+                        onLoadJSON={loadJSONResults}
                     />
                     {analysisResults && (
                         <ResultsSection
@@ -541,7 +742,12 @@
         }
 
         // Header Component
-        function Header() {
+        function Header({ results }) {
+            const llmGaps = results?.gaps?.filter(g => g.llm_identified).length || 0;
+            const llmOpps = results?.opportunities?.filter(o => o.llm_generated).length || 0;
+            const totalGaps = results?.gaps?.length || 0;
+            const totalOpps = results?.opportunities?.length || 0;
+
             return (
                 <div className="header-card">
                     <div className="brand-tag">by InsightsLab</div>
@@ -549,12 +755,17 @@
                     <p className="subtitle">
                         Upload survey and technical data to generate comprehensive gap analysis and prioritized opportunities report
                     </p>
+                    {results && (
+                        <div className="llm-status-banner">
+                            🤖 AI-Enhanced Analysis • Claude Sonnet 4.5 • {totalGaps} Gaps ({llmGaps} AI-discovered) • {totalOpps} Opportunities ({llmOpps} AI-generated)
+                        </div>
+                    )}
                 </div>
             );
         }
 
         // Upload Section Component
-        function UploadSection({ surveyFile, technicalFile, onFileUpload }) {
+        function UploadSection({ surveyFile, technicalFile, onFileUpload, onLoadJSON }) {
             return (
                 <div className="upload-section">
                     <div className="upload-grid">
@@ -570,6 +781,34 @@
                             file={technicalFile}
                             onUpload={(file) => onFileUpload('technical', file)}
                         />
+                    </div>
+                    <div style={{textAlign: 'center', margin: '32px 0 20px 0', color: '#9ca3af', fontSize: '1.1em', fontWeight: '500'}}>
+                        — OR —
+                    </div>
+                    <div style={{textAlign: 'center', marginTop: '20px'}}>
+                        <button
+                            onClick={onLoadJSON}
+                            style={{
+                                padding: '14px 32px',
+                                fontSize: '16px',
+                                fontWeight: '600',
+                                color: 'white',
+                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                border: 'none',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
+                                transition: 'transform 0.2s'
+                            }}
+                            onMouseOver={(e) => e.target.style.transform = 'translateY(-2px)'}
+                            onMouseOut={(e) => e.target.style.transform = 'translateY(0)'}
+                        >
+                            🤖 Load Enhanced Results
+                        </button>
+                        <div style={{marginTop: '12px', color: '#6b7280', fontSize: '0.95em', maxWidth: '600px', margin: '12px auto 0'}}>
+                            Use this if you've already run the Python analysis script.<br/>
+                            Loads pre-analyzed results with AI enhancements (no CSV upload needed).
+                        </div>
                     </div>
                 </div>
             );
@@ -657,8 +896,8 @@
                         />
                         <ResultTile
                             title="Success Metrics"
-                            metric="7"
-                            description="Key performance indicators defined"
+                            metric="30"
+                            description="Essential business KPIs to track"
                             color="#ec4899"
                             onClick={() => onTileClick('metrics')}
                         />
@@ -771,7 +1010,12 @@
                     {gaps.map((gap, index) => (
                         <div key={index} className="gap-item">
                             <div className="gap-header">
-                                <div className="gap-title">{gap.category}</div>
+                                <div className="gap-title">
+                                    {gap.category}
+                                    {gap.llm_identified && (
+                                        <span className="llm-badge">🤖 AI Discovered</span>
+                                    )}
+                                </div>
                                 <span className={`severity-badge severity-${gap.severity.toLowerCase()}`}>
                                     {gap.severity}
                                 </span>
@@ -779,6 +1023,42 @@
                             <div className="gap-description"><strong>Gap:</strong> {gap.gap}</div>
                             <div className="gap-description">{gap.description}</div>
                             <div className="gap-impact"><strong>Impact:</strong> {gap.impact}</div>
+
+                            {/* LLM Enhancements */}
+                            {gap.llm_enhanced_description && (
+                                <div className="llm-enhancement">
+                                    <div className="enhancement-badge">🤖 AI Enhanced Analysis</div>
+                                    <div className="gap-description">
+                                        <strong>Enhanced Context:</strong><br/>
+                                        {gap.llm_enhanced_description}
+                                    </div>
+
+                                    {gap.llm_evidence && gap.llm_evidence.length > 0 && (
+                                        <div className="evidence-section">
+                                            <strong>Evidence from Surveys:</strong>
+                                            <ul>
+                                                {gap.llm_evidence.map((evidence, i) => (
+                                                    <li key={i}>"{evidence}"</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {gap.llm_root_cause && (
+                                        <div className="root-cause-box">
+                                            <strong>Root Cause:</strong><br/>
+                                            {gap.llm_root_cause}
+                                        </div>
+                                    )}
+
+                                    {gap.llm_strategic_impact && (
+                                        <div className="strategic-impact-box">
+                                            <strong>Strategic Impact:</strong><br/>
+                                            {gap.llm_strategic_impact}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -792,7 +1072,12 @@
                         <div key={index} className="opportunity-item">
                             <div className="opportunity-header">
                                 <div className="opportunity-number">{index + 1}</div>
-                                <div className="opportunity-title">{opp.title}</div>
+                                <div className="opportunity-title">
+                                    {opp.title}
+                                    {opp.llm_generated && (
+                                        <span className="llm-badge">🤖 AI Generated</span>
+                                    )}
+                                </div>
                                 <span className={`phase-badge phase-${opp.phase.toLowerCase().replace(/\s+/g, '-').replace('-win', '-win')}`}>
                                     {opp.phase}
                                 </span>
@@ -812,6 +1097,16 @@
                                     <div className="detail-value">{opp.expected_impact}</div>
                                 </div>
                             </div>
+
+                            {/* Show innovation factor for LLM-generated opportunities */}
+                            {opp.innovation_factor && (
+                                <div className="llm-enhancement" style={{marginTop: '15px'}}>
+                                    <div className="enhancement-badge">💡 Innovation Highlight</div>
+                                    <div className="gap-description">
+                                        {opp.innovation_factor}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -897,23 +1192,137 @@
         }
 
         function MetricsContent() {
-            const metrics = [
-                "Staff can answer 'Which clients are most valuable?' in under 5 minutes",
-                "Monthly reports generated automatically, not manually",
-                "Marketing team can demonstrate ROI by campaign channel",
-                "Leadership receives real-time economic impact metrics",
-                "80% staff satisfaction with data accessibility",
-                "Data quality issues reduced by 50%",
-                "Time spent on manual information gathering reduced by 60%"
+            const metricsCategories = [
+                {
+                    category: 'Economic Impact & ROI',
+                    color: '#FF4444',
+                    metrics: [
+                        { name: 'Total Annual Economic Impact', unit: 'USD', target: 'Tracked monthly' },
+                        { name: 'Economic Impact per Event', unit: 'USD', target: 'Real-time calculation' },
+                        { name: 'Return on Investment (ROI)', unit: '%', target: 'By event, by quarter' },
+                        { name: 'Hotel Room Nights Generated', unit: '#', target: 'Per event, cumulative' },
+                        { name: 'Direct vs Indirect Economic Impact', unit: 'Ratio', target: 'ICCA methodology' }
+                    ]
+                },
+                {
+                    category: 'Sales & Business Development',
+                    color: '#3b82f6',
+                    metrics: [
+                        { name: 'Lead Conversion Rate', unit: '%', target: 'Proposals to bookings' },
+                        { name: 'Sales Cycle Length', unit: 'Days', target: 'First contact to contract' },
+                        { name: 'Win Rate by Event Type', unit: '%', target: 'Association, Corporate, etc.' },
+                        { name: 'Average Event Revenue', unit: 'USD', target: 'By type and size' },
+                        { name: 'Pipeline Value', unit: 'USD', target: 'Real-time by stage' }
+                    ]
+                },
+                {
+                    category: 'Client Relationships',
+                    color: '#8b5cf6',
+                    metrics: [
+                        { name: 'Client Lifetime Value (CLV)', unit: 'USD', target: 'Per client segment' },
+                        { name: 'Repeat Client Rate', unit: '%', target: 'Annual retention' },
+                        { name: 'Client Satisfaction Score', unit: '1-10', target: 'Post-event NPS' },
+                        { name: 'Time to First Response', unit: 'Hours', target: 'Lead inquiry to response' },
+                        { name: 'Top 20 Client Revenue Share', unit: '%', target: 'Concentration tracking' }
+                    ]
+                },
+                {
+                    category: 'Marketing Effectiveness',
+                    color: '#10b981',
+                    metrics: [
+                        { name: 'Marketing ROI by Channel', unit: '%', target: 'Digital, events, PR, etc.' },
+                        { name: 'Cost Per Lead (CPL)', unit: 'USD', target: 'By marketing channel' },
+                        { name: 'Lead-to-Customer Conversion', unit: '%', target: 'By source' },
+                        { name: 'Website Conversion Rate', unit: '%', target: 'Visitors to inquiries' },
+                        { name: 'Campaign Attribution Rate', unit: '%', target: 'Trackable touchpoints' }
+                    ]
+                },
+                {
+                    category: 'Operational Performance',
+                    color: '#f59e0b',
+                    metrics: [
+                        { name: 'Event Attendance Rate', unit: '%', target: 'Registered vs actual' },
+                        { name: 'Venue Utilization Rate', unit: '%', target: 'Capacity vs bookings' },
+                        { name: 'Proposal Response Time', unit: 'Days', target: 'RFP to submission' },
+                        { name: 'Data Quality Score', unit: '%', target: 'Complete, accurate records' },
+                        { name: 'Staff Productivity', unit: 'Events/FTE', target: 'Per sales rep' }
+                    ]
+                },
+                {
+                    category: 'Competitive Position',
+                    color: '#ec4899',
+                    metrics: [
+                        { name: 'Market Share by Event Type', unit: '%', target: 'Within LATAM region' },
+                        { name: 'Competitive Win Rate', unit: '%', target: 'When competing cities known' },
+                        { name: 'Price Competitiveness Index', unit: 'Index', target: 'vs peer destinations' },
+                        { name: 'ICCA Global Ranking', unit: 'Rank', target: 'Annual position' },
+                        { name: 'Share of Voice', unit: '%', target: 'Media mentions vs competitors' }
+                    ]
+                }
             ];
 
             return (
                 <div>
-                    {metrics.map((metric, index) => (
-                        <div key={index} className="gap-item" style={{'--gap-color': '#10b981'}}>
-                            <div className="gap-description">✓ {metric}</div>
+                    <div style={{marginBottom: '20px', padding: '15px', background: '#f0f9ff', borderRadius: '8px', borderLeft: '4px solid #3b82f6'}}>
+                        <strong>Core Business Performance Metrics</strong>
+                        <p style={{marginTop: '8px', fontSize: '0.95em', color: '#4b5563'}}>
+                            These are the essential KPIs that a world-class DMO data ecosystem should track,
+                            regardless of current capability. Organized by strategic priority.
+                        </p>
+                    </div>
+
+                    {metricsCategories.map((cat, idx) => (
+                        <div key={idx} style={{marginBottom: '24px'}}>
+                            <h3 style={{
+                                color: cat.color,
+                                fontSize: '1.1em',
+                                fontWeight: '700',
+                                marginBottom: '12px',
+                                borderBottom: `2px solid ${cat.color}`,
+                                paddingBottom: '8px'
+                            }}>
+                                {cat.category}
+                            </h3>
+                            {cat.metrics.map((metric, mIdx) => (
+                                <div key={mIdx} className="gap-item" style={{
+                                    '--gap-color': cat.color,
+                                    marginBottom: '8px',
+                                    padding: '12px',
+                                    display: 'grid',
+                                    gridTemplateColumns: '2fr 1fr 2fr',
+                                    gap: '12px',
+                                    alignItems: 'center'
+                                }}>
+                                    <div style={{fontWeight: '600', color: '#1a202c'}}>
+                                        {metric.name}
+                                    </div>
+                                    <div style={{
+                                        textAlign: 'center',
+                                        padding: '4px 8px',
+                                        background: '#f3f4f6',
+                                        borderRadius: '4px',
+                                        fontSize: '0.85em',
+                                        fontWeight: '600',
+                                        color: '#6b7280'
+                                    }}>
+                                        {metric.unit}
+                                    </div>
+                                    <div style={{fontSize: '0.9em', color: '#6b7280', fontStyle: 'italic'}}>
+                                        {metric.target}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ))}
+
+                    <div style={{marginTop: '24px', padding: '15px', background: '#fef3c7', borderRadius: '8px', borderLeft: '4px solid #f59e0b'}}>
+                        <strong>Implementation Note:</strong>
+                        <p style={{marginTop: '8px', fontSize: '0.95em', color: '#78350f'}}>
+                            These metrics align with ICCA global standards and best practices from leading DMOs
+                            (Singapore, Copenhagen, Montréal). Implementing comprehensive tracking of these KPIs
+                            positions Medellin as a data-driven LATAM leader.
+                        </p>
+                    </div>
                 </div>
             );
         }
