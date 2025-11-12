@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidScout - Find Leads Others Miss</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-bottom: 0;
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FF8C00;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(83, 27, 147, 0.8), rgba(83, 27, 147, 0.8)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            color: white;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .hero .tagline {
+            font-size: 28px;
+            color: #FF8C00;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* CTA Buttons */
+        .btn {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            border: 2px solid white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #FF8C00;
+            color: #FF8C00;
+        }
+
+        .btn-secondary:hover {
+            background-color: #FF8C00;
+            color: white;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .problem-section h2 {
+            font-size: 42px;
+            color: #531b93;
+            margin-bottom: 40px;
+        }
+
+        .problem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 22px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #531b93;
+            font-size: 42px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(83, 27, 147, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #FF8C00;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .before-card {
+            background-color: #ffebee;
+            border: 2px solid #ff5252;
+        }
+
+        .after-card {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+
+        .comparison-card h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-card li {
+            padding: 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Value Section */
+        .value-section {
+            padding: 80px 0;
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+        }
+
+        .value-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .value-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 22px;
+            line-height: 1.8;
+        }
+
+        .value-highlight {
+            font-size: 64px;
+            color: #FF8C00;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 80px 0;
+        }
+
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 30px;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            padding: 40px 30px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .process-step p {
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            background-color: #FF8C00;
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .process-step h3 {
+            color: #531b93;
+            margin-bottom: 15px;
+        }
+
+        /* Reality Check Section */
+        .reality-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .reality-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 40px;
+        }
+
+        .reality-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .reality-statement {
+            font-size: 26px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .reality-question {
+            font-size: 20px;
+            font-style: italic;
+            margin-top: 50px;
+            color: #FF8C00;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .proof-section h2 {
+            color: #531b93;
+            font-size: 42px;
+            margin-bottom: 40px;
+        }
+
+        .guarantee-box {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .guarantee-number {
+            font-size: 72px;
+            color: #FF8C00;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .guarantee-text {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .final-cta h2 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .final-cta p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 22px;
+        }
+
+        /* Pricing Box */
+        .pricing-box {
+            background: white;
+            color: #333;
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-box h3 {
+            color: #531b93;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .pricing-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 30px;
+        }
+
+        .footer-content h3 {
+            color: #FF8C00;
+            margin-bottom: 15px;
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-stat {
+            text-align: center;
+        }
+
+        .footer-stat-number {
+            font-size: 32px;
+            color: #FF8C00;
+            font-weight: bold;
+        }
+
+        .footer-stat-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FF8C00;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 700px;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h2 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .modal-header .modal-subtitle {
+            color: #FF8C00;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 40px;
+            color: #333;
+        }
+
+        .modal-body h3 {
+            color: #531b93;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .modal-body h3:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-body li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .benefit-item {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #FF8C00;
+        }
+
+        .benefit-item h4 {
+            color: #FF8C00;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #FF8C00;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #FF8C00;
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 30px;
+            background-color: #f0f0f0;
+            color: #531b93;
+            border: 2px solid #531b93;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(83, 27, 147, 0.15);
+        }
+
+        .learn-more-btn:hover {
+            background-color: #531b93;
+            color: white;
+            box-shadow: 0 4px 12px rgba(83, 27, 147, 0.25);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .tagline {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .problem-section h2,
+            .value-section h2,
+            .reality-section h2,
+            .proof-section h2 {
+                font-size: 32px;
+            }
+
+            .problem-content,
+            .value-content {
+                font-size: 18px;
+            }
+
+            .reality-statement {
+                font-size: 20px;
+            }
+
+            /* Modal responsive adjustments */
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+                margin: 5% auto;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 22px;
+            }
+
+            .modal-header .modal-subtitle {
+                font-size: 16px;
+            }
+
+            .modal-body {
+                padding: 20px;
+                font-size: 16px;
+            }
+
+            .modal-body h3 {
+                font-size: 20px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            .benefit-item {
+                padding: 15px;
+                font-size: 15px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #531b93;
+                flex-direction: column;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+            }
+
+            .value-highlight {
+                font-size: 48px;
+            }
+
+            .guarantee-number {
+                font-size: 56px;
+            }
+
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            .footer-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .btn {
+                width: 90%;
+                padding: 12px 20px;
+            }
+
+            .feature-card,
+            .process-step {
+                padding: 30px 20px;
+            }
+
+            /* Modal adjustments for very small screens */
+            .modal-content {
+                margin: 5% auto;
+            }
+
+            .modal-header {
+                padding: 15px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .benefit-item {
+                padding: 15px;
+            }
+
+            .stat-highlight {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>BidScout</h1>
+            </div>
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#problem">The Problem</a>
+                <a href="#solution">The Solution</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#get-started">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>10,000+ event leads.</h1>
+            <div class="reality-content">
+                <p class="reality-statement">Sales intelligence that converts more business.</p>
+            </div>
+            <p class="tagline">BidScout finds opportunities. You close them.</p>
+            <div class="cta-buttons">
+                <a href="#how-it-works" class="btn">See How It Works</a>
+                <a href="#pricing" class="btn btn-secondary">See Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <h2>The Problem</h2>
+            <div class="problem-content">
+                <p>Your team spends weeks searching.<br>
+                They find an event. Research it. Build a proposal.<br>
+                It doesn't convert.</p>
+                <p>Meanwhile, the perfect event for you was planning their site selection.<br>
+                Someone else found it first.<br>
+                Someone else won it.</p>
+                <p><strong>You never even knew it existed.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What BidScout Does Section -->
+    <section id="solution" class="features">
+        <div class="container">
+            <h2 class="section-title">What BidScout Does</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>It finds events</h3>
+                    <p>Not just any events. The ones that fit.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏙️</div>
+                    <h3>It knows your city</h3>
+                    <p>Your venues. Your strengths. What works.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>It helps you WIN</h3>
+                    <p>Sales intel and bidding insights in minutes. Not days.</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value-section">
+        <div class="container">
+            <h2>The Value</h2>
+            <div class="value-content">
+                <p><strong>Stop missing opportunities that were perfect for you.</strong></p>
+                <p>Win one additional event per year.</p>
+                <div class="value-highlight">250x</div>
+                <p>That's 250x return on BidScout.</p>
+                <p>Most teams discover 20-30 new opportunities in the first 60 days.</p>
+
+                <div style="background: #fff; max-width: 700px; margin: 40px auto 0; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <h3 style="color: #531b93; margin-bottom: 20px; text-align: center;">
+                        Pilot Results (First 60 Days)
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center;">
+                        <div>
+                            <div style="font-size: 36px; font-weight: bold; color: #FF8C00;">23</div>
+                            <div style="font-size: 14px; color: #666;">Avg. Opportunities Found</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 36px; font-weight: bold; color: #FF8C00;">6-8</div>
+                            <div style="font-size: 14px; color: #666;">Weeks Earlier Awareness</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 36px; font-weight: bold; color: #FF8C00;">78%</div>
+                            <div style="font-size: 14px; color: #666;">Better Quality Leads</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 14px; color: #666; margin-top: 20px; text-align: center; font-style: italic;">
+                        Based on 8 DMO pilot partners, 60-day evaluation period
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Details Matter Section -->
+    <section style="padding: 60px 0; background-color: #f0f0f0;">
+        <div class="container">
+            <h2 style="text-align: center; color: #531b93; margin-bottom: 40px;">
+                Why These Details Matter
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; font-size: 18px; line-height: 1.8;">
+                <p>BidScout knows you need to understand how it works before you commit.
+                That's why detailed explanations of every step have been included.</p>
+
+                <p><strong>Click "Learn More" on any section below to see:</strong></p>
+                <ul style="margin-left: 30px; margin-top: 15px;">
+                    <li>Exactly how the technology works</li>
+                    <li>What intelligence you'll receive</li>
+                    <li>Real examples from pilot users</li>
+                    <li>Why each capability matters for your team</li>
+                </ul>
+
+                <p style="margin-top: 20px;">
+                    <strong>This isn't magic. It's proven technology applied to your specific challenge.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="process">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Profile</h3>
+                    <p>BidScout learns your destination. Venues. Industries. Strengths. Competitive advantages. One setup. Ten minutes.</p>
+                    <button class="learn-more-btn" onclick="openModal('profileModal')">Learn More</button>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Discover</h3>
+                    <p>BidScout searches everything. Verified database of 10,000+ events. Real-time web discovery. Events planning site selection now.</p>
+                    <button class="learn-more-btn" onclick="openModal('discoverModal')">Learn More</button>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Match</h3>
+                    <p>AI analyzes every event. Academic fit. Industry alignment. Venue capacity. 9 factors. 0-100% match score.</p>
+                    <button class="learn-more-btn" onclick="openModal('matchModal')">Learn More</button>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Decide</h3>
+                    <p>10 minutes to full intelligence. Who decides. What they need. Why you fit. Ready to pursue or pass.</p>
+                    <button class="learn-more-btn" onclick="openModal('decideModal')">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Trust Section -->
+    <section style="padding: 60px 0; background-color: #f9f9f9;">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h3 style="text-align: center; color: #531b93; margin-bottom: 30px;">
+                    The Technology Behind BidScout
+                </h3>
+                <p style="font-size: 18px; line-height: 1.8; margin-bottom: 20px;">
+                    BidScout uses proven AI technologies from industry leaders:
+                </p>
+                <ul style="margin-left: 30px; font-size: 17px; line-height: 2;">
+                    <li><strong>OpenAI GPT-4:</strong> Powers event analysis and intelligence synthesis</li>
+                    <li><strong>Perplexity AI:</strong> Real-time web search and discovery</li>
+                    <li><strong>Machine Learning:</strong> Improves fit scoring accuracy over time</li>
+                    <li><strong>Natural Language Processing:</strong> Extracts key information from event websites and documents</li>
+                </ul>
+                <p style="margin-top: 30px; font-size: 16px; line-height: 1.8; padding: 20px; background: #fff; border-left: 4px solid #531b93; border-radius: 5px;">
+                    <strong>Not "black box" magic.</strong> These are the same AI technologies used by Fortune 500 companies for business intelligence. BidScout has applied them specifically to the business events industry with custom training on venue requirements, association patterns, and site selection criteria.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reality Check Section -->
+    <section class="reality-section">
+        <div class="container">
+            <h2>The Reality Check</h2>
+            <div class="reality-content">
+                <p class="reality-statement">Your competitor is using AI.</p>
+                <p class="reality-statement">They're finding opportunities 6 weeks earlier and engaging sooner.</p>
+                <p class="reality-statement">They're building relationships while you're still searching.</p>
+                <p class="reality-question">The question isn't whether to adopt intelligence tools.<br>
+                The question is how many opportunities you'll miss before you do.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof-section">
+        <div class="container">
+            <h2>Proof</h2>
+            <div class="guarantee-box">
+                <div class="guarantee-number">60 days</div>
+                <p class="guarantee-text"><strong>15 qualified opportunities guaranteed.</strong></p>
+                <p class="guarantee-text" style="font-size: 22px; color: #FF8C00;">
+                    Or 100% of your money back.
+                </p>
+                <p style="margin-top: 20px; font-size: 18px;">
+                    <strong>How it works:</strong>
+                </p>
+                <ul style="text-align: left; max-width: 600px; margin: 20px auto 0; font-size: 16px; line-height: 1.8;">
+                    <li>Pay $2,500 for 60-day pilot</li>
+                    <li>Use BidScout with your destination profile</li>
+                    <li>If BidScout doesn't find 15+ qualified opportunities, email us</li>
+                    <li>100% refund within 5 business days</li>
+                    <li>No questions. No hassle.</li>
+                </ul>
+                <p style="margin-top: 30px; font-size: 18px; color: #333;">
+                    BidScout is that confident you're missing more than you think.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section style="padding: 80px 0; background-color: #fff;">
+        <div class="container">
+            <h2 class="section-title">Common Questions</h2>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color: #531b93; margin-bottom: 15px;">
+                        "How is this different from our current databases?"
+                    </h3>
+                    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+                        Traditional databases are static lists—often incomplete and outdated.
+                        BidScout combines verified events with real-time AI discovery of rotating
+                        conferences actively planning site selection. BidScout also provides strategic
+                        intelligence (decision-makers, competitive analysis, fit scoring) that
+                        databases don't include.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color: #531b93; margin-bottom: 15px;">
+                        "Our team isn't technical. Will they actually use this?"
+                    </h3>
+                    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+                        BidScout is designed for sales teams, not engineers. If your team can use
+                        Google, they can use BidScout. No training required. Simple interface.
+                        Clear results. Most users are productive within their first 10 minutes.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color: #531b93; margin-bottom: 15px;">
+                        "What if it doesn't find events for our specific market?"
+                    </h3>
+                    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+                        That's why BidScout offers the 60-day guarantee. If BidScout doesn't find at least
+                        15 qualified opportunities for your destination in 60 days, you get a 100%
+                        refund of your pilot fee. No questions asked. BidScout is that confident it will work
+                        for you.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color: #531b93; margin-bottom: 15px;">
+                        "Won't AI replace our sales team?"
+                    </h3>
+                    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+                        No. BidScout handles research—the grunt work your team hates. Your sales
+                        professionals focus on what AI can't do: building relationships, customizing
+                        proposals, and closing deals. Think of it as giving your team a research
+                        assistant, not replacing them.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 40px;">
+                    <h3 style="color: #531b93; margin-bottom: 15px;">
+                        "How long does it take to see results?"
+                    </h3>
+                    <p style="font-size: 18px; line-height: 1.6; color: #333;">
+                        Week 1: Time savings visible immediately (10 minutes vs. 20 hours per event)<br>
+                        Month 1: New qualified opportunities identified<br>
+                        Month 2-3: First RFP responses from BidScout-discovered events<br>
+                        Month 6-12: First event bookings from opportunities you wouldn't have found
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="get-started" class="final-cta">
+        <div class="container">
+            <h2>The Choice</h2>
+            <p><strong>Keep searching manually.</strong> Your team spends 70% of their time researching. They find 30% of available opportunities. They're exhausted.</p>
+            <p><strong>Or let intelligence find them.</strong> Your team spends 70% of their time selling. They pursue 3x more qualified opportunities. They're effective.</p>
+            <p style="font-size: 24px; margin-top: 40px;"><strong>Same team. Different results.</strong></p>
+
+            <div id="pricing" class="pricing-box">
+                <h3>Get Started</h3>
+                <div class="pricing-item">
+                    <strong>60-Day Sprint:</strong> $2,500
+                </div>
+                <div class="pricing-item">
+                    <strong>Annual Subscription:</strong> $10K-$20K
+                </div>
+                <div class="pricing-item" style="color: #FF8C00; font-weight: bold;">
+                    One event win = 250x ROI
+                </div>
+                <div style="margin-top: 30px;">
+                    <a href="#contact" class="btn">Start Your 60-Day Sprint</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- Discovery Modal -->
+    <div id="discoveryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('discoveryModal')">&times;</span>
+                <h2>How BidScout Finds Events You're Missing</h2>
+                <p class="modal-subtitle">How BidScout finds the hidden opportunities your competitors miss</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">3x</div>
+                    <p>More opportunities discovered vs. manual research</p>
+                </div>
+
+                <h3>Your Challenge</h3>
+                <p>Your team searches Google, industry associations, and competitor websites. They find some events, but they're always wondering: <strong>"What are we missing?"</strong></p>
+
+                <h3>How BidScout Helps You</h3>
+                <div class="benefit-item">
+                    <h4>Find the Hidden Opportunities</h4>
+                    <p>BidScout searches 10,000+ verified events AND real-time web data simultaneously. While your competitor manually finds 5 relevant events, you discover 15—including the rotating conferences they'll never find.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Get There First</h4>
+                    <p>Our AI watches for site selection announcements 24/7. You'll know about opportunities 6-8 weeks before they hit the RFP stage—giving you time to build relationships before anyone else knows the event exists.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Stop Wasting Time on Dead Ends</h4>
+                    <p>Every event is pre-screened for your destination. No more spending hours researching events that rotate only in Asia or require facilities you don't have.</p>
+                </div>
+
+                <h3>Real Impact</h3>
+                <p>One DMO found 47 qualified opportunities in their first search. Their previous 3 months of manual research? Found 12.</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        BidScout searches both verified databases AND real-time web data, discovering 3x more qualified opportunities than manual research.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intelligence Modal -->
+    <div id="intelligenceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('intelligenceModal')">&times;</span>
+                <h2>What Intelligence You Get on Every Event</h2>
+                <p class="modal-subtitle">Everything you need to decide—delivered in 10 minutes</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">10 modules</div>
+                    <p>of deep intelligence on every event</p>
+                </div>
+
+                <h3>Your Challenge</h3>
+                <p>You find an event name and basic details. Then starts the real work: <strong>Who makes the decision? What do they really care about? Why would they choose us?</strong> It takes hours to piece together answers—if you can find them at all.</p>
+
+                <h3>What You'll Know</h3>
+                <div class="benefit-item">
+                    <h4>Decision Maker Intelligence</h4>
+                    <p>Who actually selects the destination? What's their role? What have they said publicly about site selection? Stop guessing who to contact—know exactly who matters and what they value.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Event Requirements That Matter</h4>
+                    <p>Not just "500 rooms needed." Real intelligence: preferred meeting formats, technology requirements, past venue complaints, special needs that make or break bids. Know their pain points before the RFP drops.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Competitive Landscape</h4>
+                    <p>Where has this event been held? Why did they choose those destinations? What patterns exist in their rotation? Understanding their history tells you how to position your strengths.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Your Strategic Advantages</h4>
+                    <p>Why YOU fit this specific event. Your academic institutions match their research focus. Your industry clusters align with their membership. Your venues solve their past problems. BidScout connects the dots so your proposal writes itself.</p>
+                </div>
+
+                <h3>The Difference</h3>
+                <p><strong>Before:</strong> You spend 20 hours researching and still submit a generic proposal.</p>
+                <p><strong>After:</strong> You spend 10 minutes reviewing intelligence and submit a proposal that proves you understand their needs better than anyone else.</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        Every event includes 10 intelligence modules covering decision-makers, requirements, competition, and strategic fit—delivered in 10 minutes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Strategy Modal -->
+    <div id="strategyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('strategyModal')">&times;</span>
+                <h2>How AI Recommends Which Events to Pursue</h2>
+                <p class="modal-subtitle">AI-powered recommendations on where to focus your efforts</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">70%</div>
+                    <p>of your team's time on selling, not searching</p>
+                </div>
+
+                <h3>Your Challenge</h3>
+                <p>You found 30 potential events. Now what? <strong>Which ones should you pursue? Which get premium subvention? Which are worth a site visit?</strong> These decisions determine your success—but you're making them with incomplete information.</p>
+
+                <h3>How BidScout Helps You Decide</h3>
+                <div class="benefit-item">
+                    <h4>AI-Powered Targeting Recommendations</h4>
+                    <p>Based on your destination profile, BidScout identifies the 5-7 events most likely to result in wins. Focus your limited time and budget on opportunities where you have real competitive advantage.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Win Probability Assessment</h4>
+                    <p>Not just "good fit" or "bad fit." Understand exactly why this event is 85% aligned with your strengths—or why that 40% match is actually worth pursuing because your competitor's in a weak position.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Resource Allocation Guidance</h4>
+                    <p>Know which bids justify full subvention packages, which need just relationship building, and which should wait for next year when conditions improve. Stop treating every opportunity the same.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Timing Intelligence</h4>
+                    <p>When to make your move. Some opportunities need immediate action—decision makers are reviewing proposals now. Others benefit from 6 months of relationship building. Know the difference.</p>
+                </div>
+
+                <h3>Real Impact</h3>
+                <p>One DMO used our strategy recommendations to narrow 43 opportunities down to 12 high-priority targets. Result: They won 5 of those 12, vs. their previous win rate of 1-in-30.</p>
+
+                <p><strong>Same team, same resources—just better decisions about where to focus.</strong></p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        AI analyzes your destination profile to recommend the highest-probability opportunities, helping you focus resources where you have real competitive advantage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confidence Modal -->
+    <div id="confidenceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('confidenceModal')">&times;</span>
+                <h2>Confidence</h2>
+                <p class="modal-subtitle">Know before you commit</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">0-100%</div>
+                    <p>Clear fit score for every opportunity</p>
+                </div>
+
+                <h3>Your Challenge</h3>
+                <p>Your boss asks: <strong>"Why are we bidding on this event?"</strong> You have a gut feeling it's a good fit, but can you prove it? Can you quantify why this is better than that other opportunity?</p>
+
+                <h3>How the Scoring Works</h3>
+                <p>BidScout analyzes 9 critical factors and gives you a clear, defensible score:</p>
+
+                <div class="benefit-item">
+                    <h4>Industry Alignment (25%)</h4>
+                    <p><strong>What it means for you:</strong> Do you have the local companies, associations, and expertise this event needs? A medical conference needs medical institutions. A tech summit needs a tech ecosystem. BidScout measures how well yours matches.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Venue Capacity Fit (15%)</h4>
+                    <p><strong>What it means for you:</strong> Can you actually host this event? They need 2,000 hotel rooms—do you have them? Perfect fit is great, but BidScout also flags when you're close enough to partner with nearby destinations.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Academic & Research Alignment (10%)</h4>
+                    <p><strong>What it means for you:</strong> For conferences with education focus, do your universities match their research areas? This often breaks ties between otherwise similar destinations.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Rotation Eligibility (10%)</h4>
+                    <p><strong>What it means for you:</strong> Are you even in the running? Many events rotate between regions or avoid recent host cities. BidScout flags red lights before you waste time on impossible bids.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Transportation, Accommodation, Safety & More</h4>
+                    <p><strong>What it means for you:</strong> All the practical factors that determine if you can successfully host—scored against the event's specific requirements.</p>
+                </div>
+
+                <h3>What This Means for Your Team</h3>
+                <p>When your boss asks "Why this event?", you answer with data:</p>
+                <p><em>"This is an 82% match. Strong industry alignment, perfect timing in their rotation cycle, and our academic institutions directly support their research focus. Our only weakness is venue capacity, but we've partnered with [nearby city] to solve that. This is our best opportunity this quarter."</em></p>
+
+                <p><strong>That's confidence.</strong></p>
+
+                <h3>The Guarantee</h3>
+                <p>BidScout is so confident in its scoring that it guarantees you'll find at least 10 qualified opportunities (60%+ match) in your first 60 days—or your money back.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('profileModal')">&times;</span>
+                <h2>How BidScout Learns Your Destination</h2>
+                <p class="modal-subtitle">Teaching BidScout what makes your destination competitive</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">8 elements</div>
+                    <p>of deep destination research in minutes</p>
+                </div>
+
+                <h3>Why This Matters</h3>
+                <p>Every destination has unique strengths. A tech hub can't compete the same way a coastal resort does. A university town has different advantages than a convention center city. <strong>BidScout compiles YOUR specific competitive advantages to find the right opportunities.</strong></p>
+
+                <h3>What BidScout Analyzes</h3>
+                <div class="benefit-item">
+                    <h4>Venue & Facility Intelligence</h4>
+                    <p><strong>Your reality:</strong> You know you have 5,000 hotel rooms and a 100,000 sq ft convention center. But do you know how that positions you against events needing 2,000 attendees with breakout space? BidScout maps your capacity to real event requirements—so you bid on events you can actually win.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Industry Ecosystem Mapping</h4>
+                    <p><strong>Your reality:</strong> "BidScout is good for medical conferences" isn't enough. Which medical specialties? Cardiology? Oncology? Pediatrics? BidScout identifies your specific industry clusters, major employers, research institutions, and professional associations. When a nephrology conference is searching, BidScout knows if you have the kidney disease research center that makes you compelling.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Academic & Research Capabilities</h4>
+                    <p><strong>Your reality:</strong> Many conferences want university partnerships for continuing education credits, research presentations, or student volunteers. BidScout catalogs your academic institutions, research strengths, and collaboration opportunities—then matches them to conference needs.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Transportation & Accessibility</h4>
+                    <p><strong>Your reality:</strong> It's not just "your destination has an airport." It's: direct flights from which cities? International terminal? Ground transportation quality? Walkability? Distance to venues? These details determine if you're realistic for international associations or regional events.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Competitive Positioning</h4>
+                    <p><strong>Your reality:</strong> What events have you successfully hosted? What did you learn? What makes you different from nearby competing destinations? BidScout identifies your unique selling propositions and matches them to event priorities.</p>
+                </div>
+
+                <h3>How It Works</h3>
+                <p>BidScout researches: Public data, industry databases, tourism reports, academic information, transportation networks, past hosted events.</p>
+                <p>Result: A comprehensive profile that understands your destination better than most of your own staff—ready to power intelligent opportunity matching.</p>
+
+                <h3>Time Investment</h3>
+                <p><strong>Your input:</strong> 5-10 minutes</p>
+                <p><strong>Our analysis:</strong> 30-60 seconds of AI-powered research across 8 critical areas</p>
+                <p><strong>What you'd need manually:</strong> 20+ hours researching and documenting all of this yourself</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        BidScout analyzes 8 elements of your destination in minutes—venues, industries, academics, transportation, and competitive positioning—creating a profile that powers intelligent matching.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Discover Modal -->
+    <div id="discoverModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('discoverModal')">&times;</span>
+                <h2>How Real-Time Discovery Works</h2>
+                <p class="modal-subtitle">Real-time monitoring of events planning site selection</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">10,000+</div>
+                    <p>verified events searched in seconds</p>
+                </div>
+
+                <h3>The Discovery Problem</h3>
+                <p>Your team Googles event names. Checks association websites. Monitors competitors' hosted events. Maybe subscribes to industry newsletters. <strong>The events you find this way? Everyone else finds them too.</strong> You're competing for the same well-known opportunities while missing the game-changers.</p>
+
+                <h3>How BidScout Discovers Differently</h3>
+                <div class="benefit-item">
+                    <h4>Verified Event Database (10,000+ Events)</h4>
+                    <p><strong>What this means:</strong> BidScout has already done the hard work. Its database includes conferences, trade shows, conventions, and meetings that rotate between cities. Each event is verified, categorized, and enriched with historical data: where they've been, attendance trends, decision maker patterns, rotation preferences.</p>
+                    <p><strong>Your advantage:</strong> In one search, access events that would take your team months to discover manually. Including events your competitors don't know exist.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Real-Time AI Web Discovery</h4>
+                    <p><strong>What this means:</strong> BidScout also scans industry websites, association announcements, planning committee meetings, and site selection discussions. If an event posts "seeking 2027 destination" on their member portal, BidScout will find it.</p>
+                    <p><strong>Your advantage:</strong> Weeks of early awareness. Time to build relationships before anyone else knows the opportunity exists. First mover advantage in site selection.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Rotating Conference Intelligence</h4>
+                    <p><strong>What this means:</strong> Many valuable events aren't discovered until they announce their site selection. BidScout tracks conference rotation patterns: if an event is held in Europe every 3 years, BidScout flags it as an emerging opportunity for European destinations.</p>
+                    <p><strong>Your advantage:</strong> Predictive intelligence. Know opportunities are coming before official announcements. Time to warm up relationships and position your destination.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Smart Filtering</h4>
+                    <p><strong>What this means:</strong> BidScout doesn't just find events—it finds YOUR events. Using your destination profile, BidScout pre-screens for basic fit: geographic rotation eligibility, size requirements, industry alignment.</p>
+                    <p><strong>Your advantage:</strong> No wasted time on impossible bids. You only see opportunities where you have a realistic chance.</p>
+                </div>
+
+                <h3>Real-World Discovery Example</h3>
+                <p>A mid-size Canadian DMO was targeting international medical conferences. Manual research: 12 opportunities over 3 months.</p>
+                <p>First BidScout search: 47 qualified opportunities, including:</p>
+                <ul>
+                    <li>18 events from our verified database they'd never heard of</li>
+                    <li>6 upcoming RFPs our AI discovered from association websites</li>
+                    <li>3 rotating conferences predicted to be seeking North American destinations in 2029</li>
+                </ul>
+                <p><strong>Result:</strong> Their pipeline quadrupled overnight. They're now pursuing opportunities their competitors don't even know exist.</p>
+
+                <h3>Search Simplicity</h3>
+                <p>Enter a search query (example: "AI technology association congress 500-2000 attendees") or paste an event website URL.</p>
+                <p>BidScout returns: Verified database matches + Real-time AI discoveries + Rotation predictions</p>
+                <p>All pre-filtered for your destination's capabilities.</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        BidScout combines a 10,000+ event database with real-time AI web discovery and predictive rotation intelligence—finding opportunities weeks before your competitors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Match Modal -->
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('matchModal')">&times;</span>
+                <h2>How the 0-100% Scoring System Works</h2>
+                <p class="modal-subtitle">The 9-factor scoring system that predicts your win probability</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">9 destination parameters</div>
+                    <p>analyzed to score every opportunity</p>
+                </div>
+
+                <h3>The Matching Challenge</h3>
+                <p>You found 30 potential events. Great! Now what? <strong>Which ones should you actually pursue?</strong> Which justify premium subvention? Which are worth a site visit? Which should you pass on?</p>
+                <p>Without clear scoring, you're guessing. With BidScout's matching, you're deciding with data.</p>
+
+                <h3>The 9-Factor Scoring System</h3>
+                <div class="benefit-item">
+                    <h4>1. Industry Alignment (25%)</h4>
+                    <p>Do you have the companies, associations, institutions, and expertise this event needs? A biotech conference needs biotech companies. An AI summit needs AI startups and researchers. BidScout measures the depth of your industry ecosystem match.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>2. Venue Capacity Fit (15%)</h4>
+                    <p>Can you physically host this event? Meeting space, hotel rooms, ballroom size—matched against their requirements. BidScout flags when you're perfect, when you're close enough with nearby support, or when it's unrealistic.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>3. Transportation Access (12%)</h4>
+                    <p>Can attendees get to you easily? BidScout analyzes flight connectivity, international access, ground transportation, and cost factors against where their members typically travel from.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>4. Academic & Research Alignment (10%)</h4>
+                    <p>For conferences with educational components: Do your universities and research institutions match their focus areas? This often breaks ties between otherwise similar destinations.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>5. Rotation Eligibility (10%)</h4>
+                    <p>Are you even in the running? Many events rotate between continents, regions, or avoid recent host cities. BidScout checks rotation patterns and flags red lights before you waste time.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>6. Business Intent Alignment (10%)</h4>
+                    <p>Does this event match your destination's strategic goals? If you're trying to grow medical tourism, a medical conference scores higher than an unrelated event—even if both technically fit.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>7. Accommodation Quality (8%)</h4>
+                    <p>Do you have the right types of hotels? A luxury association needs upscale properties. A grassroots nonprofit needs affordable options. Quality match matters as much as quantity.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>8. Safety & Security (5%)</h4>
+                    <p>For international events: visa requirements, safety reputation, health infrastructure. For all events: emergency services, medical facilities, political stability factors.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>9. Event Confidence (5%)</h4>
+                    <p>How confident is BidScout in the event data? Verified database events score higher than newly discovered opportunities. You know the difference between a sure thing and a maybe.</p>
+                </div>
+
+                <h3>What Your Score Means</h3>
+                <p><strong>85-100%:</strong> Excellent match. Priority bid. You check nearly every box. Allocate premium resources.</p>
+                <p><strong>70-84%:</strong> Strong match. Solid opportunity. You meet most requirements with some strategic advantages. Worth pursuing.</p>
+                <p><strong>60-69%:</strong> Good match. Viable opportunity. You can compete but face some challenges. Consider bid based on competition.</p>
+                <p><strong>40-59%:</strong> Moderate match. Possible but challenging. Pursue only if competition is weak or strategic value is exceptional.</p>
+                <p><strong>Below 40%:</strong> Poor match. Pass unless you have insider relationships or unique circumstances.</p>
+
+                <h3>The Power of Scoring</h3>
+                <p>One DMO received 43 opportunities from their first search. Without scoring, they'd try to pursue all of them—and do a mediocre job on each.</p>
+                <p>With BidScout scoring, they identified 12 high-probability matches (70%+). They focused resources on those 12.</p>
+                <p><strong>Result:</strong> Won 5 of 12. Previous win rate: 1 in 30.</p>
+                <p>Same team. Same resources. Better targeting.</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        The 0-100% scoring system weighs 9 factors to tell you exactly how well each event fits your destination before you invest time pursuing it.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decide Modal -->
+    <div id="decideModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal('decideModal')">&times;</span>
+                <h2>From 20 Hours of Research to 10 Minutes of Decision</h2>
+                <p class="modal-subtitle">From 20 hours of uncertainty to 10 minutes of clarity</p>
+            </div>
+            <div class="modal-body">
+                <div class="stat-highlight">
+                    <div class="stat-number">30 min</div>
+                    <p>to "Go/No-Go"action vs. 20+ hours manually</p>
+                </div>
+
+                <h3>The Decision Moment</h3>
+                <p>You've found an event that looks promising. Now comes the hard part: <strong>Should we bid on this? How much should we offer? What's our competitive angle?</strong></p>
+                <p>Usually, answering these questions takes days. Research. Internal meetings. Analysis. More research. Then you still make the decision with incomplete information.</p>
+
+                <h3>What BidScout Gives You to Decide</h3>
+                <div class="benefit-item">
+                    <h4>Clear Fit Score with Breakdown</h4>
+                    <p><strong>What you get:</strong> "82% overall match" tells you it's strong. But you also see exactly WHY: 95% industry alignment, 70% venue capacity, 88% academic fit, etc.</p>
+                    <p><strong>How you use it:</strong> Know your strengths to emphasize and weaknesses to address in your bid. "Our destination is an 82% match with exceptional industry alignment and strong academic partnerships. Our venue capacity is adequate but our destination is partnering with [nearby city] for overflow."</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Bidding Recommendation</h4>
+                    <p><strong>What you get:</strong> One of four recommendations: "High Priority Bid," "Worth Pursuing," "Consider Based on Competition," or "Pass Unless Exceptional Circumstances."</p>
+                    <p><strong>How you use it:</strong> Instant triage. High priority bids get your A-team, premium subvention, and executive involvement. "Worth pursuing" gets standard resources. "Consider" gets evaluated if bandwidth allows. "Pass" means move on.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Competitive Intelligence</h4>
+                    <p><strong>What you get:</strong> Where has this event been held? What do those destinations have in common? What patterns exist in their site selection?</p>
+                    <p><strong>How you use it:</strong> Position against their history. "You've held this in coastal cities three times. Our destination offers that same oceanfront appeal, plus the research university you lacked in previous locations."</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Decision Maker Intelligence</h4>
+                    <p><strong>What you get:</strong> Who actually makes the site selection decision? What's their role? What have they said about site criteria?</p>
+                    <p><strong>How you use it:</strong> Target the right person with the right message. Skip the generic "To Whom It May Concern" proposal—you're writing directly to the site selection chair with insights about what they value.</p>
+                </div>
+
+                <div class="benefit-item">
+                    <h4>Your Strategic Advantages</h4>
+                    <p><strong>What you get:</strong> Why YOU specifically fit this event. Not generic strengths—specific connections between your destination and their needs.</p>
+                    <p><strong>How you use it:</strong> Write proposals that prove you understand them. "Your focus on sustainable practices aligns perfectly with our LEED-certified convention center and our city's nationally recognized green initiatives."</p>
+                </div>
+
+                <h3>A Real Decision Example</h3>
+                <p><strong>Without BidScout:</strong></p>
+                <p>Event opportunity discovered. Team spends 20 hours researching: organization website, past locations, decision makers, requirements. Three internal meetings to discuss fit. Still uncertain about win probability. Submit generic proposal. Wait 6 months. Rejected.</p>
+                <p>Time invested: 20+ hours plus meeting time</p>
+                <p>Outcome: Lost</p>
+
+                <p style="margin-top: 30px;"><strong>With BidScout:</strong></p>
+                <p>Event opportunity discovered and scored: 78% match. 10-minute review shows: strong industry alignment, good venue fit, excellent academic partnership potential, weak point is limited international connectivity.</p>
+                <p>Immediate decisions:</p>
+                <ul>
+                    <li>This is worth pursuing (recommendation: "Worth Pursuing")</li>
+                    <li>Partner with regional airport to promote new international routes (address weakness)</li>
+                    <li>Lead proposal with university research collaboration (leverage strength)</li>
+                    <li>Target site selection chair directly (BidScout knows who they are)</li>
+                </ul>
+                <p>Time invested: 10 minutes of review + proposal writing time</p>
+                <p>Outcome: Finalist (competing with only 2 other cities vs. usual 8-10)</p>
+
+                <h3>The Bottom Line</h3>
+                <p>Decision making isn't about having MORE information, it's about having the RIGHT information, organized clearly, delivered fast.</p>
+                <p><strong>BidScout takes 20 hours of uncertain research and condenses it into 10 minutes of confident decision making.</strong></p>
+                <p>Your team stops being researchers and starts being closers.</p>
+
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin-top: 30px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 10px;">Key Takeaway</h4>
+                    <p style="margin: 0; color: #333;">
+                        BidScout delivers complete intelligence in 10 minutes—fit scores, bidding recommendations, competitive analysis, and decision-maker insights—transforming 20 hours of research into confident, data-driven decisions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h3>BidScout</h3>
+                <p>Find events others miss</p>
+            </div>
+
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <div class="footer-stat-number">10,000+</div>
+                    <div class="footer-stat-label">Verified Events</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">10 min</div>
+                    <div class="footer-stat-label">Intelligence Time</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">0-100%</div>
+                    <div class="footer-stat-label">Fit Scoring</div>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#problem">Product</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <p class="copyright">© 2025 BidScout. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle and modals -->
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let modal of modals) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.getElementsByClassName('modal');
+                for (let modal of modals) {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
