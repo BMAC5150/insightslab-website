@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidScout - 10K verified leads for your pipeline. Sales intelligence for your bid.</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #531b93;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .logo h1 {
+            color: #FF8C00;
+            font-size: 28px;
+            margin-bottom: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #FF8C00;
+        }
+
+        .nav-links .btn {
+            margin: 0;
+            padding: 10px 30px;
+            font-size: 14px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(83, 27, 147, 0.8), rgba(83, 27, 147, 0.8)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 150px 0 100px;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            color: white;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .hero .tagline {
+            font-size: 28px;
+            color: #FF8C00;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* CTA Buttons */
+        .btn {
+            display: inline-block;
+            background-color: #FF8C00;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            border: 2px solid white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #e67e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        /* Hero primary CTA - largest and most prominent */
+        .hero .btn:not(.btn-secondary) {
+            font-size: 20px;
+            padding: 18px 50px;
+            box-shadow: 0 4px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .hero .btn:not(.btn-secondary):hover {
+            box-shadow: 0 6px 25px rgba(255, 140, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #FF8C00;
+            color: #FF8C00;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #FF8C00;
+            color: white;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .problem-section h2 {
+            font-size: 42px;
+            color: #531b93;
+            margin-bottom: 40px;
+        }
+
+        .problem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 22px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #531b93;
+            font-size: 42px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(83, 27, 147, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #FF8C00;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .before-card {
+            background-color: #ffebee;
+            border: 2px solid #ff5252;
+        }
+
+        .after-card {
+            background-color: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+
+        .comparison-card h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-card li {
+            padding: 10px 0;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Value Section */
+        .value-section {
+            padding: 80px 0;
+            background-color: #531b93;
+            color: white;
+            text-align: center;
+        }
+
+        .value-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 30px;
+        }
+
+        .value-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 22px;
+            line-height: 1.8;
+        }
+
+        .value-highlight {
+            font-size: 64px;
+            color: #FF8C00;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 80px 0;
+        }
+
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 60px;
+            gap: 30px;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            padding: 40px 30px;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            background-color: #FF8C00;
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .process-step h3 {
+            color: #531b93;
+            margin-bottom: 15px;
+        }
+
+        /* Reality Check Section */
+        .reality-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .reality-section h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 40px;
+        }
+
+        .reality-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .reality-statement {
+            font-size: 26px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .reality-question {
+            font-size: 20px;
+            font-style: italic;
+            margin-top: 50px;
+            color: #FF8C00;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .proof-section h2 {
+            color: #531b93;
+            font-size: 42px;
+            margin-bottom: 40px;
+        }
+
+        .guarantee-box {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .guarantee-number {
+            font-size: 72px;
+            color: #FF8C00;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .guarantee-text {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #531b93 0%, #7b2cbf 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .final-cta h2 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        .final-cta p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 22px;
+        }
+
+        /* Pricing Box */
+        .pricing-box {
+            background: white;
+            color: #333;
+            max-width: 600px;
+            margin: 50px auto 0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pricing-box h3 {
+            color: #531b93;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .pricing-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 30px;
+        }
+
+        .footer-content h3 {
+            color: #FF8C00;
+            margin-bottom: 15px;
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-stat {
+            text-align: center;
+        }
+
+        .footer-stat-number {
+            font-size: 32px;
+            color: #FF8C00;
+            font-weight: bold;
+        }
+
+        .footer-stat-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FF8C00;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .tagline {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .problem-section h2,
+            .value-section h2,
+            .reality-section h2,
+            .proof-section h2 {
+                font-size: 32px;
+            }
+
+            .problem-content,
+            .value-content {
+                font-size: 18px;
+            }
+
+            .reality-statement {
+                font-size: 20px;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: #531b93;
+                flex-direction: column;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+            }
+
+            .hero .btn {
+                font-size: 18px;
+                padding: 15px 30px;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-container {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+            }
+
+            .value-highlight {
+                font-size: 48px;
+            }
+
+            .guarantee-number {
+                font-size: 56px;
+            }
+
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            .footer-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .btn {
+                width: 90%;
+                padding: 12px 20px;
+            }
+
+            .hero .btn {
+                font-size: 16px;
+                padding: 14px 25px;
+            }
+
+            .feature-card,
+            .process-step {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>BidScout</h1>
+            </div>
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#get-started" class="btn">Start Sprint</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>10,000+ event leads.</h1>
+            <div class="reality-content">
+                <p class="reality-statement">Sales intelligence that converts more business.</p>
+            </div>
+            <p class="tagline">BidScout finds opportunities. You close them.</p>
+            <div class="cta-buttons">
+                <a href="#get-started" class="btn">Start Your 60-Day Sprint</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <h2>The Problem</h2>
+            <div class="problem-content">
+                <p>Your team spends weeks searching for an event that does not convert.<br>
+                Meanwhile, the perfect event for you is still out there.<br>
+                Someone else wins it.</p>
+                <p><strong>And you never even knew it existed.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What BidScout Does Section -->
+    <section id="solution" class="features">
+        <div class="container">
+            <h2 class="section-title">What BidScout Does</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>It finds events</h3>
+                    <p>Not just any events. The ones that fit.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏙️</div>
+                    <h3>It knows your city</h3>
+                    <p>Your venues. Your strengths. What works.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>It helps you WIN</h3>
+                    <p>Sales intel and bidding insights in minutes. Not days.</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value-section">
+        <div class="container">
+            <h2>The Value</h2>
+            <div class="value-content">
+                <p><strong>Stop missing opportunities that were perfect for you.</strong></p>
+                <p>Win one additional event per year.</p>
+                <div class="value-highlight">250x</div>
+                <p>That's 250x return on BidScout.</p>
+                <p>Most teams discover 20-30 new opportunities in the first 60 days.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="process">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Profile</h3>
+                    <p>BidScout learns your destination. Venues. Industries. Strengths. One time. Ten minutes.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Discover</h3>
+                    <p>BidScout searches everything. Verified database. Live web data. Events planning now.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Match</h3>
+                    <p>AI scores every event. Academic fit. Industry alignment. Venue capacity. 0-100%.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Decide</h3>
+                    <p>10 minutes instead of 20 hours. Complete intelligence. Ready to pursue or pass.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reality Check Section -->
+    <section class="reality-section">
+        <div class="container">
+            <h2>The Reality Check</h2>
+            <div class="reality-content">
+                <p class="reality-statement">Your competitor is using AI.</p>
+                <p class="reality-statement">They're finding opportunities 6 weeks earlier and engaging sooner.</p>
+                <p class="reality-statement">They're building relationships while you're still searching.</p>
+                <p class="reality-question">The question isn't whether to adopt intelligence tools.<br>
+                The question is how many opportunities you'll miss before you do.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof-section">
+        <div class="container">
+            <h2>Proof</h2>
+            <div class="guarantee-box">
+                <div class="guarantee-number">60 days</div>
+                <p class="guarantee-text"><strong>15 qualified opportunities guaranteed.</strong></p>
+                <p class="guarantee-text">Or your money back.</p>
+                <p style="margin-top: 30px;">BidScout is that confident you're missing more than you think.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="proof-section" style="background-color: white;">
+        <div class="container">
+            <div class="guarantee-box" style="max-width: 800px;">
+                <h3 style="color: #531b93; margin-bottom: 20px;">Early Results</h3>
+                <p style="font-size: 20px; font-style: italic; color: #333; line-height: 1.8; margin-bottom: 20px;">
+                    "BidScout found us 23 qualified opportunities in the first month. Previously we were finding maybe 5 per quarter through manual research."
+                </p>
+                <p style="color: #666; font-weight: 600;">— VP of Sales, Regional Convention Bureau</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="get-started" class="final-cta">
+        <div class="container">
+            <h2>Get Started</h2>
+
+            <div id="pricing" class="pricing-box">
+                <h3>60-Day Pilot</h3>
+                <div class="pricing-item">
+                    <strong>Price:</strong> $2,500
+                </div>
+                <div class="pricing-item">
+                    <strong>Annual Subscription:</strong> Small market $10K | Large market $20K
+                </div>
+                <div class="pricing-item" style="margin-top: 20px;">
+                    <strong style="color: #FF8C00;">15 qualified opportunities guaranteed.</strong><br>
+                    Or your money back.
+                </div>
+                <div class="pricing-item" style="color: #FF8C00; font-weight: bold;">
+                    One event win = 250x ROI
+                </div>
+                <div style="margin-top: 30px;">
+                    <a href="#contact" class="btn">Start Sprint - $2,500</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h3>BidScout</h3>
+                <p>Find events others miss</p>
+            </div>
+
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <div class="footer-stat-number">10,000+</div>
+                    <div class="footer-stat-label">Verified Events</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">10 min</div>
+                    <div class="footer-stat-label">Intelligence Time</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">0-100%</div>
+                    <div class="footer-stat-label">Fit Scoring</div>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#get-started">Start Sprint</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <p class="copyright">© 2025 BidScout. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
