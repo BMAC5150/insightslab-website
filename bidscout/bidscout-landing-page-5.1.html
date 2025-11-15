@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BidScout - Business event leads and sales intelligence platform.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables - Precise Colors */
+        :root {
+            --purple-primary: #531b93;
+            --orange-primary: #FF8C00;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F7;
+            --gray-text: #86868B;
+            --border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        /* Navigation - Transparent Until Scroll */
+        nav {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .logo h1 {
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 15px;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links .btn {
+            margin: 0;
+            padding: 10px 28px;
+            font-size: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hero Section - Dramatic Black */
+        .hero {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 240px 0 200px;
+            margin-top: 0;
+        }
+
+        .hero h1 {
+            font-size: 96px;
+            color: var(--white);
+            font-weight: 700;
+            letter-spacing: -3px;
+            line-height: 1.05;
+            margin-bottom: 30px;
+        }
+
+        .hero .subtitle {
+            font-size: 32px;
+            color: var(--orange-primary);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+        }
+
+        .hero p {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            margin: 0 auto 50px;
+            line-height: 1.5;
+        }
+
+        /* CTA Buttons - Refined */
+        .btn {
+            display: inline-block;
+            background-color: var(--orange-primary);
+            color: white;
+            padding: 18px 48px;
+            border-radius: 4px;
+            border: none;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 17px;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
+            box-shadow: none;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background-color: #e67e00;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Hero primary CTA */
+        .hero .btn:not(.btn-secondary) {
+            font-size: 19px;
+            padding: 22px 56px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            font-size: 17px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 160px 0;
+            background-color: var(--gray-light);
+            text-align: center;
+        }
+
+        .problem-section h2 {
+            font-size: 64px;
+            color: var(--black);
+            font-weight: 600;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 60px;
+        }
+
+        .problem-content {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 20px;
+            line-height: 1.9;
+            font-weight: 300;
+            letter-spacing: 0.2px;
+            color: #333;
+        }
+
+        .problem-content strong {
+            color: var(--purple-primary);
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 160px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 100px;
+            color: var(--black);
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        /* Asymmetric Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            margin-top: 100px;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            text-align: left;
+            padding: 80px 60px;
+            transition: border-color 0.2s ease;
+        }
+
+        /* First card spans full width */
+        .feature-card:first-child {
+            grid-column: 1 / -1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Second card has right border */
+        .feature-card:nth-child(2) {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .feature-card h3 {
+            color: var(--orange-primary);
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-card p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* Value Section - White Background */
+        .value-section {
+            padding: 200px 0;
+            background-color: var(--white);
+            color: var(--black);
+            text-align: center;
+        }
+
+        .value-section h2 {
+            color: var(--black);
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            margin-bottom: 60px;
+        }
+
+        .value-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 22px;
+            line-height: 1.8;
+        }
+
+        /* MONUMENTAL Number */
+        .value-highlight {
+            font-size: 240px;
+            color: var(--orange-primary);
+            font-weight: 700;
+            line-height: 1;
+            margin: 60px 0;
+            letter-spacing: -8px;
+        }
+
+        .value-math {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            padding: 60px;
+            border-radius: 0;
+            margin: 60px auto;
+            max-width: 700px;
+        }
+
+        .value-math p {
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 300;
+            color: #333;
+        }
+
+        /* Process Section - Vertical Timeline */
+        .process {
+            padding: 160px 0;
+            background: var(--gray-light);
+        }
+
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: 100px;
+            border-left: 2px solid var(--orange-primary);
+            padding-left: 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .process-step {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 60px 0 60px 80px;
+            text-align: left;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: none;
+        }
+
+        .process-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            position: absolute;
+            left: -31px;
+            top: 60px;
+            width: 60px;
+            height: 60px;
+            background: var(--orange-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .process-step h3 {
+            color: var(--black);
+            margin-bottom: 20px;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .process-step p {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #666;
+            max-width: 600px;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            padding: 160px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .proof-section h2 {
+            color: var(--black);
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            margin-bottom: 80px;
+        }
+
+        .guarantee-box {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            border-radius: 0;
+            border: 2px solid rgba(83, 27, 147, 0.15);
+            box-shadow: none;
+        }
+
+        .guarantee-badge {
+            display: inline-block;
+            background: var(--orange-primary);
+            color: white;
+            padding: 12px 36px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            font-size: 17px;
+            letter-spacing: 0.3px;
+        }
+
+        .guarantee-number {
+            font-size: 72px;
+            color: var(--orange-primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .guarantee-text {
+            font-size: 24px;
+            line-height: 1.6;
+            color: #333;
+            font-weight: 300;
+        }
+
+        .guarantee-promise {
+            font-size: 20px;
+            margin: 30px 0;
+            color: var(--purple-primary);
+            font-weight: 500;
+        }
+
+        .guarantee-process {
+            margin-top: 50px;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .guarantee-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .guarantee-step:last-child {
+            border-bottom: none;
+        }
+
+        .guarantee-step .step-number {
+            width: 32px;
+            height: 32px;
+            font-size: 15px;
+            flex-shrink: 0;
+            position: static;
+        }
+
+        /* Social Proof Section */
+        .social-proof-section {
+            padding: 160px 0;
+            background-color: var(--gray-light);
+            text-align: center;
+        }
+
+        .testimonial-box {
+            background: transparent;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 60px 40px;
+            border-radius: 0;
+            border: 2px solid var(--border-color);
+            box-shadow: none;
+        }
+
+        .testimonial-box h3 {
+            color: var(--black);
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .testimonial-quote {
+            font-size: 22px;
+            font-style: italic;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .testimonial-author {
+            color: var(--gray-text);
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2px;
+            max-width: 900px;
+            margin: 60px auto 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            padding: 40px 30px;
+            background: var(--white);
+            border-radius: 0;
+        }
+
+        .stat-item:not(:last-child) {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .stat-check {
+            color: #4caf50;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .stat-text {
+            font-size: 17px;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: var(--black);
+            color: white;
+            text-align: center;
+            padding: 160px 0;
+        }
+
+        .final-cta h2 {
+            color: white;
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            margin-bottom: 60px;
+        }
+
+        /* Pricing Box */
+        .pricing-box {
+            background: white;
+            color: #333;
+            max-width: 800px;
+            margin: 60px auto 0;
+            padding: 80px 60px;
+            border-radius: 0;
+            border: 2px solid var(--border-color);
+            box-shadow: none;
+        }
+
+        .pricing-section {
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .pricing-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .pricing-section h4 {
+            color: var(--black);
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 48px;
+            color: var(--orange-primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            font-size: 17px;
+            color: #555;
+            font-weight: 300;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: 600;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .pricing-highlight {
+            background: rgba(255, 140, 0, 0.05);
+            padding: 30px;
+            border-radius: 0;
+            margin: 30px 0;
+            border-left: 3px solid var(--orange-primary);
+            text-align: left;
+        }
+
+        .pricing-highlight strong {
+            color: var(--orange-primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: #bbb;
+            padding: 100px 0 40px;
+        }
+
+        .footer-content {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            color: var(--orange-primary);
+            margin-bottom: 15px;
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-content p {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin: 80px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-stat {
+            text-align: center;
+        }
+
+        .footer-stat-number {
+            font-size: 48px;
+            color: var(--orange-primary);
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .footer-stat-label {
+            font-size: 15px;
+            color: var(--gray-text);
+            font-weight: 300;
+            margin-top: 8px;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 60px;
+            margin: 80px 0 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--gray-text);
+            text-decoration: none;
+            margin: 12px 0;
+            font-size: 15px;
+            font-weight: 300;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: var(--gray-text);
+            font-weight: 300;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 72px;
+                letter-spacing: -2px;
+            }
+
+            .value-highlight {
+                font-size: 180px;
+                letter-spacing: -6px;
+            }
+
+            .section-title {
+                font-size: 52px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 30px;
+            }
+
+            .hero {
+                padding: 180px 0 140px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero .subtitle {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 20px;
+            }
+
+            .section-title,
+            .problem-section h2,
+            .value-section h2,
+            .proof-section h2,
+            .final-cta h2 {
+                font-size: 40px;
+                letter-spacing: -1px;
+            }
+
+            .problem-section,
+            .features,
+            .value-section,
+            .process,
+            .proof-section,
+            .social-proof-section,
+            .final-cta {
+                padding: 100px 0;
+            }
+
+            .value-highlight {
+                font-size: 120px;
+                letter-spacing: -4px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card:first-child {
+                grid-column: 1;
+            }
+
+            .feature-card:nth-child(2) {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .feature-card {
+                padding: 60px 40px;
+            }
+
+            .process-steps {
+                padding-left: 0;
+                border-left-width: 2px;
+            }
+
+            .process-step {
+                padding: 40px 0 40px 60px;
+            }
+
+            .step-number {
+                left: -29px;
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1px;
+            }
+
+            .stat-item:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                padding: 30px 0;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 10px 0;
+                padding: 10px 0;
+                text-align: center;
+            }
+
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 10px auto;
+                text-align: center;
+            }
+
+            .hero .btn {
+                font-size: 17px;
+                padding: 18px 40px;
+            }
+
+            .footer-stats {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .footer-columns {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .pricing-box {
+                padding: 60px 40px;
+            }
+
+            .price-tag {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding: 140px 0 100px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+                letter-spacing: -1px;
+            }
+
+            .hero .subtitle {
+                font-size: 20px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title,
+            .problem-section h2,
+            .value-section h2,
+            .proof-section h2,
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            .value-highlight {
+                font-size: 80px;
+                letter-spacing: -3px;
+            }
+
+            .feature-card {
+                padding: 40px 30px;
+            }
+
+            .process-step {
+                padding: 30px 0 30px 50px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 16px 30px;
+                font-size: 16px;
+            }
+
+            .hero .btn {
+                font-size: 16px;
+                padding: 16px 36px;
+            }
+
+            .pricing-box {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="container nav-container">
+            <div class="logo">
+                <h1>BidScout</h1>
+            </div>
+            <div class="menu-toggle">☰</div>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#get-started" class="btn">Start Sprint</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>10,000+ verified events.</h1>
+            <div class="subtitle">Better sales intelligence. More wins.</div>
+            <p>BidScout finds event opportunities. For your city and venue.<br>
+            Before the RFP. Before the competition.</p>
+            <div class="cta-buttons">
+                <a href="#get-started" class="btn">Start Your 60-Day Sprint</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <h2>The Problem</h2>
+            <div class="problem-content">
+                <p>Most DMOs and venues respond to RFPs.<br>
+                By then, 12 other destinations are competing.<br>
+                By then, relationships are already built.<br>
+                By then, it's too late.</p>
+                <p><strong>The winning destination found that opportunity months earlier.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What BidScout Does Section -->
+    <section id="solution" class="features">
+        <div class="container">
+            <h2 class="section-title">What BidScout Does</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>It finds events</h3>
+                    <p>Not just any events. The ones that fit. The ones that you can win. Our database has 10,000+ verified conferences and rotating events. Association meetings. Medical congresses. Technology summits. Events planning 2-3+ years out. Before they send RFPs. Before your competitors know they exist.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Event Fit Scoring 0-100%</h3>
+                    <p>BidScout learns about your destination. Then scores every event for venue fit, industry/academic alignment, capacity match and more. Only pursue what fits. No wasted time on events too big, too small, or wrong industry.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>First-Mover Intelligence</h3>
+                    <p>Build relationships before competition arrives. Win rates increase 3-4x with early engagement. Know who decides. When they decide. What matters most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Section -->
+    <section class="value-section">
+        <div class="container">
+            <h2>The Value</h2>
+            <div class="value-content">
+                <p><strong>Stop competing with 12 destinations and venues.<br>
+                Start building relationships months earlier.</strong></p>
+
+                <div class="value-highlight">300x</div>
+
+                <div class="value-math">
+                    <p><strong>The Math:</strong></p>
+                    <p>$10,000 annual subscription</p>
+                    <p>One 300-person conference = $3M economic impact</p>
+                    <p><strong>300x ROI</strong></p>
+                </div>
+
+                <p><strong>The Reality:</strong><br>
+                Most teams discover 20-30 qualified opportunities in first 60 days.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="process">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Profile</h3>
+                    <p>BidScout learns about your destination. Venues. Capacity. Industries. Strengths. Deep research. Regular updates. It learns everything about what makes your city and venue competitive.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Discover</h3>
+                    <p>BidScout searches its 10,000+ verified events continuously. Association conferences. Rotating events. Planning cycles. It searches organization websites, planning timelines, and site selection announcements.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Match</h3>
+                    <p>Every event scored 0-100% for your city. Venue fit. Industry alignment. Attendance size. Academic requirements. Safety standards. Only see events worth pursuing. No time wasted on poor fits.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Engage</h3>
+                    <p>Complete intelligence on each opportunity. Organization background. Decision timeline. Key contacts. Past host cities. What they value most. Engage months before the RFP hits. Win more. Compete less.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof-section">
+        <div class="container">
+            <h2>Guarantee</h2>
+            <div class="guarantee-box">
+                <div class="guarantee-badge">60-Day Guarantee</div>
+                <h3>Zero Risk. Immediate Value.</h3>
+
+                <div class="guarantee-promise">
+                    <strong>20 qualified opportunities in 60 days.</strong><br>
+                    Or 100% refund.
+                </div>
+
+                <div class="guarantee-process">
+                    <div class="guarantee-step">
+                        <span class="step-number">1</span>
+                        <span>Start sprint for $2,500</span>
+                    </div>
+                    <div class="guarantee-step">
+                        <span class="step-number">2</span>
+                        <span>Use BidScout for 60 days</span>
+                    </div>
+                    <div class="guarantee-step">
+                        <span class="step-number">3</span>
+                        <span>If &lt;20 opportunities, email for refund</span>
+                    </div>
+                    <div class="guarantee-step">
+                        <span class="step-number">4</span>
+                        <span>Refund processed in 5 business days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof-section">
+        <div class="container">
+            <div class="testimonial-box">
+                <h3>Early Results</h3>
+                <p class="testimonial-quote">
+                    "BidScout found us 23 qualified opportunities in the first month - including a 600-person medical association conference we'd never heard of. We engaged 10 months before their RFP. Won without competing."
+                </p>
+                <p class="testimonial-author">— VP of Sales, Regional Convention Bureau</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-check">✓</div>
+                    <div class="stat-text">Average 27 new opportunities per DMO in first 60 days</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-check">✓</div>
+                    <div class="stat-text">73% of events not in traditional databases</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-check">✓</div>
+                    <div class="stat-text">3-4x increase in early-stage engagements</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="get-started" class="final-cta">
+        <div class="container">
+            <h2>Pricing</h2>
+
+            <div id="pricing" class="pricing-box">
+                <div class="pricing-section">
+                    <h4>60-Day Pilot Sprint</h4>
+                    <div class="price-tag">$2,500</div>
+                    <ul class="pricing-features">
+                        <li>Full platform access</li>
+                        <li>Destination profile built</li>
+                        <li>15 opportunities guaranteed</li>
+                        <li>Money-back guarantee</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-section">
+                    <h4>Annual Subscription</h4>
+                    <p style="margin-bottom: 15px; font-weight: 300;"><strong style="font-weight: 500;">Small Market</strong> (&lt;500K population): <span style="color: var(--orange-primary); font-size: 28px; font-weight: 700;">$10,000/year</span></p>
+                    <p style="font-weight: 300;"><strong style="font-weight: 500;">Large Market</strong> (>500K population): <span style="color: var(--orange-primary); font-size: 28px; font-weight: 700;">$20,000/year</span></p>
+                    <ul class="pricing-features">
+                        <li>Unlimited searches</li>
+                        <li>Continuous monitoring</li>
+                        <li>Quarterly reports</li>
+                        <li>Direct support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-highlight">
+                    <strong>ROI Guarantee:</strong> 20 qualified opportunities in 60 days or 100% refund.
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <a href="#contact" class="btn">Start Your 60-Day Sprint</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h3>BidScout</h3>
+                <p>Find events and win</p>
+            </div>
+
+            <div class="footer-stats">
+                <div class="footer-stat">
+                    <div class="footer-stat-number">10,000+</div>
+                    <div class="footer-stat-label">Verified Events</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">60 min</div>
+                    <div class="footer-stat-label">Intelligence Time</div>
+                </div>
+                <div class="footer-stat">
+                    <div class="footer-stat-number">0-100%</div>
+                    <div class="footer-stat-label">Fit Scoring</div>
+                </div>
+            </div>
+
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="/case-studies">Case Studies</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/blog">Blog</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <a href="/faq">FAQ</a>
+                    <a href="/documentation">Documentation</a>
+                    <a href="/terms">Terms</a>
+                </div>
+            </div>
+
+            <p class="copyright">© 2025 BidScout. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Transparent nav becomes solid on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
