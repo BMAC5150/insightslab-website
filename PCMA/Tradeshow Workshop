@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tradeshow Workshop - InsightsLab</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+    body { line-height: 1.6; color: #333; background: #f6fafe;}
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px;}
+    h1, h2, h3 { margin-bottom: 18px; color: #111; font-family: inherit;}
+    nav { background-color: #531b93; padding: 15px 0; position: fixed; width: 100%; top: 0; z-index: 1000;}
+    .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 5px 0;}
+    .logo h1 { color: #FF8900; font-size: 28px; margin-left: 10px;}
+    .nav-links { display: flex;}
+    .nav-links a { color: white; text-decoration: none; margin-left: 30px; font-weight: 500;}
+    .page-header { background-color: #531b93; color: white; text-align: center; padding: 140px 0 70px; margin-top: 70px;}
+    .page-header h1 { font-size: 46px; color: white;}
+    .page-header p { font-size: 21px; max-width: 800px; margin: 0 auto 25px;}
+    .page-content { padding: 60px 0;}
+    footer { background-color: #222; color: #bbb; padding: 50px 0; text-align: center;}
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;}
+    .footer-links a { color: #bbb; margin: 0 15px; text-decoration: none;}
+    .footer-links a:hover { color: white;}
+    .copyright { margin-top: 20px; font-size: 14px;}
+    .menu-toggle { display: none; font-size: 24px; color: white; cursor: pointer;}
+    @media (max-width: 900px) {
+      .page-header { padding: 90px 0 40px;}
+      .page-header h1 { font-size: 32px;}
+      .container { padding: 0 6px;}
+    }
+    .ai-root-container { margin-top: 0; margin-bottom: 40px;}
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">
+        <h1>insightslab</h1>
+      </div>
+      <div class="menu-toggle">☰</div>
+      <div class="nav-links">
+        <a href="https://dmoinsightslab.com/">Home</a>
+        <a href="https://dmoinsightslab.com/#ai-for-dmos">AI for Events</a>
+        <a href="https://dmoinsightslab.com/#workshop">Workshops</a>
+        <a href="https://dmoinsightslab.com/#team">Team</a>
+        <a href="https://dmoinsightslab.com/#contact-form">Contact Us</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1>ICCA Advantage AI Workshops</h1>
+         </div>
+  </header>
+
+  <section class="page-content">
+    <div class="container ai-root-container">
+      <div id="root"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://dmoinsightslab.com/">Home</a>
+        <a href="https://dmoinsightslab.com/#about">About Us</a>
+        <a href="https://dmoinsightslab.com/#privacy">Privacy Policy</a>
+        <a href="https://dmoinsightslab.com/#terms">Terms of Service</a>
+        <a href="https://dmoinsightslab.com/#contact-form">Contact</a>
+      </div>
+      <p class="copyright">© 2025 Insights Lab. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+  </script>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // SVG ICON COMPONENTS
+    const GlobeIcon = () => (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20"/><path d="M12 2a15.3 15.3 0 0 0 0 20"/></svg>
+    );
+    const MapPinIcon = () => (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF8900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10.5c0 7-9 12.5-9 12.5S3 17.5 3 10.5A9 9 0 0 1 21 10.5Z"/><circle cx="12" cy="10.5" r="3"/></svg>
+    );
+    const UsersIcon = () => (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    );
+    const TargetIcon = () => (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FF8900" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    );
+    const BarChart3Icon = () => (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="6" height="18" rx="2"/><rect x="9" y="9" width="6" height="12" rx="2"/><rect x="15" y="15" width="6" height="6" rx="2"/></svg>
+    );
+    const XIcon = ({size=26, color="#FF8900"}) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    );
+    const ArrowRightIcon = ({size=16, color="white"}) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" stroke={color} fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    );
+
+    const workshops = [
+      {
+        title: "Growing Leads with AI",
+        duration: "(2 HOURS)",
+        summary: [
+          "Master AI-driven sales leadgen strategies tailored for DMOs and venues",
+          "Score, target, and predict demand with real-world tools",
+        ],
+        sessions: [
+          {
+            region: "EMEA",
+            label: "Sign up for EMEA session (15 Aug, 10:00 CEST)",
+            id: "lead-emea",
+            icon: <GlobeIcon />,
+          },
+          {
+            region: "APAC",
+            label: "Sign up for APAC session (16 Aug, 11:00 SGT)",
+            id: "lead-apac",
+            icon: <MapPinIcon />,
+          },
+        ],
+      },
+      {
+        title: "Get More Leads at Tradeshows",
+        duration: "(2 HOURS)",
+        summary: [
+          "Use AI to pick, analyze, and optimize your tradeshow investment",
+          "Prioritize leads to follow-up and covert them",
+        ],
+        sessions: [
+          {
+            region: "EMEA",
+            label: "Sign up for EMEA session (22 Aug, 10:00 CEST)",
+            id: "tradeshow-emea",
+            icon: <GlobeIcon />,
+          },
+          {
+            region: "APAC",
+            label: "Sign up for APAC session (23 Aug, 11:00 SGT)",
+            id: "tradeshow-apac",
+            icon: <MapPinIcon />,
+          },
+        ],
+      },
+      {
+        title: "Create Proposals that Convert",
+        duration: "(2 HOURS)",
+        summary: [
+          "Customize event proposals with AI for higher win rates",
+          "Use predictive analytics to target and win more bids",
+        ],
+        sessions: [
+          {
+            region: "EMEA",
+            label: "Sign up for EMEA session (29 Aug, 10:00 CEST)",
+            id: "proposal-emea",
+            icon: <GlobeIcon />,
+          },
+          {
+            region: "APAC",
+            label: "Sign up for APAC session (30 Aug, 11:00 SGT)",
+            id: "proposal-apac",
+            icon: <MapPinIcon />,
+          },
+        ],
+      },
+    ];
+
+    const infoBoxes = [
+      {
+        icon: <UsersIcon />,
+        title: "Who Should Attend?",
+        items: [
+          "Sales & Marketing Leaders",
+          "Convention Sales Teams",
+          "Business Development Pros",
+          "Event Venue Executives",
+        ],
+      },
+      {
+        icon: <TargetIcon />,
+        title: "Why AI Advantage?",
+        items: [
+          "Boost lead generation & conversions",
+          "Master practical AI tools instantly",
+          "Data-driven strategies to maximize ROI",
+        ],
+      },
+      {
+        icon: <BarChart3Icon />,
+        title: "Workshop Takeaways",
+        items: [
+          "Custom AI-enabled leadgen plan",
+          "Tools for smarter event targeting",
+          "Practical, actionable exercises",
+        ],
+      },
+    ];
+
+    function TorontoSkyline() {
+      return (
+        <svg viewBox="0 0 1440 130" width="100%" height="100" style={{display:"block"}} fill="none">
+          <defs>
+            <linearGradient id="skylineGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#98cfff" />
+              <stop offset="80%" stopColor="#e0f2fe" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+          <path
+            d="
+            M0 130 V80 H50 V50 H80 V80 H100 V40 H125 V110 H155 V50 H185 V90 H215 V30 H250 V120 H290 V40 H320 V70 H350 V10 H390 V100 H420 V80 H445 V40 H480 V110 H500 V70 H525 V10 H545 V110 H575 V70 H590 V30 H600 V70 H650 V40 H690 V120 H740 V30 H770 V110 H810 V50 H840 V120 H900 V70 H940 V40 H980 V130 H1000 V80 H1040 V60 H1060 V30 H1080 V80 H1120 V50 H1150 V110 H1190 V90 H1220 V120 H1250 V50 H1280 V80 H1320 V60 H1360 V130 H1440 V130 Z
+            "
+            fill="url(#skylineGradient)"
+          />
+          <rect x="690" y="2" width="14" height="70" rx="6" fill="#b6e0fe" />
+          <rect x="686" y="70" width="22" height="12" rx="6" fill="#98cfff" />
+          <ellipse cx="697" cy="24" rx="10" ry="6" fill="#a6d4fa" />
+        </svg>
+      );
+    }
+
+    function SignupModal({ open, onClose, workshop, session }) {
+      const [form, setForm] = useState({ name: "", organization: "", email: "" });
+      const [submitted, setSubmitted] = useState(false);
+
+      function handleChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value });
+      }
+
+      function handleSubmit(e) {
+        e.preventDefault();
+        setSubmitted(true);
+        setTimeout(() => {
+          onClose();
+          setSubmitted(false);
+          setForm({ name: "", organization: "", email: "" });
+        }, 1500);
+      }
+
+      if (!open) return null;
+
+      return (
+        <div style={{
+          position:"fixed", left:0, top:0, width:"100vw", height:"100vh",
+          zIndex:1000, background:"rgba(0,0,0,0.22)", display:"flex", alignItems:"center", justifyContent:"center"
+        }}>
+          <div style={{
+            background:"white", borderRadius:"18px", boxShadow:"0 6px 36px rgba(80,80,140,.16)",
+            padding:"32px 32px 24px 32px", width:"96%", maxWidth:"380px", position:"relative", border:"1.5px solid #FF8900"
+          }}>
+            <button
+              style={{position:"absolute", top:15, right:15, background:"none", border:"none", fontSize:24, color:"#FF8900", cursor:"pointer"}}
+              onClick={onClose}
+            ><XIcon /></button>
+            <h2 style={{fontWeight:700, color:"#531b93", marginBottom:8, textAlign:"center"}}>{workshop.title}</h2>
+            <div style={{color:"#333", fontSize:"1em", marginBottom:14, textAlign:"center"}}>{session.label}</div>
+            {submitted ? (
+              <div style={{color:"#22c55e", fontWeight:700, textAlign:"center", padding:"30px 0"}}>Thank you!<br/>Your interest has been received.</div>
+            ) : (
+              <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", gap:"13px"}}>
+                <input type="text" name="name" value={form.name} onChange={handleChange}
+                  placeholder="Your Name" required style={{padding:"9px", borderRadius:"7px", border:"1.5px solid #ddd", fontSize:"1em"}} />
+                <input type="text" name="organization" value={form.organization} onChange={handleChange}
+                  placeholder="Organization" required style={{padding:"9px", borderRadius:"7px", border:"1.5px solid #ddd", fontSize:"1em"}} />
+                <input type="email" name="email" value={form.email} onChange={handleChange}
+                  placeholder="Email" required style={{padding:"9px", borderRadius:"7px", border:"1.5px solid #ddd", fontSize:"1em"}} />
+                <button type="submit"
+                  style={{
+                    padding:"10px 0", borderRadius:"20px", background:"#FF8900", color:"white",
+                    fontWeight:700, fontSize:"1.08em", marginTop:"7px", border:"none", cursor:"pointer",
+                    display:"flex", alignItems:"center", justifyContent:"center", gap:"8px"
+                  }}
+                >
+                  <ArrowRightIcon /> Submit
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function AIAdvantageInfographic() {
+      const [modal, setModal] = useState(null);
+
+      return (
+        <div style={{
+          fontFamily:"Montserrat,Segoe UI,sans-serif", background:"linear-gradient(120deg,#f6fafe 80%,#e7f1fb 100%)",
+          borderRadius:"16px", padding:"0", margin:"0 0 50px 0"
+        }}>
+          {/* Hero Banner - Skyline */}
+          <div style={{
+            width:"100%", background:"linear-gradient(90deg,#60a5fa 50%,#FF8900 150%)",
+            borderRadius:"0 0 50px 50px", marginBottom: "-30px", position:"relative", boxShadow:"0 6px 36px rgba(40,140,240,.13)"
+          }}>
+            <div style={{padding:"44px 0 0 0", maxWidth:"800px", margin:"auto", textAlign:"center", position:"relative", zIndex:2}}>
+              <h2 style={{
+                fontSize:"2.1em", color:"white", fontWeight:900, letterSpacing:"-.02em", marginBottom:"5px"
+              }}>ICCA Advantage AI Workshops</h2>
+              <div style={{
+                color:"#fff", fontWeight:600, fontSize:"1.17em", marginBottom:"3px", textShadow:"0 2px 10px #2080d0"
+              }}>
+                Actionable AI for DMO & Venue Sales Success
+              </div>
+              <div style={{
+                color:"rgba(255,255,255,0.91)", fontSize:"1.01em", marginBottom:"13px"
+              }}>
+                Transform your team's productivity, sales, and data results—no tech jargon, just practical, hands-on AI playbooks and demos.
+              </div>
+            </div>
+            <div style={{position:"absolute", left:0, right:0, bottom:0, zIndex:1}}>
+              <TorontoSkyline />
+            </div>
+          </div>
+
+          <div style={{height:"40px"}} />
+
+          {/* Workshops */}
+          <div style={{
+            display:"grid", gridTemplateColumns:"1fr", gap:"28px", maxWidth:"1100px", margin:"0 auto 24px auto"
+          }}>
+            <div style={{
+              display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px,1fr))", gap:"24px"
+            }}>
+              {workshops.map((wk, wIdx) => (
+                <div key={wk.title}
+                  style={{
+                    borderRadius:"23px", background:"#fff", boxShadow:"0 2px 22px rgba(0,48,120,.07)",
+                    padding:"38px 20px 28px 20px", border:"2.5px solid #e5e8f3", minHeight:"320px", position:"relative"
+                  }}>
+                  {/* Orange accent piping */}
+                  <div style={{
+                    position:"absolute", left:0, top:0, width:"100%", height:"7px", borderRadius:"22px 22px 0 0", background:"#FF8900"
+                  }} />
+                  <div style={{textAlign:"center"}}>
+                    <div style={{
+                      fontWeight:700, fontSize:"1.08em", color:"#0a3270", margin:"18px 0 2px 0", letterSpacing:".01em"
+                    }}>{wk.title}</div>
+                    <div style={{color:"#38bdf8", fontWeight:700, fontSize:"1em", marginBottom:"7px"}}>
+                      {wk.duration}
+                    </div>
+                    <ul style={{
+                      margin:"9px 0 13px 0", padding:0, listStyle:"disc", textAlign:"left", color:"#444", fontSize:"1em", maxWidth:"280px", marginInline:"auto"
+                    }}>
+                      {wk.summary.map((b, i) => <li key={i} style={{marginBottom:"3px"}}>{b}</li>)}
+                    </ul>
+                    <div style={{display:"flex", flexDirection:"column", gap:"10px", marginTop:"13px"}}>
+                      {wk.sessions.map((session, sIdx) => (
+                        <button key={session.region}
+                          onClick={()=>setModal({wIdx,sIdx})}
+                          style={{
+                            width:"100%", padding:"9px 0", background:"#60a5fa", color:"white",
+                            fontWeight:700, border:"2px solid #60a5fa", borderRadius:"24px",
+                            display:"flex", alignItems:"center", justifyContent:"center", gap:"7px",
+                            fontSize:"1em", boxShadow:"0 2px 12px rgba(56,189,248,0.10)",
+                            cursor:"pointer", transition:"all .15s", marginBottom:"0"
+                          }}
+                          onMouseOver={e=>e.currentTarget.style.background="#FF8900"}
+                          onMouseOut={e=>e.currentTarget.style.background="#38bdf8"}
+                        >
+                          {session.icon}
+                          <span>{session.label}</span>
+                          <ArrowRightIcon />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Info Boxes */}
+          <div style={{
+            display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(270px,1fr))", gap:"24px",
+            maxWidth:"1100px", margin:"36px auto 0 auto"
+          }}>
+            {infoBoxes.map((box, i) => (
+              <div key={i} style={{
+                background:"#fff", borderRadius:"20px", boxShadow:"0 2px 12px rgba(0,48,120,.07)",
+                padding:"30px 20px", textAlign:"center", border:"2.5px solid #e5e8f3"
+              }}>
+                <div>{box.icon}</div>
+                <div style={{fontWeight:600, color:"#531b93", marginBottom:"6px"}}>{box.title}</div>
+                <ul style={{paddingLeft:20, color:"#555", textAlign:"left", fontSize:".99em", margin:0}}>
+                  {box.items.map((item, idx)=>
+                    <li key={idx} style={{marginBottom:"2px"}}>{item}</li>
+                  )}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Modal */}
+          {modal && (
+            <SignupModal
+              open={true}
+              onClose={()=>setModal(null)}
+              workshop={workshops[modal.wIdx]}
+              session={workshops[modal.wIdx].sessions[modal.sIdx]}
+            />
+          )}
+
+          {/* Contact */}
+          <div style={{textAlign:"center", color:"#888", fontSize:".99em", margin:"48px auto 0 auto"}}>
+            Still have questions?{" "}
+            <a href="mailto:hello@dmoinsightslab.com" style={{color:"#38bdf8", fontWeight:600, textDecoration:"underline"}}>Email us</a>
+            {" "}or visit{" "}
+            <a href="https://dmoinsightslab.com/#workshop" style={{color:"#FF8900", textDecoration:"underline"}} target="_blank">dmoinsightslab.com</a>
+          </div>
+          <div style={{height:"16px"}}/>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<AIAdvantageInfographic />, document.getElementById('root'));
+  </script>
+</body>
+</html>
